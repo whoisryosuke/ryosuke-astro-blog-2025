@@ -1,0 +1,92 @@
+:root {
+  /* Fonts */
+  --font-family: "Schibsted Grotesk", sans-serif;
+  --font-family-heading: "Schibsted Grotesk", sans-serif;
+  --font-family-mono: "IBM Plex Mono", sans-serif;
+
+  /* Text-size styles */
+  --font-size-1: 0.56rem;
+  --font-size-2: 0.62rem;
+  --font-size-3: 0.69rem;
+  --font-size-4: 0.75rem;
+  --font-size-5: 0.81rem;
+  --font-size-6: 0.88rem;
+  --font-size-7: 0.94rem;
+  --font-size-8: 1.06rem;
+  --font-size-9: 1.25rem;
+  --font-size-10: 1.5rem;
+  --font-size-11: 1.62rem;
+  --font-size-12: 1.75rem;
+  --font-size-13: 2rem;
+  --font-size-14: 2.5rem;
+  --font-size-15: 4rem;
+
+  /* Text component specific sizing */
+  /* base size: --body-1 (16px) */
+  --title-1: 128px;
+  --title-2: 2.5rem;
+  --title-3: 2rem;
+  --heading-h1: 96px;
+  --heading-h2: 64px;
+  --heading-h3: 48px;
+  --heading-h4: 36px;
+  --label-1: 1.06rem;
+  --label-2: 0.94rem;
+  --label-3: 0.81rem;
+  --label-4: 0.75rem;
+  --label-5: 0.69rem;
+  --body-1: 1rem;
+  --body-2: 0.88rem;
+  --body-3: 0.75rem;
+  --tiny: 0.62rem;
+  --tiny--extended: 0.62rem;
+  --micro: 0.56rem;
+
+  /* Spacing */
+  --space-0: 0px;
+  --space-0-25: 2px;
+  --space-0-5: 4px;
+  --space-0-75: 8px;
+  --space-1: 16px;
+  --space-1-25: 20px;
+  --space-1-5: 24px;
+  --space-2: 28px;
+  --space-2-5: 32px;
+  --space-3: 36px;
+  --space-3-5: 40px;
+  --space-4: 44px;
+  --space-true: 44px;
+  --space-4-5: 48px;
+  --space-5: 52px;
+  --space-5-5: 59px;
+  --space-6: 64px;
+  --space-6-5: 69px;
+  --space-7: 74px;
+  --space-7-6: 79px;
+  --space-8: 84px;
+  --space-8-5: 89px;
+  --space-9: 94px;
+  --space-9-5: 99px;
+  --space-10: 104px;
+  --space-11: 124px;
+  --space-12: 144px;
+  --space-13: 164px;
+  --space-14: 184px;
+  --space-15: 204px;
+  --space-16: 224px;
+  --space-17: 224px;
+  --space-18: 244px;
+  --space-19: 264px;
+  --space-20: 284px;
+
+  /* Breakpoints */
+  --breakpoint-mobile: 320px;
+  --breakpoint-tablet: 600px;
+  --breakpoint-computer: 992px;
+  --breakpoint-desktop: 1200px;
+  --breakpoint-widescreen: 1600px;
+
+  /* Animation */
+  --easing-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
+  --easing-in-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
