@@ -1,0 +1,52 @@
+.Navbar {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: var(--space-0-75);
+  /* gap: var(--space-0-75); */
+
+  background: var(--color-black);
+  border-radius: var(--space-0-75);
+}
+
+.NavbarLink {
+  font-family: var(--font-family-mono);
+  font-size: var(--body-1);
+  padding: var(--space-0-75) var(--space-1-5);
+  border-radius: var(--space-0-5);
+
+  background-color: transparent;
+  color: var(--color-white);
+
+  text-transform: uppercase;
+  text-decoration: none;
+
+  transition-property: background-color, color;
+  transition-timing-function: ease-in-out;
+  transition-duration: 420ms;
+
+  z-index: 710;
+}
+
+.NavbarLink.selected {
+  background-color: var(--color-primary);
+}
+
+.Navbar .follow {
+  position: absolute;
+
+  width: var(--width);
+  height: 1lh;
+  padding: var(--space-0-75) 0;
+
+  top: var(--space-0-75);
+  left: var(--left);
+
+  transition-property: width, left;
+  transition-timing-function: ease-in-out;
+  transition-duration: 420ms;
+
+  background-color: var(--color-primary);
+  border-radius: var(--space-0-5);
+}

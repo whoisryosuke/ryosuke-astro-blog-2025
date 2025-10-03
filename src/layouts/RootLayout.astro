@@ -1,0 +1,22 @@
+---
+import React, { type PropsWithChildren } from "react";
+import Fonts from "../components/Fonts";
+import "../styles/tokens.css";
+import "../styles/typography.css";
+import Header from "../components/sections/Header/Header";
+import Navbar from "../components/sections/Header/Navbar/Navbar";
+
+type Props = {};
+---
+
+<html>
+  <head>
+    <Fonts />
+  </head>
+  <body>
+    <Header>
+      <Navbar client:load />
+    </Header>
+    <slot />
+  </body>
+</html>
