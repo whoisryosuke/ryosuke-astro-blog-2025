@@ -15,7 +15,7 @@ type Props = {};
   </head>
   <body>
     <Header>
-      <Navbar client:load />
+      <Navbar client:load path={Astro.url.pathname} />
     </Header>
     <slot />
   </body>

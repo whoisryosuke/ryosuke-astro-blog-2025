@@ -1,10 +1,36 @@
 import React, { useEffect, useRef, useState } from "react";
 import NavbarLink, { type NavbarLinkMeasurement } from "./NavbarLink";
 import "./Navbar.css";
+import { motion } from "motion/react";
 
-type Props = {};
+type NavLink = {
+  href: string;
+  text: string;
+};
+const LINKS: NavLink[] = [
+  {
+    href: "/",
+    text: "About",
+  },
+  {
+    href: "/blog",
+    text: "Blog",
+  },
+  {
+    href: "/work",
+    text: "Work",
+  },
+  {
+    href: "/resources",
+    text: "Resources",
+  },
+];
 
-const Navbar = (props: Props) => {
+type Props = {
+  path: string;
+};
+
+const Navbar = ({ path }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerSize, setContainerSize] = useState<NavbarLinkMeasurement>({
     width: 0,
@@ -26,28 +52,32 @@ const Navbar = (props: Props) => {
     //@TODO: Resize observer
   }, []);
 
+  console.log("path", path);
+
   const followPosition = selectedLink.left - containerSize.left;
+
+  const renderLinks = LINKS.map((link) => {
+    return (
+      <NavbarLink
+        href={link.href}
+        selected={link.href == path}
+        setSelectedLink={setSelectedLink}
+      >
+        {link.text}
+      </NavbarLink>
+    );
+  });
 
   return (
     <nav ref={containerRef} className="Navbar">
-      <NavbarLink href="/about" setSelectedLink={setSelectedLink}>
-        About
-      </NavbarLink>
-      <NavbarLink href="/about" setSelectedLink={setSelectedLink}>
-        Blog
-      </NavbarLink>
-      <NavbarLink href="/about" setSelectedLink={setSelectedLink}>
-        Work
-      </NavbarLink>
-      <NavbarLink href="/about" setSelectedLink={setSelectedLink}>
-        Resources
-      </NavbarLink>
-      <div
+      {renderLinks}
+      <motion.div
         className="follow"
-        style={{
+        animate={{
           "--width": `${selectedLink.width}px`,
           "--left": `${followPosition}px`,
         }}
+        transition={{ type: "spring", bounce: 0.1 }}
       />
     </nav>
   );

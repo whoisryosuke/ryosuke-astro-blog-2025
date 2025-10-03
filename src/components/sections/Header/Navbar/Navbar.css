@@ -43,10 +43,6 @@
   top: var(--space-0-75);
   left: var(--left);
 
-  transition-property: width, left;
-  transition-timing-function: ease-in-out;
-  transition-duration: 420ms;
-
   background-color: var(--color-primary);
   border-radius: var(--space-0-5);
 }
