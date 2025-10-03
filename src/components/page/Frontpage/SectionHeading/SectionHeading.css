@@ -1,0 +1,28 @@
+.SectionHeading {
+  position: relative;
+  display: flex;
+
+  /* transform: translateX(-160px);
+
+  transition-property: transform;
+  transition-timing-function: ease-in-out;
+  transition-duration: 420ms; */
+}
+
+.SectionHeading.selected {
+  transform: translateX(-100px);
+}
+.SectionHeading.selected .selected-tab {
+  background: var(--color-secondary);
+}
+
+.SectionHeading h1 {
+  margin: 0;
+  margin-left: var(--space-2);
+}
+
+.SectionHeading .selected-tab {
+  width: 200px;
+  background: var(--color-light-gray);
+  border-radius: var(--space-0-75);
+}

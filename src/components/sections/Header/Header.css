@@ -1,6 +1,11 @@
 .Header {
   display: flex;
   flex-direction: row;
+  align-items: center;
+
+  position: fixed;
+  top: 0;
+  left: 0;
 
   padding: var(--space-1-5) var(--space-2-5);
 }
@@ -14,7 +19,7 @@
 
   color: var(--color-black);
 
-  margin-right: var(--space-2-5);
+  margin-right: var(--space-6);
 
   text-decoration: none;
 }

@@ -59,6 +59,7 @@ const Navbar = ({ path }: Props) => {
   const renderLinks = LINKS.map((link) => {
     return (
       <NavbarLink
+        key={link.href}
         href={link.href}
         selected={link.href == path}
         setSelectedLink={setSelectedLink}
