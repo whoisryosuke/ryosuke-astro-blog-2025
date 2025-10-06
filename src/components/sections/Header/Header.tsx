@@ -9,7 +9,6 @@ const Header = ({ children }: PropsWithChildren<Props>) => {
   return (
     <header className="Header">
       <Logotype />
-      {children}
     </header>
   );
 };

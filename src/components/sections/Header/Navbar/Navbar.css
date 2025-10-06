@@ -1,3 +1,11 @@
+.NavbarContainer {
+  position: fixed;
+  top: 0;
+  left: var(--space-16);
+  padding: var(--space-1-5) var(--space-2-5);
+  z-index: 710;
+}
+
 .Navbar {
   position: relative;
   display: flex;

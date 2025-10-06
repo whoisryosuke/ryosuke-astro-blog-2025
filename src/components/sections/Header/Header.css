@@ -7,7 +7,12 @@
   top: 0;
   left: 0;
 
-  padding: var(--space-1-5) var(--space-2-5);
+  padding: var(--space-2) var(--space-2-5);
+
+  filter: invert(1);
+  mix-blend-mode: difference;
+
+  z-index: 710;
 }
 
 .Logotype {

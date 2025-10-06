@@ -70,17 +70,19 @@ const Navbar = ({ path }: Props) => {
   });
 
   return (
-    <nav ref={containerRef} className="Navbar">
-      {renderLinks}
-      <motion.div
-        className="follow"
-        animate={{
-          "--width": `${selectedLink.width}px`,
-          "--left": `${followPosition}px`,
-        }}
-        transition={{ type: "spring", bounce: 0.1 }}
-      />
-    </nav>
+    <div className="NavbarContainer">
+      <nav ref={containerRef} className="Navbar">
+        {renderLinks}
+        <motion.div
+          className="follow"
+          animate={{
+            "--width": `${selectedLink.width}px`,
+            "--left": `${followPosition}px`,
+          }}
+          transition={{ type: "spring", bounce: 0.1 }}
+        />
+      </nav>
+    </div>
   );
 };
 
