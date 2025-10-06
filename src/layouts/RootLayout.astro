@@ -15,7 +15,7 @@ type Props = {};
     <Fonts />
   </head>
   <body>
-    <Header />
+    <Header client:load />
     <Navbar client:load path={Astro.url.pathname} />
 
     <slot />
