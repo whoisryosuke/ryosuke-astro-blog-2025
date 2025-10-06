@@ -91,8 +91,8 @@ const ArtWallGrid = (props: Props) => {
     };
   }, [windowSize]);
 
-  console.log("selected", selectedTiles);
-  console.log("window size", windowSize);
+  // console.log("selected", selectedTiles);
+  // console.log("window size", windowSize);
 
   const renderRows = rows.map((_, rowIndex) => (
     <div className="row">
