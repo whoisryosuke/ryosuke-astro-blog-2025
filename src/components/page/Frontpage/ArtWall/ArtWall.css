@@ -17,9 +17,33 @@
 .ArtWallTile,
 .ArtWallTile .art,
 .ArtWallTile .placeholder {
-  width: 100px;
+  width: 100%;
   flex: 1;
-  height: 185px;
+  height: 155px;
+}
+
+@media screen and (min-width: 600px) {
+  .ArtWallTile,
+  .ArtWallTile .art,
+  .ArtWallTile .placeholder {
+    height: 185px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .ArtWallTile,
+  .ArtWallTile .art,
+  .ArtWallTile .placeholder {
+    height: 215px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .ArtWallTile,
+  .ArtWallTile .art,
+  .ArtWallTile .placeholder {
+    height: 275px;
+  }
 }
 
 .ArtWallTile .art,
