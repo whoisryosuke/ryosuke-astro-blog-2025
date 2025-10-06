@@ -5,6 +5,11 @@ import React, {
   type PropsWithChildren,
 } from "react";
 
+/**
+ * Time (in ms) for the navbar to reset back to selected position (vs hover)
+ */
+const RESET_DURATION = 4200;
+
 export type NavbarLinkMeasurement = {
   width: number;
   left: number;
@@ -13,6 +18,8 @@ export type NavbarLinkMeasurement = {
 type Props = HTMLProps<HTMLAnchorElement> & {
   selected: boolean;
   setSelectedLink: (link: NavbarLinkMeasurement) => void;
+  resetHash: number;
+  handleReset: () => void;
 };
 
 const NavbarLink = ({
@@ -20,9 +27,13 @@ const NavbarLink = ({
   className,
   selected,
   setSelectedLink,
+  resetHash,
+  handleReset,
   ...props
 }: PropsWithChildren<Props>) => {
+  const localHash = useRef(1);
   const ref = useRef<HTMLAnchorElement | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>(null);
 
   const measureLink = (target: HTMLAnchorElement) => {
     const measurement = target.getBoundingClientRect();
@@ -35,10 +46,18 @@ const NavbarLink = ({
     setSelectedLink(navbarMeasurment);
   };
 
+  /**
+   * Hover interaction
+   */
   useEffect(() => {
     const handleHover = (e: MouseEvent) => {
       const target = e.target as HTMLAnchorElement;
+
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
       measureLink(target);
+
+      timeoutRef.current = setTimeout(handleReset, RESET_DURATION);
     };
 
     console.log("adding hover event listener");
@@ -49,11 +68,17 @@ const NavbarLink = ({
     };
   }, []);
 
+  /**
+   * Sets the link as selected during initial load or resetting state
+   */
   useEffect(() => {
     if (selected && ref.current) {
-      measureLink(ref.current);
+      if (localHash.current !== resetHash) {
+        measureLink(ref.current);
+        localHash.current = resetHash;
+      }
     }
-  }, [selected]);
+  }, [selected, resetHash]);
 
   return (
     <a ref={ref} className={`NavbarLink ${className}`} {...props}>

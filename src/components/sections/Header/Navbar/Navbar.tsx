@@ -32,6 +32,8 @@ type Props = {
 
 const Navbar = ({ path }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  // We keep a hash around to trigger a re-render of navbar when needed
+  const [resetHash, setResetHash] = useState(0);
   const [containerSize, setContainerSize] = useState<NavbarLinkMeasurement>({
     width: 0,
     left: 0,
@@ -41,6 +43,13 @@ const Navbar = ({ path }: Props) => {
     left: 0,
   });
 
+  /**
+   * Resets the navbar to selected state
+   */
+  const handleReset = () => {
+    setResetHash(Date.now());
+  };
+
   useEffect(() => {
     const measurement = containerRef?.current?.getBoundingClientRect();
     if (!measurement) return;
@@ -49,7 +58,7 @@ const Navbar = ({ path }: Props) => {
       left: measurement.left,
     });
 
-    //@TODO: Resize observer
+    //@TODO: Resize observer. Low priority since this is fairly static.
   }, []);
 
   console.log("path", path);
@@ -63,6 +72,8 @@ const Navbar = ({ path }: Props) => {
         href={link.href}
         selected={link.href == path}
         setSelectedLink={setSelectedLink}
+        resetHash={resetHash}
+        handleReset={handleReset}
       >
         {link.text}
       </NavbarLink>
