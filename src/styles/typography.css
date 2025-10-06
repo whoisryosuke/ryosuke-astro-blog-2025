@@ -34,7 +34,15 @@ h6 {
   font-size: var(--heading-h6);
 }
 
-p {
+p,
+ul {
+  font-family: var(--font-family);
   font-size: var(--body-1);
+}
+p {
   line-height: 200%;
+}
+button {
+  font-family: var(--font-family-mono);
+  text-transform: uppercase;
 }
