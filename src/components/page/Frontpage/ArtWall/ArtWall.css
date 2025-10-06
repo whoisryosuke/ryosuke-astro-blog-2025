@@ -1,0 +1,66 @@
+/* Grid */
+.ArtWallGrid {
+  flex-direction: column;
+  padding: var(--space-4);
+}
+.ArtWallGrid,
+.ArtWallGrid .row {
+  display: flex;
+  gap: var(--space-1);
+}
+
+/* Tile */
+.ArtWallTile {
+  position: relative;
+}
+
+.ArtWallTile,
+.ArtWallTile .art,
+.ArtWallTile .placeholder {
+  width: 100px;
+  flex: 1;
+  height: 185px;
+}
+
+.ArtWallTile .art,
+.ArtWallTile .placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  border-radius: var(--space-0-75);
+
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0, 0.56, 0.94, 0.66);
+  transition-duration: 220ms;
+}
+
+.ArtWallTile .placeholder {
+  background-color: var(--color-light-gray);
+
+  transform: rotateX(0);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Interaction */
+.ArtWallTile.selected .placeholder,
+.ArtWallTile:hover .placeholder {
+  transform: rotateX(90deg);
+}
+
+.ArtWallTile.selected .art,
+.ArtWallTile:hover .art {
+  transform: rotateX(0);
+}
+
+.ArtWallTile .art {
+  background-color: var(--color-primary);
+  transform: rotateX(90deg);
+  transition-timing-function: cubic-bezier(0.55, 0.3, 0.01, 0.86);
+  transition-delay: 42ms;
+
+  background-size: cover;
+}
