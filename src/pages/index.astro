@@ -1,11 +1,11 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
 import AboutSection from '../components/page/Frontpage/AboutSection/AboutSection';
 import ArtWall from '../components/page/Frontpage/ArtWall/ArtWall';
 import FeaturedWork from '../components/page/Frontpage/FeaturedWork/FeaturedWork';
 import SelectedBlogs from '../components/page/Frontpage/SelectedBlogs/SelectedBlogs';
 import Container from '../components/primitives/Container/Container';
+import Footer from '../components/sections/Footer/Footer';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import RootLayout from '../layouts/RootLayout.astro';
 ---
@@ -16,5 +16,5 @@ import RootLayout from '../layouts/RootLayout.astro';
 	<ArtWall client:load  />
 	<SelectedBlogs client:load  />
 	<AboutSection client:load  />
-	<FeaturedWork client:load  />
+	<Footer client:load  />
 </RootLayout>
