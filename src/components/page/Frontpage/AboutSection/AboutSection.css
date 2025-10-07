@@ -1,0 +1,52 @@
+#self-portrait-vector:hover {
+  --solid-fill: var(--color-secondary);
+  --white-fill: var(--color-light-gray);
+  --fill: transparent;
+  --stroke: var(--color-secondary);
+}
+
+#self-portrait-vector path {
+  transition-property: fill;
+  transition-timing-function: ease-in-out;
+  transition-duration: 420ms;
+}
+
+.portrait-banner {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  position: relative;
+}
+
+.portrait-banner .title {
+  width: 100vw;
+  text-align: right;
+  align-self: center;
+  position: absolute;
+  top: auto;
+  right: 30%;
+}
+
+.portrait-banner .title h3 {
+  color: var(--color-gray-900);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-12);
+}
+.portrait-banner .title h3,
+.portrait-banner .title h2 {
+  margin: 0;
+  line-height: 100%;
+}
+
+.portrait-banner .title .box {
+  background-color: var(--color-secondary);
+  border-radius: var(--space-0-75);
+  padding: var(--space-1) var(--space-2);
+}
+
+.AboutSection .description {
+  width: 25%;
+  padding: var(--space-2);
+  margin-top: calc(-1 * var(--space-20));
+  margin-bottom: var(--space-20);
+}

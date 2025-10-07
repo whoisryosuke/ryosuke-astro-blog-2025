@@ -1,3 +1,7 @@
+.SelectedBlogs {
+  margin-bottom: var(--space-10);
+}
+
 .SelectedBlogs .left,
 .SelectedBlogs .list {
   padding: var(--space-2);

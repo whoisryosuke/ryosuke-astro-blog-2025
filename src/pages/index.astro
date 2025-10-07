@@ -1,6 +1,7 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
+import AboutSection from '../components/page/Frontpage/AboutSection/AboutSection';
 import ArtWall from '../components/page/Frontpage/ArtWall/ArtWall';
 import FeaturedWork from '../components/page/Frontpage/FeaturedWork/FeaturedWork';
 import SelectedBlogs from '../components/page/Frontpage/SelectedBlogs/SelectedBlogs';
@@ -14,6 +15,6 @@ import RootLayout from '../layouts/RootLayout.astro';
 	<FeaturedWork client:load />
 	<ArtWall client:load  />
 	<SelectedBlogs client:load  />
-	<FeaturedWork client:load  />
+	<AboutSection client:load  />
 	<FeaturedWork client:load  />
 </RootLayout>
