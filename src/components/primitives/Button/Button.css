@@ -1,0 +1,112 @@
+.Button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: var(--space-1) var(--space-1-5);
+  gap: var(--space-1);
+
+  background-color: var(--color-secondary);
+  border-radius: var(--space-0-5);
+
+  color: var(--color-black);
+  font-size: var(--font-size-8);
+  font-family: var(--font-family-mono);
+  text-decoration: none;
+  text-transform: uppercase;
+
+  position: relative;
+  /* transition-property: padding-right; */
+}
+
+.Button,
+.Button > *,
+.Button::after {
+  transition-timing-function: ease-in-out;
+  transition-duration: 220ms;
+}
+
+.Button > * {
+  position: relative;
+  z-index: 420;
+  transform: translateX(0);
+  transition-property: transform;
+}
+
+.Button::after {
+  content: "";
+  position: absolute;
+  width: var(--space-1);
+  /* width: 95%; */
+  height: 100%;
+  right: 0;
+  top: 0;
+  background-color: var(--color-secondary-hover);
+  border-top-right-radius: var(--space-0-5);
+  border-bottom-right-radius: var(--space-0-5);
+  z-index: 10;
+
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition-property: opacity, transform;
+}
+
+.Button:hover > * {
+  transform: translateX(calc(-1 * var(--space-0-5)));
+}
+
+.Button:hover {
+  /* padding-right: var(--space-2-5); */
+}
+
+.Button:hover::after {
+  transform: scaleX(1);
+}
+
+.Button:hover {
+}
+
+.Button:active > * {
+  transform: translateX(calc(-1 * var(--space-1)));
+}
+.Button:active::after {
+  transform: scaleX(2);
+}
+
+/* Clear styles */
+.Button.secondary,
+.Button.ghost {
+  color: var(--color-text);
+  border-color: var(--color-secondary);
+  filter: drop-shadow(0px 2px 6px var(--gray-10));
+  box-shadow: none;
+  transition: background-color 420ms var(--easing-in-out-quart),
+    border-color 420ms var(--easing-in-out-quart),
+    filter 420ms var(--easing-in-out-quart);
+}
+
+.Button.secondary {
+  background: var(--gray-1);
+}
+
+.Button.ghost {
+  background: transparent;
+}
+
+.Button.secondary:hover {
+  background: var(--gray-3);
+}
+
+.Button.ghost:hover {
+  background: var(--gray-1);
+}
+
+.Button.secondary:hover,
+.Button.ghost:hover {
+  filter: drop-shadow(0px 2px 4px var(--gray-10));
+  border-color: var(--gray-9);
+}
+
+.Button.secondary:active,
+.Button.ghost:active {
+  filter: drop-shadow(0px 2px 2px var(--gray-10));
+}

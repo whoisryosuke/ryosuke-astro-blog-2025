@@ -1,0 +1,90 @@
+.SelectedBlogs .left,
+.SelectedBlogs .list {
+  padding: var(--space-2);
+}
+
+.SelectedBlogs .list {
+  list-style-type: none;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+}
+
+.SelectedBlogs .list a {
+  position: relative;
+  text-decoration: none;
+  color: var(--color-black);
+}
+
+.SelectedBlogs .list h3 {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 420;
+}
+
+.SelectedBlogs .list li {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.SelectedBlogs .list li svg path,
+.SelectedBlogs .list li a::before {
+  transition-timing-function: ease-in-out;
+  transition-duration: 420ms;
+}
+
+.SelectedBlogs .list li a::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-secondary);
+  border-radius: var(--space-0-75);
+  padding: var(--space-0-75) var(--space-1);
+  padding-right: var(--space-10);
+  top: calc(-1 * var(--space-0-5));
+  left: calc(-1 * var(--space-1));
+  z-index: 10;
+
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition-property: opacity, transform;
+}
+
+.SelectedBlogs .list li:hover a::before {
+  transform: scaleX(1);
+}
+
+.SelectedBlogs .list li svg {
+  --light: var(--color-light-gray);
+  --shadow: var(--color-gray-900);
+}
+
+.SelectedBlogs .list li svg path {
+  transition-property: fill;
+}
+
+@keyframes hoverAnimation {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(var(--space-1));
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.SelectedBlogs .list li:hover svg {
+  --light: var(--color-secondary);
+  --shadow: var(--color-secondary-hover);
+
+  animation-name: hoverAnimation;
+  animation-iteration-count: infinite;
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}

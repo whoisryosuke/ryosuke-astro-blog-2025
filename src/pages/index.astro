@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import ArtWall from '../components/page/Frontpage/ArtWall/ArtWall';
 import FeaturedWork from '../components/page/Frontpage/FeaturedWork/FeaturedWork';
+import SelectedBlogs from '../components/page/Frontpage/SelectedBlogs/SelectedBlogs';
 import Container from '../components/primitives/Container/Container';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import RootLayout from '../layouts/RootLayout.astro';
@@ -12,7 +13,7 @@ import RootLayout from '../layouts/RootLayout.astro';
 	<div style="width:100%; height:300px;background-color:var(--color-light-gray);margin-bottom:2rem;"></div>
 	<FeaturedWork client:load />
 	<ArtWall client:load  />
-	<FeaturedWork client:load  />
+	<SelectedBlogs client:load  />
 	<FeaturedWork client:load  />
 	<FeaturedWork client:load  />
 </RootLayout>
