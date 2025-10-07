@@ -29,7 +29,7 @@ const SelectedBlogs = (props: Props) => {
   return (
     <div className="SelectedBlogs" style={{ minHeight: "500px" }}>
       <SectionHeading title="Selected Blogs" />
-      <Stack horizontal>
+      <Stack horizontal responsive>
         <div className="left">
           <Button
             as="a"
