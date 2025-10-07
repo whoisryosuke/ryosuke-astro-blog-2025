@@ -7,7 +7,11 @@ type Props = SocialMediaAccount & {};
 const FooterSocialIcon = ({ username, url, platform }: Props) => {
   const Icon = SOCIAL_ICONS[platform];
   return (
-    <a href={url} title={`Follow @${username} on ${platform}`}>
+    <a
+      href={url}
+      title={`Follow @${username} on ${platform}`}
+      className={platform}
+    >
       <Icon />
     </a>
   );

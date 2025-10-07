@@ -11,7 +11,7 @@ const Footer = (props: Props) => {
     <Stack className="Footer" gap="var(--space-2)">
       <Stack>
         <h1>Connect</h1>
-        <Stack horizontal>
+        <Stack horizontal gap="var(--space-0-75)">
           {SOCIAL_MEDIA_ACCOUNTS.connect.map((account) => (
             <FooterSocialIcon {...account} />
           ))}
@@ -21,7 +21,7 @@ const Footer = (props: Props) => {
       <Stack horizontal gap="var(--space-6)">
         <Stack>
           <h2>Watch</h2>
-          <Stack horizontal>
+          <Stack horizontal gap="var(--space-0-75)">
             {SOCIAL_MEDIA_ACCOUNTS.watch.map((account) => (
               <FooterSocialIcon {...account} />
             ))}
@@ -29,7 +29,7 @@ const Footer = (props: Props) => {
         </Stack>
         <Stack>
           <h2>Support</h2>
-          <Stack horizontal>
+          <Stack horizontal gap="var(--space-0-75)">
             {SOCIAL_MEDIA_ACCOUNTS.support.map((account) => (
               <FooterSocialIcon {...account} />
             ))}

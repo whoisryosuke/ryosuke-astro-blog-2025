@@ -9,3 +9,61 @@
 .Footer h2 {
   margin: 0;
 }
+
+.Footer a svg path,
+.Footer a svg g {
+  transition-property: transform, fill, stroke;
+  transition-timing-function: ease-in-out;
+  transition-duration: 420ms;
+}
+.Footer a svg {
+  --stroke: var(--color-light-gray);
+  --fill: transparent;
+}
+
+.Footer a svg .logo {
+  transform: rotateZ(0);
+  transform-origin: center;
+}
+
+.Footer a:hover svg .logo {
+  transform: rotateZ(15deg);
+}
+
+/* Platform specific */
+.Footer a.youtube:hover svg {
+  --fill: #ff0000;
+  --stroke: #ff0000;
+}
+.Footer a.twitch:hover svg {
+  --fill: #9146ff;
+  --stroke: #9146ff;
+}
+.Footer a.threads:hover svg {
+  --fill: white;
+  --stroke: white;
+}
+.Footer a.bluesky:hover svg {
+  --fill: #208bfe;
+  --stroke: #208bfe;
+}
+.Footer a.github:hover svg {
+  --fill: white;
+  --stroke: white;
+}
+.Footer a.linkedin:hover svg {
+  --fill: #0a66c2;
+  --stroke: #0a66c2;
+}
+.Footer a.patreon:hover svg {
+  --fill: white;
+  --stroke: white;
+}
+.Footer a.mastodon:hover svg {
+  --fill: #615ef8;
+  --stroke: #615ef8;
+}
+.Footer a.instagram:hover svg {
+  --fill: #c13584;
+  --stroke: #c13584;
+}
