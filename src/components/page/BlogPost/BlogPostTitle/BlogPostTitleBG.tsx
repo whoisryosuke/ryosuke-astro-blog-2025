@@ -5,10 +5,21 @@ import {
   useRef,
   useState,
 } from "react";
+import map from "../../../../utils/map";
 
-type Props = {};
+type AstroImage =
+  | {
+      src: string;
+      width: number;
+      height: number;
+      format: "png" | "jpg" | "jpeg" | "tiff" | "webp" | "gif" | "svg" | "avif";
+    }
+  | undefined;
+type Props = {
+  image: AstroImage;
+};
 
-const BlogPostTitleBG = ({ ...props }: Props) => {
+const BlogPostTitleBG = ({ image, ...props }: Props) => {
   //   const { colorMode } = useColorMode();
   //   const defaultBgColor = colorMode === "dark" ? "#111" : "#EEE";
   //   const bgColor =
@@ -25,11 +36,13 @@ const BlogPostTitleBG = ({ ...props }: Props) => {
   // const [mousePos, setMousePos] = useState();
 
   const mousePos = useRef({ x: 0, y: 0 });
+  const isMouseHovering = useRef(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const data = useRef<Uint8Array>(new Uint8Array(0));
   const animationRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(
     null
   );
+  const imageRef = useRef<HTMLImageElement | null>(null);
   const prevTime = useRef(0);
 
   const draw = useCallback(
@@ -55,8 +68,6 @@ const BlogPostTitleBG = ({ ...props }: Props) => {
       const circlesPerRow = Math.ceil(canvasWidth / circleSpacing);
       const circlesPerCol = Math.floor(canvasHeight / circleSpacing);
 
-      console.log("mousePos in draw", mousePos.current);
-
       for (let row = 0; row < circlesPerRow; row++) {
         for (let col = 0; col < circlesPerCol; col++) {
           ctx.beginPath();
@@ -71,14 +82,29 @@ const BlogPostTitleBG = ({ ...props }: Props) => {
             x: Math.abs(mousePos.current.x - x),
             y: Math.abs(mousePos.current.y - y),
           };
-          const selected = distance.x + distance.y < 100;
+          const combinedDistance = distance.x + distance.y;
+          const selected = combinedDistance < 100;
+          const circleIncrease = map(combinedDistance, 0, 100, 0, 3);
+          if (selected)
+            console.log("circleIncrease", combinedDistance, circleIncrease);
 
-          const animatedRadius = selected ? radius * 3 : radius;
+          const animatedRadius = selected ? radius * circleIncrease : radius;
 
           ctx.arc(x, y, animatedRadius, 0, 2 * Math.PI);
           //   ctx.stroke();
           ctx.fill();
         }
+      }
+
+      // Draw image
+      if (imageRef.current && isMouseHovering.current) {
+        ctx.drawImage(
+          imageRef.current,
+          mousePos.current.x,
+          mousePos.current.y,
+          400,
+          400 * 0.52
+        );
       }
 
       animationRef.current = requestAnimationFrame(draw);
@@ -95,7 +121,12 @@ const BlogPostTitleBG = ({ ...props }: Props) => {
   const handleMouse = (e: MouseEvent) => {
     mousePos.current = { x: e.clientX, y: e.clientY };
   };
-  console.log("mouse", mousePos);
+  const handleMouseEnter = () => {
+    isMouseHovering.current = true;
+  };
+  const handleMouseLeave = () => {
+    isMouseHovering.current = false;
+  };
 
   useEffect(() => {
     handleResize();
@@ -103,6 +134,8 @@ const BlogPostTitleBG = ({ ...props }: Props) => {
 
     window.addEventListener("resize", handleResize);
     canvasRef.current?.addEventListener("mousemove", handleMouse);
+    canvasRef.current?.addEventListener("mouseenter", handleMouseEnter);
+    canvasRef.current?.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
@@ -111,13 +144,16 @@ const BlogPostTitleBG = ({ ...props }: Props) => {
   }, [draw, lineColor, bgColor]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="BlogPostTitleBG"
-      width="100%"
-      height="400px"
-      {...props}
-    />
+    <>
+      <canvas
+        ref={canvasRef}
+        className="BlogPostTitleBG"
+        width="100%"
+        height="400px"
+        {...props}
+      />
+      <img ref={imageRef} src={image?.src ?? ""} />
+    </>
   );
 };
 
