@@ -1,4 +1,10 @@
-import { type ComponentProps, useCallback, useEffect, useRef } from "react";
+import {
+  type ComponentProps,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 type Props = {};
 
@@ -16,6 +22,9 @@ const BlogPostTitleBG = ({ ...props }: Props) => {
   const bgColor = "#ceccc5";
   const lineColor = "#626263";
 
+  // const [mousePos, setMousePos] = useState();
+
+  const mousePos = useRef({ x: 0, y: 0 });
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const data = useRef<Uint8Array>(new Uint8Array(0));
   const animationRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(
@@ -46,6 +55,8 @@ const BlogPostTitleBG = ({ ...props }: Props) => {
       const circlesPerRow = Math.ceil(canvasWidth / circleSpacing);
       const circlesPerCol = Math.floor(canvasHeight / circleSpacing);
 
+      console.log("mousePos in draw", mousePos.current);
+
       for (let row = 0; row < circlesPerRow; row++) {
         for (let col = 0; col < circlesPerCol; col++) {
           ctx.beginPath();
@@ -54,7 +65,17 @@ const BlogPostTitleBG = ({ ...props }: Props) => {
           ctx.fillStyle = lineColor;
           const x = row * circleSpacing + initialPadding;
           const y = col * circleSpacing + initialPadding;
-          ctx.arc(x, y, radius, 0, 2 * Math.PI);
+
+          // Detect mouse
+          const distance = {
+            x: Math.abs(mousePos.current.x - x),
+            y: Math.abs(mousePos.current.y - y),
+          };
+          const selected = distance.x + distance.y < 100;
+
+          const animatedRadius = selected ? radius * 3 : radius;
+
+          ctx.arc(x, y, animatedRadius, 0, 2 * Math.PI);
           //   ctx.stroke();
           ctx.fill();
         }
@@ -71,11 +92,17 @@ const BlogPostTitleBG = ({ ...props }: Props) => {
     canvasRef.current.height = window.innerWidth / 3.62;
   };
 
+  const handleMouse = (e: MouseEvent) => {
+    mousePos.current = { x: e.clientX, y: e.clientY };
+  };
+  console.log("mouse", mousePos);
+
   useEffect(() => {
     handleResize();
     animationRef.current = requestAnimationFrame(draw);
 
     window.addEventListener("resize", handleResize);
+    canvasRef.current?.addEventListener("mousemove", handleMouse);
 
     return () => {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
