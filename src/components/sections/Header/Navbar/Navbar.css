@@ -1,7 +1,7 @@
 .NavbarContainer {
   position: fixed;
   top: 0;
-  left: var(--space-16);
+  left: var(--space-1);
   padding: var(--space-1-5) var(--space-2-5);
   z-index: 710;
 }
@@ -53,4 +53,15 @@
 
   background-color: var(--color-primary);
   border-radius: var(--space-0-5);
+}
+
+@media screen and (min-width: 600px) {
+  .NavbarContainer {
+    top: 0;
+    left: var(--space-16);
+  }
+}
+@media screen and (min-width: 1200px) {
+}
+@media screen and (min-width: 1600px) {
 }

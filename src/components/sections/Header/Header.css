@@ -28,4 +28,12 @@
   margin-right: var(--space-6);
 
   text-decoration: none;
+  transform: rotate(90deg);
+  transform-origin: top left;
+}
+
+@media screen and (min-width: 600px) {
+  .Logotype {
+    transform: rotate(0);
+  }
 }
