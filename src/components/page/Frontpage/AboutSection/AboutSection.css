@@ -65,7 +65,6 @@
   width: 75%;
   padding: var(--space-2);
   margin-top: calc(-1 * var(--space-20));
-  margin-bottom: var(--space-20);
 }
 
 @media screen and (min-width: 600px) {
@@ -77,6 +76,7 @@
 @media screen and (min-width: 1200px) {
   .AboutSection .description {
     width: 35%;
+    margin-bottom: var(--space-20);
   }
 }
 @media screen and (min-width: 1600px) {
