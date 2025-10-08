@@ -10,7 +10,7 @@ type Props = {};
 const AboutSection = (props: Props) => {
   return (
     <div className="AboutSection" style={{ minHeight: "500px" }}>
-      <SectionHeading title="Featured Work" />
+      <SectionHeading title="whoisryosuke" />
       <div className="portrait-banner">
         <div className="title">
           <div className="box">
@@ -24,7 +24,12 @@ const AboutSection = (props: Props) => {
         </div>
         <SelfPortraitVector />
       </div>
-      <Stack className="bottom" horizontal responsive>
+      <Stack
+        className="bottom"
+        horizontal
+        responsive
+        style={{ justifyContent: "space-between" }}
+      >
         <Stack className="description">
           <p>
             A <strong>creative technologist</strong> in{" "}

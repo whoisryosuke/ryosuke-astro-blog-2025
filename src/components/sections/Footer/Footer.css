@@ -5,9 +5,32 @@
   padding: var(--space-2);
 }
 
+@media screen and (min-width: 1200px) {
+  .Footer {
+    align-items: end;
+  }
+}
+
 .Footer h1,
 .Footer h2 {
   margin: 0;
+}
+
+.Footer .copytext {
+  font-family: var(--font-family-mono);
+  text-transform: uppercase;
+}
+
+.Footer .copytext span {
+  color: var(--color-secondary);
+  font-weight: bold;
+  background: -webkit-linear-gradient(
+    180deg,
+    var(--color-primary),
+    var(--color-secondary)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .Footer a svg path,
@@ -65,5 +88,9 @@
 }
 .Footer a.instagram:hover svg {
   --fill: #c13584;
+  --stroke: #c13584;
+}
+.Footer a.rss:hover svg {
+  --fill: #f26522;
   --stroke: #c13584;
 }
