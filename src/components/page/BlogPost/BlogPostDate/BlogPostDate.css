@@ -1,0 +1,20 @@
+.BlogPostDate {
+  padding: var(--space-1) var(--space-1-5);
+  padding-right: var(--space-10);
+  border-radius: var(--space-0-75);
+  color: var(--color-black);
+  /* border: 1.5px solid var(--color-black); */
+  background-color: var(--color-light-gray);
+}
+
+.BlogPostDate p {
+  margin: 0;
+}
+
+.BlogPostDate h4 {
+  margin: 0;
+  font-family: var(--font-family-mono);
+  text-transform: uppercase;
+  font-size: var(--font-size-6);
+  font-weight: bold;
+}

@@ -1,0 +1,14 @@
+.BlogPostPage {
+}
+
+.BlogPost {
+  max-width: 800px;
+  margin: auto;
+}
+
+/* Global styles for blog content */
+
+.BlogPost img {
+  max-width: 100%;
+  height: auto;
+}

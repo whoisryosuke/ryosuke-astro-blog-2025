@@ -2,6 +2,7 @@
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 import { components} from '../../components/mdx/MDXProvider';
+import RootLayout from '../../layouts/RootLayout.astro';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
@@ -16,6 +17,8 @@ const post = Astro.props;
 const { Content } = await render(post);
 ---
 
+<RootLayout>
 <BlogPost {...post.data}>
 	<Content components={components}/>
 </BlogPost>
+</RootLayout>

@@ -111,6 +111,7 @@
   --color-gray-300: #cccccc;
 
   /* Semantic */
+  --color-background: var(--color-gray);
   --color-text: var(--color-black);
   --color-text-inverted: var(--color-white);
 }
