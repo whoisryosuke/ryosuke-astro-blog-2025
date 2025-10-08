@@ -1,0 +1,20 @@
+---
+// import type { CollectionEntry } from 'astro:content';
+import BlogIndexContainer from '../components/page/BlogIndex/BlogIndexContainer';
+import SectionHeading from '../components/page/Frontpage/SectionHeading/SectionHeading';
+import Stack from '../components/primitives/Stack/Stack';
+import "../components/page/BlogIndex/BlogIndex.css";
+
+// type Props = {
+//     posts: CollectionEntry<'blog'>[]
+// };
+
+// const { 
+//     posts
+//  } = Astro.props;
+---
+
+<Stack className="BlogIndex">
+    <SectionHeading title="Blog" style={{marginBottom: "var(--space-10)"}} />
+    <slot />
+</Stack>

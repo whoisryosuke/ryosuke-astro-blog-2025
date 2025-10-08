@@ -1,12 +1,13 @@
 import { motion, useInView, useScroll, useTransform } from "motion/react";
-import React, { useRef } from "react";
+import React, { useRef, type HTMLElementType, type HTMLProps } from "react";
 import "./SectionHeading.css";
 
-type Props = {
+type Props = HTMLProps<HTMLDivElement> & {
   title: string;
+  small?: boolean;
 };
 
-const SectionHeading = ({ title, ...props }: Props) => {
+const SectionHeading = ({ title, small, className, ...props }: Props) => {
   const elRef = useRef<HTMLDivElement>(null);
 
   const inView = useInView(elRef, {
@@ -22,13 +23,16 @@ const SectionHeading = ({ title, ...props }: Props) => {
   //   // scale up and back down (or "ping-pong")
   //   const x = useTransform(scrollYProgress, [0, 1, 0], [-160, -100, -160]);
 
+  const HeadingComponent = small ? "h2" : "h1";
+
   return (
     <motion.div
       ref={elRef}
       animate={{
         x: inView ? -100 : -160,
       }}
-      className="SectionHeading"
+      className={`SectionHeading ${small ?? "small"} ${className}`}
+      {...props}
     >
       <motion.div
         className="selected-tab"
@@ -38,7 +42,7 @@ const SectionHeading = ({ title, ...props }: Props) => {
             : "var(--color-light-gray)",
         }}
       />
-      <h1>{title}</h1>
+      <HeadingComponent>{title}</HeadingComponent>
     </motion.div>
   );
 };

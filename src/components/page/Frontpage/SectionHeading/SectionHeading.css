@@ -3,7 +3,8 @@
   display: flex;
 }
 
-.SectionHeading h1 {
+.SectionHeading h1,
+.SectionHeading h2 {
   margin: 0;
   margin-left: var(--space-2);
 }
