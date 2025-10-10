@@ -1,6 +1,10 @@
 .BlogPostPage {
 }
 
+.BlogPostTitleContainer {
+  display: flex;
+}
+
 .BlogPost {
   max-width: 800px;
   margin: auto;

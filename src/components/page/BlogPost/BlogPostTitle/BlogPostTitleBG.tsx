@@ -51,6 +51,7 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
 
   const mousePos = useRef({ x: 0, y: 0 });
   const isMouseHovering = useRef(false);
+  const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const data = useRef<Uint8Array>(new Uint8Array(0));
   const animationRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(
@@ -110,20 +111,53 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
           const highlighted = particles.current.find(
             (particle) => particle.x == row && particle.y == col
           );
-          const highlightAnimation = highlighted
-            ? map(
+
+          // Particle highlight animation
+          let particleScaleAnimation = 1;
+          if (highlighted) {
+            const animationTime = localTime - highlighted.time;
+            // Start phase
+            if (animationTime <= animationDuration / 2) {
+              particleScaleAnimation =
+                easeOutQuart(
+                  map(
+                    localTime,
+                    highlighted.time,
+                    highlighted.time + animationDuration / 2,
+                    0,
+                    1
+                  )
+                ) *
+                  2 +
+                1;
+            } else {
+              // End phase
+              particleScaleAnimation =
+                easeOutQuart(
+                  map(
+                    localTime,
+                    highlighted.time + animationDuration,
+                    highlighted.time + animationDuration / 2,
+                    0,
+                    1
+                  )
+                ) *
+                  2 +
+                1;
+              console.log(
+                "end",
+                particleScaleAnimation,
                 localTime,
-                highlighted.time,
-                highlighted.time + animationDuration,
-                -1,
-                1
-              ) * 2
-            : -1;
+                localTime - highlighted.time + animationDuration
+              );
+            }
+          }
+
           const circleIncrease = map(combinedDistance, 0, 100, 0, 3);
 
           const animatedRadius = selected
             ? radius * circleIncrease
-            : radius + highlightAnimation;
+            : radius * particleScaleAnimation;
 
           ctx.arc(x, y, animatedRadius, 0, 2 * Math.PI);
           //   ctx.stroke();
@@ -147,7 +181,9 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
     [data, lineColor, bgColor]
   );
 
-  const generateParticle = () => {
+  const createParticle = () => {
+    const now = Date.now();
+    // Create particle
     const canvas = canvasRef.current;
     if (!canvas) return;
     const canvasWidth = canvas.width;
@@ -161,7 +197,7 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
 
     // Refresh timer
     const newParticle: Particle = {
-      time: Date.now(),
+      time: now,
       x: randomX,
       y: randomY,
     };
@@ -169,6 +205,19 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
     console.log("new particle", newParticle);
 
     particles.current.push(newParticle);
+  };
+
+  const generateParticle = () => {
+    // Cleanup particles
+    const now = Date.now();
+    particles.current = particles.current.filter(
+      (particle) => particle.time + animationDuration > now
+    );
+
+    // Create particle
+    for (let index = 0; index < 10; index++) {
+      createParticle();
+    }
   };
 
   const handleResize = () => {
@@ -192,21 +241,24 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
     animationRef.current = requestAnimationFrame(draw);
 
     window.addEventListener("resize", handleResize);
-    canvasRef.current?.addEventListener("mousemove", handleMouse);
-    canvasRef.current?.addEventListener("mouseenter", handleMouseEnter);
-    canvasRef.current?.addEventListener("mouseleave", handleMouseLeave);
+    containerRef.current?.addEventListener("mousemove", handleMouse);
+    containerRef.current?.addEventListener("mouseenter", handleMouseEnter);
+    containerRef.current?.addEventListener("mouseleave", handleMouseLeave);
 
     intervalRef.current = setInterval(generateParticle, 420);
 
     return () => {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
+      containerRef.current?.removeEventListener("mousemove", handleMouse);
+      containerRef.current?.removeEventListener("mouseenter", handleMouseEnter);
+      containerRef.current?.removeEventListener("mouseleave", handleMouseLeave);
       window.removeEventListener("resize", handleResize);
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, [draw, lineColor, bgColor]);
 
   return (
-    <>
+    <div ref={containerRef} className="BlogPostTitleBGContainer">
       <canvas
         ref={canvasRef}
         className="BlogPostTitleBG"
@@ -214,8 +266,9 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
         height="400px"
         {...props}
       />
+      <div className="BlogPostTitleBGOverlay" />
       <img ref={imageRef} src={image?.src ?? ""} style={{ display: "none" }} />
-    </>
+    </div>
   );
 };
 

@@ -2,19 +2,20 @@
   position: relative;
 }
 .BlogPostTitle {
+  position: absolute;
+  top: 35%;
+  left: 0;
+  width: 100%;
 }
 
 .BlogPostTitle .text {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
   display: flex;
   justify-content: center;
 }
 
 .BlogPostTitle h1 {
   position: relative;
+  margin: 0;
 }
 
 .BlogPostTitle h1::before,
@@ -25,6 +26,7 @@
   -webkit-text-stroke: 1.5px var(--color-text);
   /* text-stroke: 1.5px var(--color-text); */
   color: transparent;
+  user-select: none;
 }
 
 .BlogPostTitle h1::after {
@@ -36,4 +38,17 @@
 }
 
 .BlogPostTitleBG {
+  position: relative;
+}
+
+.BlogPostTitleBGOverlay {
+  position: absolute;
+  inset: 0;
+  background: #161616;
+  background: linear-gradient(
+    0deg,
+    rgba(206, 204, 197, 1) 0%,
+    rgba(206, 204, 197, 0) 100%
+  );
+  user-select: none;
 }
