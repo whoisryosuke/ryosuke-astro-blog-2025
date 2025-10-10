@@ -1,6 +1,30 @@
+@keyframes cursor {
+  0% {
+    cursor: url("/images/cursor/cursor-1.png") 40 40, auto;
+  }
+  20% {
+    cursor: url("/images/cursor/cursor-2.png") 40 40, auto;
+  }
+  40% {
+    cursor: url("/images/cursor/cursor-3.png") 40 40, auto;
+  }
+  60% {
+    cursor: url("/images/cursor/cursor-4.png") 40 40, auto;
+  }
+  80% {
+    cursor: url("/images/cursor/cursor-5.png") 40 40, auto;
+  }
+  100% {
+    cursor: url("/images/cursor/cursor-6.png") 40 40, auto;
+  }
+}
+
 .BlogPostTitleContainer {
   position: relative;
+  cursor: url("/images/cursor-1a.png") 40 40, auto;
+  animation: cursor 420ms infinite;
 }
+
 .BlogPostTitle {
   position: absolute;
   top: 35%;
@@ -13,9 +37,32 @@
   justify-content: center;
 }
 
+@keyframes slideLeftAndRight {
+  0% {
+    transform: translateX(-10%);
+  }
+  50% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(10%);
+  }
+}
+
 .BlogPostTitle h1 {
   position: relative;
   margin: 0;
+
+  transform: translateX(0);
+  animation-name: slideLeftAndRight;
+  animation-duration: 4.2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.BlogPostTitle:hover h1 {
+  animation-play-state: paused;
 }
 
 .BlogPostTitle h1::before,

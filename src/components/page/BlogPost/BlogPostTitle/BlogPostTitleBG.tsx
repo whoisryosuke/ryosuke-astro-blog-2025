@@ -241,9 +241,9 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
     animationRef.current = requestAnimationFrame(draw);
 
     window.addEventListener("resize", handleResize);
-    containerRef.current?.addEventListener("mousemove", handleMouse);
+    window.addEventListener("mousemove", handleMouse);
     containerRef.current?.addEventListener("mouseenter", handleMouseEnter);
-    containerRef.current?.addEventListener("mouseleave", handleMouseLeave);
+    // containerRef.current?.addEventListener("mouseleave", handleMouseLeave);
 
     intervalRef.current = setInterval(generateParticle, 420);
 
@@ -251,7 +251,7 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
       containerRef.current?.removeEventListener("mousemove", handleMouse);
       containerRef.current?.removeEventListener("mouseenter", handleMouseEnter);
-      containerRef.current?.removeEventListener("mouseleave", handleMouseLeave);
+      // containerRef.current?.removeEventListener("mouseleave", handleMouseLeave);
       window.removeEventListener("resize", handleResize);
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
