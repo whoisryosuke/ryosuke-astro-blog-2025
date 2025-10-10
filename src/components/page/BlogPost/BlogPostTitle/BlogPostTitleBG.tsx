@@ -10,6 +10,9 @@ import map from "../../../../utils/map";
 function easeOutQuart(x: number) {
   return 1 - Math.pow(1 - x, 4);
 }
+function easeInOutSine(x: number) {
+  return -(Math.cos(Math.PI * x) - 1) / 2;
+}
 
 type AstroImage =
   | {
@@ -71,20 +74,21 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
       const circleSpacing = radius * 2 + padding;
       const circlesPerRow = Math.ceil(canvasWidth / circleSpacing);
       const circlesPerCol = Math.floor(canvasHeight / circleSpacing);
-      const animationBase = easeOutQuart(Math.sin(now / 1000));
-      const animationTranslation = animationBase * 5;
-      const animationTranslationY = animationBase * 2 - 1;
+      const animationBase = Math.max(easeInOutSine(Math.sin(now / 1000)), 0.1);
 
       for (let row = 0; row < circlesPerRow; row++) {
+        const rowAnimationBase = Math.abs(animationBase * circlesPerRow - row);
+        const rowAnimation =
+          rowAnimationBase > 4 ? 1 : Math.abs(4 - rowAnimationBase);
+
         for (let col = 0; col < circlesPerCol; col++) {
           ctx.beginPath();
           ctx.lineWidth = 3.5;
           ctx.strokeStyle = lineColor;
           ctx.fillStyle = lineColor;
 
-          const x = row * circleSpacing + initialPadding + animationTranslation;
-          const y =
-            col * circleSpacing + initialPadding + animationTranslationY;
+          const x = row * circleSpacing + initialPadding;
+          const y = col * circleSpacing + initialPadding;
 
           // Detect mouse
           const distance = {
@@ -94,10 +98,10 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
           const combinedDistance = distance.x + distance.y;
           const selected = combinedDistance < 100;
           const circleIncrease = map(combinedDistance, 0, 100, 0, 3);
-          if (selected)
-            console.log("circleIncrease", combinedDistance, circleIncrease);
 
-          const animatedRadius = selected ? radius * circleIncrease : radius;
+          const animatedRadius = selected
+            ? radius * circleIncrease
+            : radius * rowAnimation;
 
           ctx.arc(x, y, animatedRadius, 0, 2 * Math.PI);
           //   ctx.stroke();
