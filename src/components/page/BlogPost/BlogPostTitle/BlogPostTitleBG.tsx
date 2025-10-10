@@ -14,6 +14,13 @@ function easeInOutSine(x: number) {
   return -(Math.cos(Math.PI * x) - 1) / 2;
 }
 
+type Particle = {
+  time: number;
+  x: number;
+  y: number;
+};
+type Particles = Particle[];
+
 type AstroImage =
   | {
       src: string;
@@ -49,8 +56,17 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
   const animationRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(
     null
   );
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
   const prevTime = useRef(0);
+  const particles = useRef<Particles>([]);
+
+  // Graphics settings
+  const radius = 2;
+  const padding = 40;
+  const initialPadding = 0;
+  const circleSpacing = radius * 2 + padding;
+  const animationDuration = 3 * 1000;
 
   const draw = useCallback(
     (now: number) => {
@@ -68,19 +84,13 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
       ctx.fillStyle = bgColor;
       ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-      const radius = 2;
-      const padding = 40;
-      const initialPadding = 0;
-      const circleSpacing = radius * 2 + padding;
       const circlesPerRow = Math.ceil(canvasWidth / circleSpacing);
       const circlesPerCol = Math.floor(canvasHeight / circleSpacing);
       const animationBase = Math.max(easeInOutSine(Math.sin(now / 1000)), 0.1);
 
-      for (let row = 0; row < circlesPerRow; row++) {
-        const rowAnimationBase = Math.abs(animationBase * circlesPerRow - row);
-        const rowAnimation =
-          rowAnimationBase > 4 ? 1 : Math.abs(4 - rowAnimationBase);
+      const localTime = Date.now();
 
+      for (let row = 0; row < circlesPerRow; row++) {
         for (let col = 0; col < circlesPerCol; col++) {
           ctx.beginPath();
           ctx.lineWidth = 3.5;
@@ -97,11 +107,23 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
           };
           const combinedDistance = distance.x + distance.y;
           const selected = combinedDistance < 100;
+          const highlighted = particles.current.find(
+            (particle) => particle.x == row && particle.y == col
+          );
+          const highlightAnimation = highlighted
+            ? map(
+                localTime,
+                highlighted.time,
+                highlighted.time + animationDuration,
+                -1,
+                1
+              ) * 2
+            : -1;
           const circleIncrease = map(combinedDistance, 0, 100, 0, 3);
 
           const animatedRadius = selected
             ? radius * circleIncrease
-            : radius * rowAnimation;
+            : radius + highlightAnimation;
 
           ctx.arc(x, y, animatedRadius, 0, 2 * Math.PI);
           //   ctx.stroke();
@@ -124,6 +146,30 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
     },
     [data, lineColor, bgColor]
   );
+
+  const generateParticle = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const canvasWidth = canvas.width;
+    const canvasHeight = canvas.height;
+
+    const circlesPerRow = Math.ceil(canvasWidth / circleSpacing);
+    const circlesPerCol = Math.floor(canvasHeight / circleSpacing);
+    const totalParticles = circlesPerRow + circlesPerCol;
+    const randomX = Math.floor(Math.random() * circlesPerRow);
+    const randomY = Math.floor(Math.random() * circlesPerCol);
+
+    // Refresh timer
+    const newParticle: Particle = {
+      time: Date.now(),
+      x: randomX,
+      y: randomY,
+    };
+
+    console.log("new particle", newParticle);
+
+    particles.current.push(newParticle);
+  };
 
   const handleResize = () => {
     if (!canvasRef.current) return;
@@ -150,9 +196,12 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
     canvasRef.current?.addEventListener("mouseenter", handleMouseEnter);
     canvasRef.current?.addEventListener("mouseleave", handleMouseLeave);
 
+    intervalRef.current = setInterval(generateParticle, 420);
+
     return () => {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
       window.removeEventListener("resize", handleResize);
+      if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, [draw, lineColor, bgColor]);
 
