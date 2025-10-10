@@ -7,6 +7,10 @@ import {
 } from "react";
 import map from "../../../../utils/map";
 
+function easeOutQuart(x: number) {
+  return 1 - Math.pow(1 - x, 4);
+}
+
 type AstroImage =
   | {
       src: string;
@@ -67,6 +71,9 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
       const circleSpacing = radius * 2 + padding;
       const circlesPerRow = Math.ceil(canvasWidth / circleSpacing);
       const circlesPerCol = Math.floor(canvasHeight / circleSpacing);
+      const animationBase = easeOutQuart(Math.sin(now / 1000));
+      const animationTranslation = animationBase * 5;
+      const animationTranslationY = animationBase * 2 - 1;
 
       for (let row = 0; row < circlesPerRow; row++) {
         for (let col = 0; col < circlesPerCol; col++) {
@@ -74,8 +81,10 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
           ctx.lineWidth = 3.5;
           ctx.strokeStyle = lineColor;
           ctx.fillStyle = lineColor;
-          const x = row * circleSpacing + initialPadding;
-          const y = col * circleSpacing + initialPadding;
+
+          const x = row * circleSpacing + initialPadding + animationTranslation;
+          const y =
+            col * circleSpacing + initialPadding + animationTranslationY;
 
           // Detect mouse
           const distance = {
@@ -152,7 +161,7 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
         height="400px"
         {...props}
       />
-      <img ref={imageRef} src={image?.src ?? ""} />
+      <img ref={imageRef} src={image?.src ?? ""} style={{ display: "none" }} />
     </>
   );
 };
