@@ -36,11 +36,7 @@ cover_image,
 		<!-- <div class="hero-image">
 			{cover_image && <Image width={1020} height={510} src={cover_image} alt="" />}
 		</div> -->
-		<div class="prose">
-			<div class="title">
-				<div>{tags.map(tag => <h4>{tag}</h4>)}</div>
-				<hr />
-			</div>
+		<div class="content">
 			<slot />
 		</div>
 	</article>

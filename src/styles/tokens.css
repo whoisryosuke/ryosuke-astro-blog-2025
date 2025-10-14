@@ -99,6 +99,9 @@
   --color-gray: #ceccc5;
   --color-light-gray: #e8e7e0;
   --color-primary: #0b08ef;
+  --color-primary-dark: #0000af;
+  --color-primary-darker: #000094;
+  --color-primary-lighter: #6b69fa;
   --color-secondary: #80cbcc;
   --color-secondary-hover: #337e7f;
   --color-black: #101011;

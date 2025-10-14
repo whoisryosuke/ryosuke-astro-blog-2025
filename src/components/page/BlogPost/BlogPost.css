@@ -6,16 +6,109 @@
 }
 
 .BlogPost {
-  max-width: 800px;
+  max-width: 1000px;
   margin: auto;
   margin-top: calc(-1 * var(--space-12));
   position: relative;
   z-index: 710;
 }
 
+.BlogPost .content {
+  margin-top: var(--space-8);
+}
+
 /* Global styles for blog content */
 
+.BlogPost a {
+  color: var(--color-primary);
+  transition-property: color;
+  transition-timing-function: ease-in-out;
+  transition-duration: 220ms;
+}
+.BlogPost a:hover {
+  color: var(--color-primary-lighter);
+}
+.BlogPost a:active {
+  color: var(--color-primary-darker);
+}
+
 .BlogPost img {
+  display: block;
   max-width: 100%;
   height: auto;
+  margin: var(--space-2) auto;
+}
+
+.BlogPost li::marker {
+  font-family: var(--font-family-mono);
+  color: var(--color-gray-900);
+}
+
+.BlogPost li {
+  margin-bottom: 1.25rem;
+}
+
+.BlogPost blockquote {
+  background-color: var(--color-secondary);
+  border: 1.5px solid var(--color-black);
+  padding: var(--space-1-5) var(--space-3);
+  margin: var(--space-2) 0;
+}
+.BlogPost blockquote p {
+  margin: 0;
+}
+.BlogPost blockquote a {
+  color: var(--color-black);
+}
+
+.BlogPost blockquote,
+.BlogPost pre,
+.BlogPost img {
+  border-radius: var(--space-0-75);
+}
+
+.BlogPost pre {
+  padding: var(--space-2);
+}
+
+.BlogPost p {
+  line-height: 200%;
+  margin-bottom: var(--space-3);
+}
+@media screen and (min-width: 1200px) {
+  .BlogPost,
+  .BlogPost p {
+    font-size: var(--font-size-9);
+  }
+}
+.BlogPost p code {
+  color: var(--color-white);
+  background-color: var(--color-black);
+  border-radius: var(--space-0-25);
+  padding: var(--space-0-25) var(--space-0-75);
+  transition-property: color, background-color;
+  transition-timing-function: ease-in-out;
+  transition-duration: 420ms;
+}
+.BlogPost p code:hover {
+  background-color: var(--color-primary);
+}
+
+.BlogPost {
+  --heading-h1: var(--font-size-14);
+  --heading-h2: var(--font-size-13);
+  --heading-h3: var(--font-size-12);
+  --heading-h4: var(--font-size-11);
+  --heading-h5: var(--font-size-10);
+  --heading-h6: var(--font-size-9);
+}
+@media screen and (min-width: 1200px) {
+  .BlogPost {
+    --heading-h1: var(--font-size-15);
+    --heading-h2: var(--font-size-14);
+    --heading-h3: var(--font-size-13);
+    --heading-h4: var(--font-size-12);
+    --heading-h5: var(--font-size-11);
+    --heading-h6: var(--font-size-10);
+  }
 }
