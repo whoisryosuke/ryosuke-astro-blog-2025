@@ -44,6 +44,7 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
   //       : defaultBgColor;
   //   const lineColor = color in CUSTOM_COLORS ? CUSTOM_COLORS[color].line : color;
 
+  const bgLightColor = "#fefefe";
   const bgColor = "#ceccc5";
   const lineColor = "#626263";
 
@@ -82,6 +83,7 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
 
       // Clear drawing
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
       ctx.fillStyle = bgColor;
       ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 

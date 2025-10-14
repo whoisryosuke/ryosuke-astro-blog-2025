@@ -8,6 +8,9 @@
 .BlogPost {
   max-width: 800px;
   margin: auto;
+  margin-top: calc(-1 * var(--space-12));
+  position: relative;
+  z-index: 710;
 }
 
 /* Global styles for blog content */

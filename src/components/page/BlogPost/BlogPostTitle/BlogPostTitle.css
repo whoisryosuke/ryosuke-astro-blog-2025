@@ -21,7 +21,7 @@
 
 .BlogPostTitleContainer {
   position: relative;
-  cursor: url("/images/cursor-1a.png") 40 40, auto;
+  cursor: url("/images/cursor-1.png") 40 40, auto;
   animation: cursor 420ms infinite;
 }
 
@@ -30,6 +30,7 @@
   top: 35%;
   left: 0;
   width: 100%;
+  z-index: 420;
 }
 
 .BlogPostTitle .text {
