@@ -1,0 +1,23 @@
+.BlogTagInteraction {
+  position: relative;
+  padding-top: var(--space-4);
+}
+
+.BlogTagInteraction .canvas,
+.BlogTagInteraction .tags {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.BlogTagInteraction .tags {
+  width: 100%;
+  display: flex;
+}
+
+.BlogTagInteraction .tags .stack {
+  flex: 1;
+  justify-content: space-between;
+  margin-top: var(--space-15);
+  padding: var(--space-4);
+}

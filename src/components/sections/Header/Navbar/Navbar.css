@@ -3,7 +3,7 @@
   top: 0;
   left: var(--space-1);
   padding: var(--space-1-5) var(--space-2-5);
-  z-index: 710;
+  z-index: 999;
 }
 
 .Navbar {

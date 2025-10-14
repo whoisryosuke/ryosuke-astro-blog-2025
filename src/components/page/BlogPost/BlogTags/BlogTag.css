@@ -1,0 +1,45 @@
+.BlogTag h2 {
+  font-size: var(--font-size-10);
+  margin: 0;
+}
+.BlogTag {
+  color: var(--color-black);
+  background-color: var(--color-secondary);
+  border: 1.5px solid var(--color-black);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--space-1);
+
+  text-decoration: none;
+
+  transform: translateX(0);
+  transform: translateY(0);
+  animation-name: blogTagAnimation;
+  animation-duration: 4.2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+
+  transition-property: color, background-color;
+  transition-timing-function: ease-in-out;
+  transition-duration: 420ms;
+}
+
+.BlogTag:hover {
+  color: var(--color-white);
+  background-color: var(--color-primary);
+}
+
+@keyframes blogTagAnimation {
+  0% {
+    transform: translateX(-10%);
+    transform: translateY(-10%);
+  }
+  50% {
+    transform: translateX(0%);
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateX(10%);
+    transform: translateY(10%);
+  }
+}

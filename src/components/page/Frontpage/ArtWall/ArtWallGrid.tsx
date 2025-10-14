@@ -60,7 +60,7 @@ const ArtWallGrid = (props: Props) => {
 
   // Animation logic
   const idleAnimation = () => {
-    console.log("animating tiles...");
+    // console.log("animating tiles...");
     setSelectedTiles((prevTiles) => {
       const newTiles = prevTiles.map((tile) => {
         const newTileId = tile.id + 1;

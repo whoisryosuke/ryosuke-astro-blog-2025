@@ -146,12 +146,6 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
                 ) *
                   2 +
                 1;
-              console.log(
-                "end",
-                particleScaleAnimation,
-                localTime,
-                localTime - highlighted.time + animationDuration
-              );
             }
           }
 
@@ -203,8 +197,6 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
       x: randomX,
       y: randomY,
     };
-
-    console.log("new particle", newParticle);
 
     particles.current.push(newParticle);
   };

@@ -10,6 +10,7 @@ import BlogPostTitle from '../components/page/BlogPost/BlogPostTitle/BlogPostTit
 import BlogPostDate from '../components/page/BlogPost/BlogPostDate/BlogPostDate';
 import Stack from '../components/primitives/Stack/Stack';
 import BlogPostTitleBG from '../components/page/BlogPost/BlogPostTitle/BlogPostTitleBG';
+import BlogTags from '../components/page/BlogPost/BlogTags/BlogTags';
 
 type Props = CollectionEntry<'blog'>['data'];
 
@@ -43,4 +44,5 @@ cover_image,
 			<slot />
 		</div>
 	</article>
+	<BlogTags client:load tags={tags} />
 </section>

@@ -12,7 +12,7 @@
   filter: invert(1);
   mix-blend-mode: difference;
 
-  z-index: 710;
+  z-index: 999;
 }
 
 .Logotype {
