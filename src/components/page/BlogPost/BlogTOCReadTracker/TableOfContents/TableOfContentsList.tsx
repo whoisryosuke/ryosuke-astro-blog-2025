@@ -11,10 +11,15 @@ type Props = {
 };
 
 const HEADING_TAG_NAMES = ["H1", "H2", "H3", "H4", "H5", "H6"];
+/**
+ * Size in pixels for extra offset when scrolling for headings
+ */
+const HEADING_FOCUS_OFFSET = 40;
 
 const TableOfContentsList = ({ expanded, setExpanded }: Props) => {
   const [headings, setHeadings] = useState<HeadingData[]>([]);
   const [selectedHeading, setSelectedHeading] = useState("");
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const observer = useRef<IntersectionObserver | null>(null);
 
   const handlePress = () => {
@@ -90,6 +95,7 @@ const TableOfContentsList = ({ expanded, setExpanded }: Props) => {
 
   return (
     <motion.div
+      ref={containerRef}
       className="TableOfContentsList"
       animate={{ opacity: expanded ? 1 : 0 }}
     >
