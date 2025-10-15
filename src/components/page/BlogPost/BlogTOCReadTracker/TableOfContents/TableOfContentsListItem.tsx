@@ -6,9 +6,13 @@ type Props = HeadingData & {};
 
 const TableOfContentsListItem = ({ title, id, level }: Props) => {
   return (
-    <a href={`#${id}`} className={`h${level}`}>
-      {title}
-    </a>
+    <a
+      href={`#${id}`}
+      className={`h${level}`}
+      dangerouslySetInnerHTML={{
+        __html: title,
+      }}
+    ></a>
   );
 };
 

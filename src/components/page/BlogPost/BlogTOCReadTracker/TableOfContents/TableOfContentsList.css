@@ -1,0 +1,4 @@
+.TableOfContentsList {
+  max-height: min(400px, 20vh);
+  overflow-y: auto;
+}

@@ -61,8 +61,6 @@ const Navbar = ({ path }: Props) => {
     //@TODO: Resize observer. Low priority since this is fairly static.
   }, []);
 
-  console.log("path", path);
-
   const followPosition = selectedLink.left - containerSize.left;
 
   const renderLinks = LINKS.map((link) => {

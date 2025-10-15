@@ -41,7 +41,6 @@ const NavbarLink = ({
       width: measurement.width,
       left: measurement.left,
     };
-    console.log("hovered link", measurement);
 
     setSelectedLink(navbarMeasurment);
   };
@@ -60,7 +59,6 @@ const NavbarLink = ({
       timeoutRef.current = setTimeout(handleReset, RESET_DURATION);
     };
 
-    console.log("adding hover event listener");
     ref.current?.addEventListener("mouseover", handleHover);
 
     return () => {

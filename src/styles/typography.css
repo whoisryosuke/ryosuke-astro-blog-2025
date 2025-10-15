@@ -46,3 +46,7 @@ button {
   font-family: var(--font-family-mono);
   text-transform: uppercase;
 }
+pre,
+code {
+  font-family: var(--font-family-mono);
+}

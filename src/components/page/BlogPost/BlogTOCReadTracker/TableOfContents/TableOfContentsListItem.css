@@ -1,3 +1,36 @@
+.TableOfContentsList .list a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+.TableOfContentsList .list .h2,
+.TableOfContentsList .list .h3 {
+  color: var(--color-gray-900);
+}
+.TableOfContentsList .list a:hover {
+  color: var(--color-primary);
+}
+
 .TableOfContentsList .list .h2 {
   padding-left: var(--space-1);
+}
+.TableOfContentsList .list .h3 {
+  padding-left: var(--space-2);
+}
+
+.TableOfContentsList .list a code {
+  color: var(--color-white);
+  background-color: var(--color-black);
+  border-radius: var(--space-0-25);
+  padding: var(--space-0-25) var(--space-0-75);
+  transition-property: color, background-color;
+  transition-timing-function: ease-in-out;
+  transition-duration: 420ms;
+}
+.TableOfContentsList .list a code:hover {
+  background-color: var(--color-primary);
+}
+
+.TableOfContentsList .list .h2 code,
+.TableOfContentsList .list .h3 code {
+  background-color: var(--color-gray-900);
 }

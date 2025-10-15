@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import type { HeadingData } from "./types";
 import TableOfContentsListItem from "./TableOfContentsListItem";
 import Stack from "../../../../primitives/Stack/Stack";
+import "./TableOfContentsList.css";
 
 type Props = {
   expanded: boolean;
@@ -13,7 +14,6 @@ const HEADING_TAG_NAMES = ["H1", "H2", "H3", "H4", "H5", "H6"];
 
 const TableOfContentsList = ({ expanded, setExpanded }: Props) => {
   const [headings, setHeadings] = useState<HeadingData[]>([]);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const handlePress = () => {
     setExpanded(false);
   };
@@ -48,17 +48,8 @@ const TableOfContentsList = ({ expanded, setExpanded }: Props) => {
     setHeadings(newHeadings);
   };
 
-  const handleLoad = () => {
-    timeoutRef.current = setTimeout(loadHeaders, 2000);
-  };
-
   useEffect(() => {
-    window.addEventListener("load", loadHeaders, { once: true });
-
-    return () => {
-      window.removeEventListener("load", loadHeaders);
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
+    loadHeaders();
   }, []);
 
   return (
