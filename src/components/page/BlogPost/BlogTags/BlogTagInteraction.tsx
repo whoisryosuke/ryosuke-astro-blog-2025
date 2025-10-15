@@ -76,7 +76,8 @@ const BlogTagInteraction = ({ tags, ...props }: Props) => {
   const handleResize = () => {
     if (!canvasRef.current) return;
     canvasRef.current.width = window.innerWidth;
-    canvasRef.current.height = Math.min(window.innerWidth / 1.62, 420);
+    // canvasRef.current.height = Math.min(window.innerWidth / 1.62, 420);
+    canvasRef.current.height = 420;
   };
 
   //   const handleMouse = (e: MouseEvent) => {
@@ -115,7 +116,7 @@ const BlogTagInteraction = ({ tags, ...props }: Props) => {
         ref={canvasRef}
         className="canvas"
         width="100%"
-        height="400px"
+        height="420px"
         {...props}
       />
       <div className="tags">

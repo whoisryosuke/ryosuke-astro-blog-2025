@@ -1,6 +1,10 @@
 .BlogTagInteraction {
   position: relative;
-  padding-top: var(--space-4);
+  height: 420px;
+}
+
+.BlogTagInteraction .BlogPostTitle {
+  top: 10%;
 }
 
 .BlogTagInteraction .canvas,

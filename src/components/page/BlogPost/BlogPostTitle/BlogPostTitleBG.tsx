@@ -47,6 +47,7 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
   const bgLightColor = "#fefefe";
   const bgColor = "#ceccc5";
   const lineColor = "#626263";
+  const highlightColor = "#0b08ef";
 
   // const [mousePos, setMousePos] = useState();
 
@@ -97,8 +98,6 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
         for (let col = 0; col < circlesPerCol; col++) {
           ctx.beginPath();
           ctx.lineWidth = 3.5;
-          ctx.strokeStyle = lineColor;
-          ctx.fillStyle = lineColor;
 
           const x = row * circleSpacing + initialPadding;
           const y = col * circleSpacing + initialPadding;
@@ -113,6 +112,9 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
           const highlighted = particles.current.find(
             (particle) => particle.x == row && particle.y == col
           );
+
+          ctx.strokeStyle = selected ? highlightColor : lineColor;
+          ctx.fillStyle = selected ? highlightColor : lineColor;
 
           // Particle highlight animation
           let particleScaleAnimation = 1;
