@@ -11,6 +11,7 @@ import BlogPostDate from '../components/page/BlogPost/BlogPostDate/BlogPostDate'
 import Stack from '../components/primitives/Stack/Stack';
 import BlogPostTitleBG from '../components/page/BlogPost/BlogPostTitle/BlogPostTitleBG';
 import BlogTags from '../components/page/BlogPost/BlogTags/BlogTags';
+import BlogTOCReadTracker from '../components/page/BlogPost/BlogTOCReadTracker/BlogTOCReadTracker';
 
 type Props = CollectionEntry<'blog'>['data'];
 
@@ -36,9 +37,10 @@ cover_image,
 		<!-- <div class="hero-image">
 			{cover_image && <Image width={1020} height={510} src={cover_image} alt="" />}
 		</div> -->
-		<div class="content">
+		<div id="BlogPostContent" class="content">
 			<slot />
 		</div>
 	</article>
 	<BlogTags client:load tags={tags} />
+	<BlogTOCReadTracker client:load />
 </section>

@@ -1,0 +1,28 @@
+.CircularProgressContainer .circular-progress {
+  --progress: 30;
+  --size: 36px;
+  --half-size: calc(var(--size) / 2);
+  --stroke-width: 6px;
+  --radius: calc((var(--size) - var(--stroke-width)) / 2);
+  --circumference: calc(var(--radius) * pi * 2);
+  --dash: calc((var(--progress) * var(--circumference)) / 100);
+}
+
+.CircularProgressContainer .circular-progress circle {
+  cx: var(--half-size);
+  cy: var(--half-size);
+  r: var(--radius);
+  stroke-width: var(--stroke-width);
+  fill: none;
+  stroke-linecap: round;
+}
+
+.CircularProgressContainer .circular-progress circle.bg {
+  stroke: #555;
+}
+
+.CircularProgressContainer .circular-progress circle.fg {
+  transform: rotate(-90deg);
+  transform-origin: var(--half-size) var(--half-size);
+  stroke: #fff;
+}

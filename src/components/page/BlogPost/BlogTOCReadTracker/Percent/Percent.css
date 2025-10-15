@@ -1,0 +1,10 @@
+.PercentWrapper {
+  background: var(--color-light-gray);
+  border-radius: 100rem;
+  padding: var(--space-0-5) var(--space-1);
+  font-weight: bold;
+  font-size: var(--font-size-8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
