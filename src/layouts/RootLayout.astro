@@ -6,6 +6,7 @@ import "../styles/tokens.css";
 import "../styles/typography.css";
 import Header from "../components/sections/Header/Header";
 import Navbar from "../components/sections/Header/Navbar/Navbar";
+import Footer from "../components/sections/Footer/Footer";
 
 type Props = {};
 ---
@@ -23,5 +24,7 @@ type Props = {};
     <Navbar client:load path={Astro.url.pathname} />
 
     <slot />
+    
+	<Footer client:load  />
   </body>
 </html>
