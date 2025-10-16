@@ -97,7 +97,8 @@ const TableOfContentsList = ({ expanded, setExpanded }: Props) => {
     <motion.div
       ref={containerRef}
       className="TableOfContentsList"
-      animate={{ opacity: expanded ? 1 : 0 }}
+      initial={{ opacity: 0, y: 100 }}
+      animate={{ opacity: expanded ? 1 : 0, y: expanded ? 0 : 100 }}
     >
       <Stack className="list">
         {headings.map((heading) => (

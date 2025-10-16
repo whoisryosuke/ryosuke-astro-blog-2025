@@ -1,3 +1,8 @@
+.CircularProgressContainer {
+  display: flex;
+  align-items: center;
+}
+
 .CircularProgressContainer .circular-progress {
   --progress: 30;
   --size: 36px;
@@ -18,11 +23,12 @@
 }
 
 .CircularProgressContainer .circular-progress circle.bg {
-  stroke: #555;
+  stroke: var(--color-black);
 }
 
 .CircularProgressContainer .circular-progress circle.fg {
+  stroke-width: calc(var(--stroke-width) + 1px);
   transform: rotate(-90deg);
   transform-origin: var(--half-size) var(--half-size);
-  stroke: #fff;
+  stroke: var(--color-secondary);
 }

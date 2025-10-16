@@ -11,7 +11,7 @@ type Props = {};
 const BlogTOCReadTracker = (props: Props) => {
   const [expanded, setExpanded] = useState(false);
   return (
-    <Stack className="BlogTOCReadTracker">
+    <Stack className="BlogTOCReadTracker" style={{ alignContent: "center" }}>
       <TableOfContentsList expanded={expanded} setExpanded={setExpanded} />
 
       <Stack horizontal>

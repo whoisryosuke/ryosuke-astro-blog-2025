@@ -1,3 +1,6 @@
+import Button from "../../../../primitives/Button/Button";
+import "./TableOfContentsToggle.css";
+
 type Props = {
   expanded: boolean;
   setExpanded: any;
@@ -8,9 +11,9 @@ const TableOfContentsToggle = ({ setExpanded }: Props) => {
     setExpanded((prevState) => !prevState);
   };
   return (
-    <button className="TableOfContentsToggle" onClick={handlePress}>
+    <Button className="TableOfContentsToggle" onClick={handlePress}>
       Table of Contents
-    </button>
+    </Button>
   );
 };
 

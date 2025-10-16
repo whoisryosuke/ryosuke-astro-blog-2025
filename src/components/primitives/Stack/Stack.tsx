@@ -15,11 +15,12 @@ const Stack = ({
   responsive,
   gap = "1rem",
   className,
+  style,
   ...props
 }: PropsWithChildren<Props>) => {
   const horizontalStyles = horizontal && "horizontal";
   const centeredStyles = centered && "centered";
-  const responsiveStyls = responsive && "responsive";
+  const responsiveStyles = responsive && "responsive";
   return (
     <div
       className={clsx(
@@ -27,10 +28,11 @@ const Stack = ({
         className,
         horizontalStyles,
         centeredStyles,
-        responsiveStyls
+        responsiveStyles
       )}
       style={{
         "--gap": gap,
+        ...style,
       }}
       {...props}
     />
