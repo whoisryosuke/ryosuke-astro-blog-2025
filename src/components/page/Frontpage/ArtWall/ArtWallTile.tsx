@@ -8,7 +8,7 @@ type Props = {
 const ArtWallTile = ({ selected }: Props) => {
   const bgImage = `url(images/art-wall/ps1-mem-card-red.jpg)`;
   return (
-    <div className={`ArtWallTile ${selected && "selected"}`}>
+    <div className={`ArtWallTile ${selected && "selected"}`} tabIndex={0}>
       <div className="placeholder">
         <PalletteIcon width="36px" />
       </div>

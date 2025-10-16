@@ -49,6 +49,7 @@
   transition-property: opacity, transform;
 }
 
+.SelectedBlogListItem a:focus::before,
 .SelectedBlogListItem:hover a::before {
   transform: scaleX(1);
 }
@@ -74,6 +75,7 @@
   }
 }
 
+.SelectedBlogListItem:focus svg,
 .SelectedBlogListItem:hover svg {
   --light: var(--color-secondary);
   --shadow: var(--color-secondary-hover);

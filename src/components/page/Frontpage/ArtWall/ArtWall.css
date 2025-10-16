@@ -71,11 +71,13 @@
 
 /* Interaction */
 .ArtWallTile.selected .placeholder,
+.ArtWallTile:focus .placeholder,
 .ArtWallTile:hover .placeholder {
   transform: rotateX(90deg);
 }
 
 .ArtWallTile.selected .art,
+.ArtWallTile:focus .art,
 .ArtWallTile:hover .art {
   transform: rotateX(0);
 }

@@ -15,6 +15,7 @@ const FeaturedWorkSlide = ({
     <div
       className="FeaturedWorkSlide"
       style={{ backgroundImage: bgImage }}
+      tabIndex={0}
       {...props}
     >
       <div className="info">
