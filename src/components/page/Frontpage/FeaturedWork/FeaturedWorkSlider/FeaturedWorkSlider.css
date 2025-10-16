@@ -47,10 +47,12 @@
   transition-duration: 420ms;
 }
 
+.FeaturedWorkSlide.selected,
 .FeaturedWorkSlide:hover,
 .FeaturedWorkSlide:focus {
   width: 775px;
 }
+.FeaturedWorkSlide.selected .info,
 .FeaturedWorkSlide:focus .info,
 .FeaturedWorkSlide:hover .info {
   opacity: 1;

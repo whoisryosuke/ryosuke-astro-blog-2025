@@ -8,8 +8,18 @@ type Props = {};
 const FeaturedWorkSlider = (props: Props) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const slides = FEATURED_WORK_SLIDES.map((slide) => (
-    <FeaturedWorkSlide key={slide.title} {...slide} />
+  const setSelected = (index: number) => {
+    setCurrentSlide(index);
+  };
+
+  const slides = FEATURED_WORK_SLIDES.map((slide, index) => (
+    <FeaturedWorkSlide
+      key={slide.title}
+      index={index}
+      selected={currentSlide == index}
+      setSelected={setSelected}
+      {...slide}
+    />
   ));
 
   return (
