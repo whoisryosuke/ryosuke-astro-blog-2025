@@ -21,6 +21,7 @@
 
 .BlogTagInteraction .tags .stack {
   flex: 1;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin-top: var(--space-15);
   padding: var(--space-4);
