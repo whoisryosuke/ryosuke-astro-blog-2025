@@ -1,0 +1,19 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import AboutSection from '../components/page/Frontpage/AboutSection/AboutSection';
+import ArtWall from '../components/page/Frontpage/ArtWall/ArtWall';
+import FeaturedWork from '../components/page/Frontpage/FeaturedWork/FeaturedWork';
+import SelectedBlogs from '../components/page/Frontpage/SelectedBlogs/SelectedBlogs';
+import ResourceTable from '../components/page/Resources/ResourceTable/ResourceTable';
+import Container from '../components/primitives/Container/Container';
+import Footer from '../components/sections/Footer/Footer';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import PageHeader from '../layouts/PageHeader.astro';
+import RootLayout from '../layouts/RootLayout.astro';
+---
+
+<RootLayout>
+    <PageHeader title="Resources">
+        <ResourceTable client:load />
+    </ResourcesPage>
+</RootLayout>

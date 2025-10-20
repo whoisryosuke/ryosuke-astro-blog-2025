@@ -1,0 +1,21 @@
+.ResourceList {
+  padding: var(--space-3);
+}
+
+.ResourceList thead td {
+  text-transform: uppercase;
+  font-family: var(--font-family-mono);
+  color: var(--color-text-secondary);
+}
+
+.ResourceList tr {
+  padding: var(--space-1) var(--space-2);
+}
+
+.ResourceList td {
+  padding: var(--space-0-5) var(--space-1);
+}
+
+.ResourceList td.icons {
+  padding-right: var(--space-3);
+}

@@ -9,12 +9,12 @@ import "../components/page/BlogIndex/BlogIndex.css";
 //     posts: CollectionEntry<'blog'>[]
 // };
 
-// const { 
-//     posts
-//  } = Astro.props;
+const { 
+    title
+ } = Astro.props;
 ---
 
 <Stack className="BlogIndex">
-    <SectionHeading title="Blog" style={{marginBottom: "var(--space-10)"}} />
+    <SectionHeading title={title} style={{marginBottom: "var(--space-7)"}} />
     <slot />
 </Stack>

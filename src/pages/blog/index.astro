@@ -7,11 +7,11 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 import RootLayout from '../../layouts/RootLayout.astro';
-import BlogIndex from '../../layouts/BlogIndex.astro';
 import Stack from '../../components/primitives/Stack/Stack';
 import SectionHeading from '../../components/page/Frontpage/SectionHeading/SectionHeading';
 import SelectedBlogList from '../../components/page/Frontpage/SelectedBlogs/SelectedBlogList';
 import type { SelectedBlogData } from '../../data/selected-blogs';
+import PageHeader from '../../layouts/PageHeader.astro';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
@@ -38,7 +38,7 @@ console.log('posts', sortedPosts, sortedPostsKeys)
 ---
 
 <RootLayout>
-	<BlogIndex>
+	<PageHeader title="Blog">
 	<Stack gap="var(--space-10)">
 {
 	sortedPostsKeys.map(year => (

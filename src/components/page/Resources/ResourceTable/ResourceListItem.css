@@ -1,0 +1,52 @@
+.ResourceListItem {
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.ResourceListItem td {
+  position: relative;
+}
+
+.ResourceListItem td:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  border-radius: var(--space-0-75);
+
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition-property: opacity, transform;
+  transition-timing-function: ease-in-out;
+  transition-duration: 420ms;
+}
+.ResourceListItem:hover td:before {
+  transform: scaleX(1);
+}
+
+.ResourceListItem:hover td.icons:before {
+  background-color: var(--color-black);
+}
+
+.ResourceListItem:hover td.name:before {
+  background-color: var(--color-secondary);
+}
+
+.ResourceListItem a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.ResourceListItem h3 {
+  margin-top: 0;
+}
+
+.ResourceListItem td.icons {
+  color: var(--color-text-secondary);
+}
+
+.ResourceListItem:hover td.icons svg {
+  color: var(--color-secondary);
+}
