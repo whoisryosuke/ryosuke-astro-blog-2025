@@ -23,8 +23,8 @@ type Props = {};
     <ClientRouter />
   </head>
   <body>
-    <Header client:load />
-    <Navbar client:load path={Astro.url.pathname} />
+    <Header client:load transition:persist />
+    <Navbar client:load path={Astro.url.pathname} transition:persist />
 
     <slot />
     
