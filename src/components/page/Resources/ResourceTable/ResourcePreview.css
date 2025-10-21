@@ -2,8 +2,17 @@
   position: sticky;
   top: 0;
   align-self: flex-start;
+
+  padding: var(--space-3);
+}
+
+.ResourcePreview .images {
+  max-height: 40vh;
+  align-items: flex-start;
 }
 
 .ResourcePreview img {
+  width: auto;
+  height: 100%;
   border-radius: var(--space-0-75);
 }

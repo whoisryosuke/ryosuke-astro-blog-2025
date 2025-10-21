@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Stack from "../../../primitives/Stack/Stack";
 import Button from "../../../primitives/Button/Button";
 import { RESOURCES } from "../../../../data/resources";
@@ -10,6 +10,21 @@ type Props = {
 };
 
 const ResourcePreview = ({ selectedResource }: Props) => {
+  const focusRef = useRef<HTMLElement>(null);
+  const prevResource = useRef("");
+
+  const focusElement = () => {
+    if (!focusRef.current) return;
+    focusRef.current.focus();
+  };
+
+  useEffect(() => {
+    if (prevResource.current !== selectedResource) {
+      prevResource.current = selectedResource;
+      focusElement();
+    }
+  }, [selectedResource]);
+
   const resourceData =
     RESOURCES.find((resource) => resource.name == selectedResource) ??
     RESOURCES[0];
@@ -21,10 +36,10 @@ const ResourcePreview = ({ selectedResource }: Props) => {
 
   return (
     <Stack className="ResourcePreview">
-      <Stack>{renderImages}</Stack>
+      <Stack className="images">{renderImages}</Stack>
       <p>{resourceData.description}</p>
       <Stack horizontal>
-        <Button as="a" outline href={resourceData.githubUrl}>
+        <Button ref={focusRef} as="a" outline href={resourceData.githubUrl}>
           Source Code
         </Button>
         {resourceData.blog && (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { type KeyboardEventHandler } from "react";
 import type { Resource } from "../../../../data/resources";
 import Stack from "../../../primitives/Stack/Stack";
 import "./ResourceListItem.css";
@@ -20,6 +20,13 @@ const ResourceListItem = ({
     setSelectedResource(name);
   };
 
+  const handleEnter: KeyboardEventHandler<HTMLTableRowElement> = (e) => {
+    const isEnterPressed = e.key == "Enter";
+    if (!isEnterPressed) return;
+
+    handleSelection();
+  };
+
   const isSelected = selectedResource == name;
 
   return (
@@ -27,6 +34,7 @@ const ResourceListItem = ({
       className={`ResourceListItem ${isSelected && "selected"}`}
       tabIndex={0}
       // onMouseEnter={handleSelection}
+      onKeyDown={handleEnter}
       onClick={handleSelection}
     >
       <td className="icons">
