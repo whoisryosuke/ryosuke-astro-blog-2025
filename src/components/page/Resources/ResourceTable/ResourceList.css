@@ -1,5 +1,6 @@
 .ResourceList {
   padding: var(--space-3);
+  padding-top: 0;
 }
 
 .ResourceList thead td {

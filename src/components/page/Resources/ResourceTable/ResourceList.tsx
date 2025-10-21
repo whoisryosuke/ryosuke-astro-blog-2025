@@ -4,14 +4,16 @@ import ResourceListItem from "./ResourceListItem";
 import "./ResourceList.css";
 
 type Props = {
+  selectedResource: string;
   setSelectedResource: (resourceId: string) => void;
 };
 
-const ResourceList = ({ setSelectedResource }: Props) => {
+const ResourceList = ({ selectedResource, setSelectedResource }: Props) => {
   const resourcesItems = RESOURCES.map((resource) => (
     <ResourceListItem
       key={resource.name}
       {...resource}
+      selectedResource={selectedResource}
       setSelectedResource={setSelectedResource}
     />
   ));

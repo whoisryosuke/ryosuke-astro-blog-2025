@@ -22,14 +22,17 @@
   transition-timing-function: ease-in-out;
   transition-duration: 420ms;
 }
+.ResourceListItem.selected td:before,
 .ResourceListItem:hover td:before {
   transform: scaleX(1);
 }
 
+.ResourceListItem.selected td.icons:before,
 .ResourceListItem:hover td.icons:before {
   background-color: var(--color-black);
 }
 
+.ResourceListItem.selected td.name:before,
 .ResourceListItem:hover td.name:before {
   background-color: var(--color-secondary);
 }

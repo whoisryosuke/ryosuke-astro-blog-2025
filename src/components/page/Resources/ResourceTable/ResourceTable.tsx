@@ -10,7 +10,10 @@ const ResourceTable = (props: Props) => {
 
   return (
     <Stack className="ResourceTable" horizontal responsive>
-      <ResourceList setSelectedResource={setSelectedResource} />
+      <ResourceList
+        selectedResource={selectedResource}
+        setSelectedResource={setSelectedResource}
+      />
       <ResourcePreview selectedResource={selectedResource} />
     </Stack>
   );

@@ -37,15 +37,17 @@ export interface Resource {
   category: ResourceCategories[];
   blog?: string;
   githubUrl: string;
+  images?: string[];
 }
 
 export const RESOURCES: Resource[] = [
   {
     name: "ryosuke-next-blog-2023",
-    description: "My current personal blog and portfolio",
+    description: "My personal blog and portfolio from 2023-2025",
     category: ["writing", "web"],
     blog: "https://whoisryosuke.com/blog/2024/the-vision-pro-redesign-of-2024",
     githubUrl: "https://github.com/whoisryosuke/ryosuke-next-blog-2023",
+    images: ["frontpage.png"],
   },
   {
     name: "oat-milk-design",

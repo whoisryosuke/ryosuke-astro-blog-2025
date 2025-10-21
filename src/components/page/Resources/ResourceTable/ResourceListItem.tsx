@@ -5,6 +5,7 @@ import "./ResourceListItem.css";
 import ResourceListItemIcon from "./ResourceListItemIcon";
 
 type Props = Resource & {
+  selectedResource: string;
   setSelectedResource: (resourceId: string) => void;
 };
 
@@ -12,17 +13,20 @@ const ResourceListItem = ({
   name,
   category,
   githubUrl,
+  selectedResource,
   setSelectedResource,
 }: Props) => {
   const handleSelection = () => {
     setSelectedResource(name);
   };
 
+  const isSelected = selectedResource == name;
+
   return (
     <tr
-      className="ResourceListItem"
+      className={`ResourceListItem ${isSelected && "selected"}`}
       tabIndex={0}
-      onMouseEnter={handleSelection}
+      // onMouseEnter={handleSelection}
       onClick={handleSelection}
     >
       <td className="icons">

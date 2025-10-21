@@ -1,0 +1,6 @@
+.ResourcePreview {
+}
+
+.ResourcePreview img {
+  border-radius: var(--space-0-75);
+}
