@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Stack from "../../../primitives/Stack/Stack";
 import ResourceList from "./ResourceList";
 import ResourcePreview from "./ResourcePreview";
+import "./ResourceTable.css";
 
 type Props = {};
 
