@@ -28,6 +28,7 @@ const FeaturedWorkSlide = ({
       tabIndex={0}
       onMouseEnter={handleSelectItem}
       onFocus={handleSelectItem}
+      onClick={handleSelectItem}
       {...props}
     >
       <div className="info">
