@@ -18,15 +18,13 @@ const ResourceList = ({ selectedResource, setSelectedResource }: Props) => {
     />
   ));
   return (
-    <table className="ResourceList">
-      <thead>
-        <tr>
-          <td className="icons">Tags</td>
-          <td>Project</td>
-        </tr>
-      </thead>
-      <tbody>{resourcesItems}</tbody>
-    </table>
+    <div className="ResourceList">
+      <div className="head">
+        <div className="icons">Tags</div>
+        <div>Project</div>
+      </div>
+      <div className="body">{resourcesItems}</div>
+    </div>
   );
 };
 

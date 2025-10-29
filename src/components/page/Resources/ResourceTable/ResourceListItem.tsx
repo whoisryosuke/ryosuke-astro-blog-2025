@@ -3,6 +3,7 @@ import type { Resource } from "../../../../data/resources";
 import Stack from "../../../primitives/Stack/Stack";
 import "./ResourceListItem.css";
 import ResourceListItemIcon from "./ResourceListItemIcon";
+import ResourcePreview from "./ResourcePreview";
 
 type Props = Resource & {
   selectedResource: string;
@@ -30,27 +31,34 @@ const ResourceListItem = ({
   const isSelected = selectedResource == name;
 
   return (
-    <tr
-      className={`ResourceListItem ${isSelected && "selected"}`}
-      tabIndex={0}
-      // onMouseEnter={handleSelection}
-      onKeyDown={handleEnter}
-      onClick={handleSelection}
-    >
-      <td className="icons">
-        <Stack horizontal gap="var(--space-0-75)">
-          {category.map((categoryIconName) => (
-            <ResourceListItemIcon
-              key={categoryIconName}
-              icon={categoryIconName}
-            />
-          ))}
-        </Stack>
-      </td>
-      <td className="name">
-        <h3>{name}</h3>
-      </td>
-    </tr>
+    <>
+      <div
+        className={`ResourceListItem ${isSelected && "selected"}`}
+        tabIndex={0}
+        // onMouseEnter={handleSelection}
+        onKeyDown={handleEnter}
+        onClick={handleSelection}
+      >
+        <div className="icons">
+          <Stack horizontal gap="var(--space-0-75)">
+            {category.map((categoryIconName) => (
+              <ResourceListItemIcon
+                key={categoryIconName}
+                icon={categoryIconName}
+              />
+            ))}
+          </Stack>
+        </div>
+        <div className="name">
+          <h3>{name}</h3>
+        </div>
+      </div>
+      <div className={`ResourceListItemPreview ${isSelected && "selected"}`}>
+        <div>
+          <ResourcePreview selectedResource={name} />
+        </div>
+      </div>
+    </>
   );
 };
 

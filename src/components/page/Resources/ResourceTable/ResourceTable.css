@@ -1,3 +1,12 @@
 .ResourceTable {
   flex: 1;
 }
+
+@media screen and (max-width: 800px) {
+  .ResourcePreviewWrapper {
+    order: 1;
+  }
+  .ResourceList {
+    order: 2;
+  }
+}

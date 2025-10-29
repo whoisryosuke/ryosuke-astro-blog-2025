@@ -7,9 +7,10 @@ import "./ResourcePreview.css";
 
 type Props = {
   selectedResource: string;
+  className: string;
 };
 
-const ResourcePreview = ({ selectedResource }: Props) => {
+const ResourcePreview = ({ selectedResource, className }: Props) => {
   const focusRef = useRef<HTMLElement>(null);
   const prevResource = useRef("");
 
@@ -21,7 +22,7 @@ const ResourcePreview = ({ selectedResource }: Props) => {
   useEffect(() => {
     if (prevResource.current !== selectedResource) {
       prevResource.current = selectedResource;
-      focusElement();
+      // focusElement();
     }
   }, [selectedResource]);
 
@@ -35,10 +36,10 @@ const ResourcePreview = ({ selectedResource }: Props) => {
   ));
 
   return (
-    <Stack className="ResourcePreview">
+    <Stack className={`ResourcePreview ${className}`}>
       <Stack className="images">{renderImages}</Stack>
       <p>{resourceData.description}</p>
-      <Stack horizontal>
+      <Stack horizontal responsive>
         <Button ref={focusRef} as="a" outline href={resourceData.githubUrl}>
           Source Code
         </Button>

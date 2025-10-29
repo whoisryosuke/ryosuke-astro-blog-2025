@@ -1,22 +1,57 @@
 .ResourceList {
   padding: var(--space-3);
   padding-top: 0;
+
+  display: block;
+  overflow-y: scroll;
 }
 
-.ResourceList thead td {
+@media screen and (max-width: 800px) {
+  .ResourceList {
+    padding: var(--space-1);
+    padding-top: 0;
+  }
+}
+
+.ResourceList .head {
+  display: grid;
+  grid-template-columns: 0.25fr 1fr;
+  margin-bottom: var(--space-0-5);
+}
+.ResourceList .head div {
+  padding: var(--space-0-5) var(--space-1);
+}
+
+.ResourceList .head {
   text-transform: uppercase;
   font-family: var(--font-family-mono);
   color: var(--color-text-secondary);
 }
 
-.ResourceList tr {
+/* .ResourceList > div {
   padding: var(--space-1) var(--space-2);
-}
+} */
 
-.ResourceList td {
+/* .ResourceList > div > div {
   padding: var(--space-0-5) var(--space-1);
+} */
+
+.ResourceList > div div.icons {
+  padding-right: var(--space-3);
 }
 
-.ResourceList td.icons {
-  padding-right: var(--space-3);
+.ResourceList div.icons {
+  /* 32 * 3 (icons) + 8 * 3 (spacing) */
+  min-width: 120px;
+}
+
+@media screen and (max-width: 1200px) {
+  .ResourceList div.icons {
+    /* 16 * 3 (icons) + 8 * 3 (spacing) */
+    min-width: 64px;
+  }
+  .ResourceList div.icons svg {
+    width: 16px;
+    height: 16px;
+  }
 }

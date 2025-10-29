@@ -10,11 +10,12 @@ import "../components/page/BlogIndex/BlogIndex.css";
 // };
 
 const { 
-    title
+    title,
+    noPadding,
  } = Astro.props;
 ---
 
-<Stack className="BlogIndex">
-    <SectionHeading title={title} style={{marginBottom: "var(--space-7)"}} />
+<Stack className="BlogIndex"style={{ marginTop: noPadding ? "var(--space-12)" : "var(--space-20)",}}>
+    <SectionHeading title={title} style={{ marginBottom:  noPadding ? "var(--space-3)" : "var(--space-7)"}} />
     <slot />
 </Stack>

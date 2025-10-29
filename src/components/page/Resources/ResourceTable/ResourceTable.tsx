@@ -4,11 +4,12 @@ import ResourceList from "./ResourceList";
 import ResourcePreview from "./ResourcePreview";
 import "./ResourceTable.css";
 import { AnimatePresence, motion } from "motion/react";
+import { RESOURCES } from "../../../../data/resources";
 
 type Props = {};
 
 const ResourceTable = (props: Props) => {
-  const [selectedResource, setSelectedResource] = useState("");
+  const [selectedResource, setSelectedResource] = useState(RESOURCES[0].name);
 
   return (
     <Stack className="ResourceTable" horizontal responsive>
@@ -19,6 +20,7 @@ const ResourceTable = (props: Props) => {
       <AnimatePresence>
         <motion.div
           key={selectedResource}
+          className="ResourcePreviewWrapper"
           initial={{
             opacity: 0,
             x: 100,
@@ -31,7 +33,10 @@ const ResourceTable = (props: Props) => {
             duration: 0.42,
           }}
         >
-          <ResourcePreview selectedResource={selectedResource} />
+          <ResourcePreview
+            selectedResource={selectedResource}
+            className="sticky"
+          />
         </motion.div>
       </AnimatePresence>
     </Stack>

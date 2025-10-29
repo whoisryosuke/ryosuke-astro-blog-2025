@@ -1,14 +1,24 @@
 .ResourceListItem {
-  align-items: center;
+  display: grid;
+  grid-template-columns: 0.25fr 1fr;
+  align-items: stretch;
 
   cursor: pointer;
 }
 
-.ResourceListItem td {
+.ResourceListItem > div {
   position: relative;
+  align-content: center;
+  padding: var(--space-0-5) var(--space-1);
 }
 
-.ResourceListItem td:before {
+@media screen and (max-width: 1200px) {
+  .ResourceListItem > div.name h3 {
+    font-size: var(--font-size-8);
+  }
+}
+
+.ResourceListItem > div:before {
   content: "";
   position: absolute;
   inset: 0;
@@ -22,19 +32,20 @@
   transition-timing-function: ease-in-out;
   transition-duration: 420ms;
 }
-.ResourceListItem.selected td:before,
-.ResourceListItem:hover td:before {
+.ResourceListItem.selected > div:before,
+.ResourceListItem:hover > div:before {
   transform: scaleX(1);
 }
 
-.ResourceListItem.selected td.icons:before,
-.ResourceListItem:hover td.icons:before {
+.ResourceListItem.selected > div.icons:before,
+.ResourceListItem:hover > div.icons:before {
   background-color: var(--color-black);
 }
 
-.ResourceListItem.selected td.name:before,
-.ResourceListItem:hover td.name:before {
+.ResourceListItem.selected > div.name:before,
+.ResourceListItem:hover > div.name:before {
   background-color: var(--color-secondary);
+  /* transition-delay: 220ms; */
 }
 
 .ResourceListItem a {
@@ -46,10 +57,47 @@
   margin-top: 0;
 }
 
-.ResourceListItem td.icons {
+.ResourceListItem > div.icons {
   color: var(--color-text-secondary);
 }
 
-.ResourceListItem:hover td.icons svg {
+.ResourceListItem.selected > div.icons svg,
+.ResourceListItem:hover > div.icons svg {
   color: var(--color-secondary);
+}
+
+/* Expandable Preview */
+
+.ResourceListItemPreview {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.26s ease-in;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 800px) {
+  .ResourceListItemPreview {
+    display: none !important;
+  }
+}
+
+.ResourceListItemPreview.selected {
+  grid-template-rows: 1fr;
+}
+
+.ResourceListItemPreview {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.26s ease-in;
+  overflow: hidden;
+}
+
+.ResourceListItemPreview > div {
+  min-height: 0;
+  transition: visibility 1s;
+  visibility: hidden;
+}
+
+.ResourceListItemPreview.selected > div {
+  visibility: visible;
 }
