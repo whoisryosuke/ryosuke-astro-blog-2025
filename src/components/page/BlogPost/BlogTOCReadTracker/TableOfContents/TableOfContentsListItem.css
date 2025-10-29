@@ -5,6 +5,10 @@
 
   position: relative;
 }
+.TableOfContentsList .list span {
+  position: relative;
+  z-index: 420;
+}
 .TableOfContentsList .list a.h2,
 .TableOfContentsList .list a.h3 {
   color: var(--color-gray-900);
@@ -51,7 +55,7 @@
 
   background-color: var(--color-secondary);
   border-radius: var(--space-0-5);
-  z-index: -1;
+  z-index: 2;
 
   transform-origin: left center;
   transform: scaleX(0);

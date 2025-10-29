@@ -94,6 +94,15 @@
   background-color: var(--color-primary);
 }
 
+/* 
+* When user clicks header link and scrolls, this adds padding above.
+*/
+.BlogPost h1,
+.BlogPost h2,
+.BlogPost h3 {
+  scroll-margin-top: var(--space-10);
+}
+
 .BlogPost {
   --heading-h1: var(--font-size-14);
   --heading-h2: var(--font-size-13);

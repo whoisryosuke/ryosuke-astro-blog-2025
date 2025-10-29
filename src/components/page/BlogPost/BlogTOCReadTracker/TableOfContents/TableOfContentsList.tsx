@@ -62,9 +62,11 @@ const TableOfContentsList = ({ expanded, setExpanded }: Props) => {
   const handleIntersect: IntersectionObserverCallback = (entries, observer) => {
     // Find "intersecting" (aka visible) items, then sort by distance from top
     const visibleElements = entries.filter((entry) => entry.isIntersecting);
-    const sortedElements = visibleElements.sort(
-      (a, b) => a.boundingClientRect.top - b.boundingClientRect.top
-    );
+    const sortedElements = visibleElements
+      .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
+      // Because we have a scroll-margin-top on headings that pads the scroll by 100
+      // We only search for headings after that point. This prevents headings at top from stealing focus.
+      .filter((el) => el.boundingClientRect.top > 90);
 
     // Got at least 1 element? We want the item closest to top
     if (sortedElements.length >= 1) {
@@ -77,7 +79,7 @@ const TableOfContentsList = ({ expanded, setExpanded }: Props) => {
   const createObserver = () => {
     const options = {
       root: null,
-      rootMargin: "0px",
+      rootMargin: "100px",
       scrollMargin: "0px",
       threshold: 1.0,
     };
@@ -99,12 +101,16 @@ const TableOfContentsList = ({ expanded, setExpanded }: Props) => {
       className="TableOfContentsList"
       initial={{ opacity: 0, y: 100 }}
       animate={{ opacity: expanded ? 1 : 0, y: expanded ? 0 : 100 }}
+      transition={{
+        duration: 0.2,
+      }}
     >
       <Stack className="list">
         {headings.map((heading) => (
           <TableOfContentsListItem
             {...heading}
             selected={heading.id == selectedHeading}
+            setSelectedHeading={setSelectedHeading}
           />
         ))}
       </Stack>

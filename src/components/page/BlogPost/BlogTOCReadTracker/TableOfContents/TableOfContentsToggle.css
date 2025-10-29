@@ -8,4 +8,5 @@
   border: 0;
   padding-right: var(--space-6);
   font-size: var(--font-size-4);
+  z-index: 710;
 }

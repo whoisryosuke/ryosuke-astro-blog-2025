@@ -1,4 +1,11 @@
 .TableOfContentsList {
+  position: relative;
+  max-width: 300px;
   max-height: min(400px, 20vh);
   overflow-y: auto;
+
+  padding: var(--space-1-5);
+  border-radius: var(--space-1);
+
+  background-color: var(--color-white);
 }
