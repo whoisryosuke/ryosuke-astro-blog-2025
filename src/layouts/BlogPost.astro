@@ -12,8 +12,12 @@ import Stack from '../components/primitives/Stack/Stack';
 import BlogPostTitleBG from '../components/page/BlogPost/BlogPostTitle/BlogPostTitleBG';
 import BlogTags from '../components/page/BlogPost/BlogTags/BlogTags';
 import BlogTOCReadTracker from '../components/page/BlogPost/BlogTOCReadTracker/BlogTOCReadTracker';
+import BlogTOCWaveform from '../components/page/BlogPost/BlogTOCWaveform/BlogTOCWaveform';
+import map from '../utils/map';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data'] & {
+	body: string | undefined;
+};
 
 const { 
 
@@ -22,7 +26,38 @@ section,
 tags,
 date,
 cover_image,
+body
  } = Astro.props;
+
+// Process blog content into pseudo waveform
+// A waveform is just an array of numbers, the bigger the array the higher the resolution.
+// We take the raw MDX text and sample it at set intervals to get enough waveform data.
+const WAVEFORM_SIZE = 1024;
+const waveform = body ? [] : new Array(WAVEFORM_SIZE).fill(0).map(() => Math.random());
+const textLength = body ? body.length : 1;
+const segmentSize = Math.round(textLength / WAVEFORM_SIZE);
+for (let index = 0; index < WAVEFORM_SIZE; index++) {
+	if(!body) break;
+	
+	// 
+	const textIndex = Math.round(segmentSize * index);
+	const text = body[textIndex].toLocaleLowerCase();
+	let score = 0;
+	if(typeof text == 'number') {
+		score = text / 9;
+	} else {
+		// Get the UTF-16 code for the string (number from 0 and 65535)
+		// `a` begins at 97 -- so it'll mostly be above that range
+		// We cap at 150 to keep it simple, since the range would be immense usually.
+		// score = (Math.min(text.charCodeAt(0), 150) / 150) -1;
+		score = map(Math.min(text.charCodeAt(0), 150), 0, 150, -1, 1);
+	}
+
+	waveform.push(score);
+}
+
+console.log('waveform', waveform);
+
 ---
 
 <section class="BlogPostPage">
@@ -43,4 +78,5 @@ cover_image,
 	</article>
 	<BlogTags client:load tags={tags} />
 	<BlogTOCReadTracker client:load />
+	<BlogTOCWaveform waveform={waveform} client:load />
 </section>

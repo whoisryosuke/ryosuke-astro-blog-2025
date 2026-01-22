@@ -15,10 +15,11 @@ type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
 const { Content } = await render(post);
+
 ---
 
 <RootLayout>
-<BlogPost {...post.data}>
+<BlogPost {...post.data} body={post.body}>
 	<Content components={components} />
 </BlogPost>
 </RootLayout>
