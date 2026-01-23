@@ -8,6 +8,7 @@ h6 {
   font-weight: normal;
   margin-bottom: 0;
   line-height: 150%;
+  color: var(--color-text);
 }
 
 h1 {
@@ -38,6 +39,7 @@ p,
 ul {
   font-family: var(--font-family);
   font-size: var(--body-1);
+  color: var(--color-text);
 }
 p {
   line-height: 200%;
