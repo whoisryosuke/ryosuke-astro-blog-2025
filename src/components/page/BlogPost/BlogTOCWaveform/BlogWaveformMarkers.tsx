@@ -110,7 +110,7 @@ const BlogWaveformMarkers = (props: Props) => {
   ));
 
   return (
-    <div className={playheadStyles.Container}>
+    <div className={playheadStyles.Container} data-small={true}>
       <Tooltip.Provider>
         {renderHeadings}
         <Tooltip.Root

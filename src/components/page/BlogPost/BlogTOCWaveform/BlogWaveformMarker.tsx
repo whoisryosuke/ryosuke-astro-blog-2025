@@ -4,6 +4,7 @@ import { BsCaretDownFill } from "react-icons/bs";
 import map from "../../../../utils/map";
 import styles from "./BlogTOCWaveform.module.css";
 import { Tooltip } from "@base-ui/react/tooltip";
+import BlogWaveformMarkerIcon from "../../../icons/BlogWaveformMarkerIcon";
 
 type Props = {
   heading: WaveformHeadingData;
@@ -46,7 +47,7 @@ const BlogWaveformMarker = ({
         />
       )}
     >
-      <BsCaretDownFill size={24} />
+      <BlogWaveformMarkerIcon />
     </Tooltip.Trigger>
   );
 };

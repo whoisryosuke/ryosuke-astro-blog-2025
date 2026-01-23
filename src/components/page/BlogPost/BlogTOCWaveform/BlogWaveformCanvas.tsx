@@ -85,6 +85,24 @@ const BlogWaveformCanvas = ({ animated, fps, data, ...props }: Props) => {
     [data, lineColor, bgColor, animated, fps],
   );
 
+  const handleClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    console.log("event", e);
+    if (!canvasRef.current) return;
+
+    const canvasRect = canvasRef.current.getBoundingClientRect();
+    const relativePos = e.clientX - canvasRect.left;
+    const percent = relativePos / canvasRect.width;
+
+    const pagePosition =
+      (document.documentElement.scrollHeight - window.innerHeight) * percent;
+
+    window.scrollTo({
+      top: pagePosition,
+    });
+
+    console.log("relativePos", relativePos, percent);
+  };
+
   useEffect(() => {
     animationRef.current = requestAnimationFrame(draw);
 
@@ -93,7 +111,7 @@ const BlogWaveformCanvas = ({ animated, fps, data, ...props }: Props) => {
     };
   }, [draw, lineColor, bgColor, fps]);
 
-  return <canvas ref={canvasRef} {...props} />;
+  return <canvas ref={canvasRef} {...props} onClick={handleClick} />;
 };
 
 export default BlogWaveformCanvas;

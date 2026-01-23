@@ -5,25 +5,35 @@
   transform: translateX(-50%);
   z-index: 710;
 
-  background: var(--color-gray);
-  border-radius: var(--space-0-75);
+  background: #313135;
+  border-radius: var(--space-0-5);
   overflow: hidden;
 }
 
 .Content {
   position: relative;
-  /* margin: var(--space-1); */
+  margin: var(--space-0-75) var(--space-1);
+  margin-top: 0;
   height: 150px;
+  border-radius: var(--space-0-5);
+  overflow: hidden;
+}
+
+.WaveformContainer {
+  position: relative;
+}
+
+.WaveformContainer canvas {
   border-radius: var(--space-0-5);
   overflow: hidden;
 }
 
 .Marker {
   position: absolute;
-  top: 0;
+  top: 4px;
   left: 0;
   transform: translateX(var(--x));
-  color: #ceccc5;
+  color: var(--color-secondary);
 }
 
 .Popup {
@@ -35,6 +45,8 @@
   padding: var(--space-0-75) var(--space-1);
   border-radius: var(--space-0-5);
   font-weight: bold;
+
+  color: var(--color-text);
 
   transform-origin: var(--transform-origin);
   transition:
@@ -61,11 +73,13 @@
 
   @media (prefers-color-scheme: dark) {
     background: var(--color-secondary);
+    color: var(--color-text-inverted);
   }
 }
 
 .Arrow {
   display: flex;
+  color: var(--color-secondary);
 
   &[data-side="top"] {
     bottom: -8px;
@@ -86,4 +100,8 @@
     left: -13px;
     rotate: -90deg;
   }
+}
+
+.ArrowFill {
+  fill: var(--color-secondary);
 }

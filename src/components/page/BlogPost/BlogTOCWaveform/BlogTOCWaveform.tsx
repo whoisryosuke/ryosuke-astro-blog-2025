@@ -3,6 +3,7 @@ import BlogWaveformCanvas from "./BlogWaveformCanvas";
 import styles from "./BlogTOCWaveform.module.css";
 import BlogWaveformPlayhead from "./BlogWaveformPlayhead";
 import BlogWaveformMarkers from "./BlogWaveformMarkers";
+import BlogTimelineGuide from "./BlogTimelineGuide";
 
 type Props = {
   waveform: number[];
@@ -13,8 +14,11 @@ const BlogTOCWaveform = ({ waveform }: Props) => {
   return (
     <div className={styles.Container}>
       <div className={styles.Content}>
-        <BlogWaveformCanvas data={waveform} width={420} height={150} />
-        <BlogWaveformPlayhead />
+        <BlogTimelineGuide />
+        <div className={styles.WaveformContainer}>
+          <BlogWaveformCanvas data={waveform} width={420} height={100} />
+          <BlogWaveformPlayhead />
+        </div>
         <BlogWaveformMarkers />
       </div>
     </div>

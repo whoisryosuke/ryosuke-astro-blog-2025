@@ -1,0 +1,32 @@
+.Container {
+  width: 100%;
+  padding-top: var(--space-1-5);
+}
+
+.Numbers,
+.Lines {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Numbers {
+  font-size: var(--font-size-3);
+  color: var(--color-gray-300);
+  text-align: center;
+}
+
+.Lines {
+  align-items: end;
+  padding: 0 1.5px;
+}
+
+.GuideLine {
+  width: 2.5px;
+  height: 5px;
+  background: #62626a;
+  border-radius: 2px;
+}
+
+.GuideLine[data-long="true"] {
+  height: 10px;
+}

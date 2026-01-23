@@ -8,7 +8,22 @@
   display: flex;
 }
 
+.Container[data-small="true"] {
+  height: 30px;
+}
+
+.Container[data-clickthrough="true"] {
+  pointer-events: none;
+}
+
 .Playhead {
-  width: 3px;
-  background-color: var(--color-white);
+  width: 1.5px;
+  color: var(--color-secondary);
+  background-color: var(--color-secondary);
+}
+
+.Playhead svg {
+  position: absolute;
+  left: -4.5px;
+  top: -6px;
 }
