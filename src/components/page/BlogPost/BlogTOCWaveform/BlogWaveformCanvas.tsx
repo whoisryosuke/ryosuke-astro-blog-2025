@@ -1,9 +1,11 @@
 import {
   type ComponentProps,
   type HTMLProps,
+  type MouseEventHandler,
   useCallback,
   useEffect,
   useRef,
+  useState,
 } from "react";
 import map from "../../../../utils/map";
 
@@ -15,6 +17,7 @@ type Props = Omit<HTMLProps<HTMLCanvasElement>, "data"> & {
 };
 
 const BlogWaveformCanvas = ({ animated, fps, data, ...props }: Props) => {
+  const [pressed, setPressed] = useState(false);
   const colorMode = "light";
   const bgColor = colorMode === "dark" ? "#111" : "#022727";
   const lineColor = colorMode === "dark" ? "blue" : "#80cbcc";
@@ -85,10 +88,8 @@ const BlogWaveformCanvas = ({ animated, fps, data, ...props }: Props) => {
     [data, lineColor, bgColor, animated, fps],
   );
 
-  const handleClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    console.log("event", e);
+  const calcRelativePosition = (e: MouseEvent<any>) => {
     if (!canvasRef.current) return;
-
     const canvasRect = canvasRef.current.getBoundingClientRect();
     const relativePos = e.clientX - canvasRect.left;
     const percent = relativePos / canvasRect.width;
@@ -99,8 +100,13 @@ const BlogWaveformCanvas = ({ animated, fps, data, ...props }: Props) => {
     window.scrollTo({
       top: pagePosition,
     });
+  };
 
-    console.log("relativePos", relativePos, percent);
+  const handleClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    console.log("event", e);
+    if (!canvasRef.current) return;
+
+    calcRelativePosition(e);
   };
 
   useEffect(() => {
@@ -111,7 +117,31 @@ const BlogWaveformCanvas = ({ animated, fps, data, ...props }: Props) => {
     };
   }, [draw, lineColor, bgColor, fps]);
 
-  return <canvas ref={canvasRef} {...props} onClick={handleClick} />;
+  const handleMouseDown: MouseEventHandler<HTMLCanvasElement> = (e) => {
+    setPressed(true);
+    calcRelativePosition(e);
+  };
+
+  const handleMouseUp = () => {
+    setPressed(false);
+  };
+
+  const handleMouseMove: MouseEventHandler<HTMLCanvasElement> = (e) => {
+    if (!pressed) return;
+    console.log("mouse moving", e);
+    calcRelativePosition(e);
+  };
+
+  return (
+    <canvas
+      ref={canvasRef}
+      {...props}
+      onClick={handleClick}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onMouseMove={handleMouseMove}
+    />
+  );
 };
 
 export default BlogWaveformCanvas;
