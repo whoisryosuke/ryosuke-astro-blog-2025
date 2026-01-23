@@ -11,12 +11,17 @@
 }
 
 .Content {
-  position: relative;
+  display: flex;
   margin: var(--space-0-75) var(--space-1);
+  margin-left: 0;
   margin-top: 0;
   height: 150px;
   border-radius: var(--space-0-5);
   overflow: hidden;
+}
+
+.WaveformArea {
+  position: relative;
 }
 
 .WaveformContainer {

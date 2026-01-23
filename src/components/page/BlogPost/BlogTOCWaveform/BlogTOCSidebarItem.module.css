@@ -1,0 +1,29 @@
+.Button {
+  background: transparent;
+  display: flex;
+  gap: var(--space-0-5);
+  border: 0;
+  font-family: var(--font-family);
+  font-size: var(--font-size-6);
+  text-transform: none;
+
+  padding: var(--space-0-5) var(--space-0-25);
+
+  text-align: left;
+
+  text-decoration: none;
+
+  color: var(--color-text-inverted);
+
+  @media (prefers-color-scheme: dark) {
+    color: var(--color-text);
+  }
+}
+
+.Button:hover {
+  background: var(--color-gray-700);
+}
+
+.Button svg {
+  color: var(--color-secondary);
+}
