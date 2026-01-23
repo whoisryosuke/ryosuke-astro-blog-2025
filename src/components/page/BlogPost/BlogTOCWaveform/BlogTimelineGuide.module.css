@@ -10,9 +10,15 @@
 }
 
 .Numbers {
-  font-size: var(--font-size-3);
+  font-size: var(--font-size-1);
   color: var(--color-gray-300);
   text-align: center;
+  user-select: none;
+}
+
+.Numbers span:nth-child(2n) {
+  display: block;
+  transform: translateX(20%);
 }
 
 .Lines {
@@ -21,7 +27,7 @@
 }
 
 .GuideLine {
-  width: 2.5px;
+  width: 1.5px;
   height: 5px;
   background: #62626a;
   border-radius: 2px;
