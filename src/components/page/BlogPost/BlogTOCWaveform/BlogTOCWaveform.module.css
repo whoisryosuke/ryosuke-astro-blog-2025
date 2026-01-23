@@ -4,6 +4,18 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 710;
+
+  background: var(--color-gray);
+  border-radius: var(--space-0-75);
+  overflow: hidden;
+}
+
+.Content {
+  position: relative;
+  /* margin: var(--space-1); */
+  height: 150px;
+  border-radius: var(--space-0-5);
+  overflow: hidden;
 }
 
 .Marker {
@@ -11,4 +23,67 @@
   top: 0;
   left: 0;
   transform: translateX(var(--x));
+  color: #ceccc5;
+}
+
+.Popup {
+  box-sizing: border-box;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-0-75) var(--space-1);
+  border-radius: var(--space-0-5);
+  font-weight: bold;
+
+  transform-origin: var(--transform-origin);
+  transition:
+    transform 150ms,
+    opacity 150ms;
+  z-index: 999;
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  &[data-instant] {
+    transition: none;
+  }
+
+  @media (prefers-color-scheme: light) {
+    outline: 1px solid var(--color-gray-200);
+    box-shadow:
+      0 10px 15px -3px var(--color-gray-200),
+      0 4px 6px -4px var(--color-gray-200);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background: var(--color-secondary);
+  }
+}
+
+.Arrow {
+  display: flex;
+
+  &[data-side="top"] {
+    bottom: -8px;
+    rotate: 180deg;
+  }
+
+  &[data-side="bottom"] {
+    top: -8px;
+    rotate: 0deg;
+  }
+
+  &[data-side="left"] {
+    right: -13px;
+    rotate: 90deg;
+  }
+
+  &[data-side="right"] {
+    left: -13px;
+    rotate: -90deg;
+  }
 }

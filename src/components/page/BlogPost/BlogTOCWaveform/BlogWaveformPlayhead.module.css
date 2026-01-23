@@ -10,5 +10,5 @@
 
 .Playhead {
   width: 3px;
-  background-color: cyan;
+  background-color: var(--color-white);
 }

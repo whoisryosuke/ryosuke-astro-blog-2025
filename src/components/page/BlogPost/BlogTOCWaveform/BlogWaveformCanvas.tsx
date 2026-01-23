@@ -15,9 +15,9 @@ type Props = Omit<HTMLProps<HTMLCanvasElement>, "data"> & {
 };
 
 const BlogWaveformCanvas = ({ animated, fps, data, ...props }: Props) => {
-  const colorMode = "dark";
-  const bgColor = colorMode === "dark" ? "#111" : "#EEE";
-  const lineColor = colorMode === "dark" ? "blue" : "blue";
+  const colorMode = "light";
+  const bgColor = colorMode === "dark" ? "#111" : "#022727";
+  const lineColor = colorMode === "dark" ? "blue" : "#80cbcc";
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(
     null,

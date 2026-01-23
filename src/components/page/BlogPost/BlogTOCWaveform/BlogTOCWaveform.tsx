@@ -12,9 +12,11 @@ const BlogTOCWaveform = ({ waveform }: Props) => {
   console.log("waveform", waveform, Math.max(...waveform));
   return (
     <div className={styles.Container}>
-      <BlogWaveformCanvas data={waveform} width={420} height={200} />
-      <BlogWaveformPlayhead />
-      <BlogWaveformMarkers />
+      <div className={styles.Content}>
+        <BlogWaveformCanvas data={waveform} width={420} height={150} />
+        <BlogWaveformPlayhead />
+        <BlogWaveformMarkers />
+      </div>
     </div>
   );
 };
