@@ -7,6 +7,15 @@
   top: 10%;
 }
 
+.BlogTagInteraction .BlogPostTitle h1 {
+  color: var(--color-black);
+}
+
+.BlogTagInteraction .BlogPostTitle h1::before,
+.BlogTagInteraction .BlogPostTitle h1::after {
+  -webkit-text-stroke: 1.5px var(--color-black);
+}
+
 .BlogTagInteraction .canvas,
 .BlogTagInteraction .tags {
   position: absolute;

@@ -1,10 +1,10 @@
 .BlogTag h2 {
+  color: var(--color-black);
   font-size: var(--font-size-5);
   margin: 0;
 }
 
 .BlogTag {
-  color: var(--color-black);
   background-color: var(--color-secondary);
   border: 1.5px solid var(--color-black);
   padding: var(--space-0-5) var(--space-1);
