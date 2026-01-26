@@ -6,6 +6,8 @@ import {
   useState,
 } from "react";
 import map from "../../../../utils/map";
+import { useStore } from "@nanostores/react";
+import { themeStore } from "../../../../store/theme";
 
 function easeOutQuart(x: number) {
   return 1 - Math.pow(1 - x, 4);
@@ -34,6 +36,7 @@ type Props = {
 };
 
 const BlogPostTitleBG = ({ image, ...props }: Props) => {
+  const { colorMode } = useStore(themeStore);
   //   const { colorMode } = useColorMode();
   //   const defaultBgColor = colorMode === "dark" ? "#111" : "#EEE";
   //   const bgColor =
@@ -45,8 +48,8 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
   //   const lineColor = color in CUSTOM_COLORS ? CUSTOM_COLORS[color].line : color;
 
   const bgLightColor = "#fefefe";
-  const bgColor = "#ceccc5";
-  const lineColor = "#626263";
+  const bgColor = colorMode == "dark" ? "#191818" : "#ceccc5";
+  const lineColor = colorMode == "dark" ? "#6b6a66" : "#626263";
   const highlightColor = "#0b08ef";
 
   // const [mousePos, setMousePos] = useState();
@@ -57,7 +60,7 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const data = useRef<Uint8Array>(new Uint8Array(0));
   const animationRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(
-    null
+    null,
   );
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
@@ -110,7 +113,7 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
           const combinedDistance = distance.x + distance.y;
           const selected = combinedDistance < 100;
           const highlighted = particles.current.find(
-            (particle) => particle.x == row && particle.y == col
+            (particle) => particle.x == row && particle.y == col,
           );
 
           ctx.strokeStyle = selected ? highlightColor : lineColor;
@@ -129,8 +132,8 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
                     highlighted.time,
                     highlighted.time + animationDuration / 2,
                     0,
-                    1
-                  )
+                    1,
+                  ),
                 ) *
                   2 +
                 1;
@@ -143,8 +146,8 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
                     highlighted.time + animationDuration,
                     highlighted.time + animationDuration / 2,
                     0,
-                    1
-                  )
+                    1,
+                  ),
                 ) *
                   2 +
                 1;
@@ -170,13 +173,13 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
           mousePos.current.x,
           mousePos.current.y,
           400,
-          400 * 0.52
+          400 * 0.52,
         );
       }
 
       animationRef.current = requestAnimationFrame(draw);
     },
-    [data, lineColor, bgColor]
+    [data, lineColor, bgColor],
   );
 
   const createParticle = () => {
@@ -207,7 +210,7 @@ const BlogPostTitleBG = ({ image, ...props }: Props) => {
     // Cleanup particles
     const now = Date.now();
     particles.current = particles.current.filter(
-      (particle) => particle.time + animationDuration > now
+      (particle) => particle.time + animationDuration > now,
     );
 
     // Create particle

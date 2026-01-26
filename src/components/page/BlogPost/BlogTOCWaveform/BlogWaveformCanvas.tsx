@@ -8,6 +8,8 @@ import {
   useState,
 } from "react";
 import map from "../../../../utils/map";
+import { useStore } from "@nanostores/react";
+import { themeStore } from "../../../../store/theme";
 
 type Props = Omit<HTMLProps<HTMLCanvasElement>, "data"> & {
   // waveform: number[];
@@ -18,9 +20,9 @@ type Props = Omit<HTMLProps<HTMLCanvasElement>, "data"> & {
 
 const BlogWaveformCanvas = ({ animated, fps, data, ...props }: Props) => {
   const [pressed, setPressed] = useState(false);
-  const colorMode = "light";
-  const bgColor = colorMode === "dark" ? "#111" : "#022727";
-  const lineColor = colorMode === "dark" ? "blue" : "#80cbcc";
+  const { colorMode } = useStore(themeStore);
+  const bgColor = colorMode === "dark" ? "#022727" : "hsl(180, 80%, 20%)";
+  const lineColor = colorMode === "dark" ? "#80cbcc" : "hsl(181, 43%, 75%)";
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(
     null,

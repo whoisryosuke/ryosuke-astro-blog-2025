@@ -15,7 +15,7 @@ const BlogPostDate = ({ date }: Props) => {
   const formattedDate = new Intl.DateTimeFormat("en-US", options).format(date);
 
   return (
-    <Stack className="BlogPostDate" gap="var(--space-0-5)">
+    <Stack className="BlogPostDate" gap="var(--space-0-25)">
       <h4>Posted on</h4>
       <p>{formattedDate}</p>
     </Stack>

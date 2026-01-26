@@ -71,7 +71,6 @@ const BlogTOCWaveform = ({ waveform }: Props) => {
     // Got at least 1 element? We want the item closest to top
     if (sortedElements.length >= 1) {
       const selectedHeading = sortedElements[0];
-      console.log("found a heading selecting", selectedHeading.target);
       setSelectedHeading(
         headings.find((heading) => heading.id == selectedHeading.target.id),
       );
@@ -98,8 +97,6 @@ const BlogTOCWaveform = ({ waveform }: Props) => {
     createObserver();
     loadHeaders();
   }, []);
-
-  console.log("headings", headings);
 
   return (
     <div className={styles.Container}>

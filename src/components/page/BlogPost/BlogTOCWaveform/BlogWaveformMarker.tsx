@@ -24,7 +24,6 @@ const BlogWaveformMarker = ({
   // The position is a proportional calc based on page size vs this waveform size
   // but we also subtract half the width of the icon to center it (e.g. `8`)
   const x = map(heading.y, 0, pageSize, 0, 420) - 12;
-  console.log("heading", heading.title, x);
 
   const selectHeading = () => {
     setSelectedHeading(heading);

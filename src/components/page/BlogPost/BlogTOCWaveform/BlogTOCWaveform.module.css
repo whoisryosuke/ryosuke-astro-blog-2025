@@ -5,9 +5,13 @@
   transform: translateX(-50%);
   z-index: 710;
 
-  background: #313135;
+  background: var(--color-gray-600);
   border-radius: var(--space-0-5);
   overflow: hidden;
+
+  @media (prefers-color-scheme: dark) {
+    background: var(--color-gray-800);
+  }
 }
 
 .Content {
@@ -38,7 +42,7 @@
   top: 4px;
   left: 0;
   transform: translateX(var(--x));
-  color: var(--color-secondary);
+  color: var(--color-secondary-300);
 }
 
 .Popup {
@@ -51,6 +55,7 @@
   border-radius: var(--space-0-5);
   font-weight: bold;
 
+  background: var(--color-secondary-500);
   color: var(--color-text);
 
   transform-origin: var(--transform-origin);
@@ -70,21 +75,22 @@
   }
 
   @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
+    color: var(--color-text-inverted);
+
+    outline: 1px solid var(--color-secondary-300);
     box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
+      0 10px 15px -3px var(--color-secondary-300),
+      0 4px 6px -4px var(--color-secondary-300);
   }
 
   @media (prefers-color-scheme: dark) {
-    background: var(--color-secondary);
     color: var(--color-text-inverted);
   }
 }
 
 .Arrow {
   display: flex;
-  color: var(--color-secondary);
+  color: var(--color-secondary-500);
 
   &[data-side="top"] {
     bottom: -8px;
@@ -108,5 +114,5 @@
 }
 
 .ArrowFill {
-  fill: var(--color-secondary);
+  fill: var(--color-secondary-500);
 }

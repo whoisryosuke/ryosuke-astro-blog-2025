@@ -11,7 +11,7 @@
 
 .Numbers {
   font-size: var(--font-size-1);
-  color: var(--color-gray-300);
+  color: var(--color-text);
   text-align: center;
   user-select: none;
 }

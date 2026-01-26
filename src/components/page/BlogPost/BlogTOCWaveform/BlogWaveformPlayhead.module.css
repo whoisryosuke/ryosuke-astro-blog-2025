@@ -18,8 +18,8 @@
 
 .Playhead {
   width: 1.5px;
-  color: var(--color-secondary);
-  background-color: var(--color-secondary);
+  color: var(--color-secondary-100);
+  background-color: var(--color-secondary-100);
 }
 
 .Playhead svg {

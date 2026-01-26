@@ -1,27 +1,41 @@
 @keyframes cursor {
   0% {
-    cursor: url("/images/cursor/cursor-1.png") 40 40, auto;
+    cursor:
+      url("/images/cursor/cursor-1.png") 40 40,
+      auto;
   }
   20% {
-    cursor: url("/images/cursor/cursor-2.png") 40 40, auto;
+    cursor:
+      url("/images/cursor/cursor-2.png") 40 40,
+      auto;
   }
   40% {
-    cursor: url("/images/cursor/cursor-3.png") 40 40, auto;
+    cursor:
+      url("/images/cursor/cursor-3.png") 40 40,
+      auto;
   }
   60% {
-    cursor: url("/images/cursor/cursor-4.png") 40 40, auto;
+    cursor:
+      url("/images/cursor/cursor-4.png") 40 40,
+      auto;
   }
   80% {
-    cursor: url("/images/cursor/cursor-5.png") 40 40, auto;
+    cursor:
+      url("/images/cursor/cursor-5.png") 40 40,
+      auto;
   }
   100% {
-    cursor: url("/images/cursor/cursor-6.png") 40 40, auto;
+    cursor:
+      url("/images/cursor/cursor-6.png") 40 40,
+      auto;
   }
 }
 
 .BlogPostTitleContainer {
   position: relative;
-  cursor: url("/images/cursor-1.png") 40 40, auto;
+  cursor:
+    url("/images/cursor-1.png") 40 40,
+    auto;
   animation: cursor 420ms infinite;
 }
 
@@ -53,6 +67,7 @@
 .BlogPostTitle h1 {
   position: relative;
   margin: 0;
+  color: var(--color-text);
 
   transform: translateX(0);
   animation-name: slideLeftAndRight;
@@ -92,11 +107,20 @@
 .BlogPostTitleBGOverlay {
   position: absolute;
   inset: 0;
-  background: #161616;
   background: linear-gradient(
     0deg,
-    rgba(206, 204, 197, 1) 0%,
+    var(--color-gray-900) 0%,
     rgba(206, 204, 197, 0) 100%
   );
   user-select: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .BlogPostTitleBGOverlay {
+    background: linear-gradient(
+      0deg,
+      var(--color-gray-900) 0%,
+      rgba(25, 24, 24, 0) 100%
+    );
+  }
 }
