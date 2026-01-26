@@ -8,6 +8,7 @@ import Header from "../components/sections/Header/Header";
 import Navbar from "../components/sections/Header/Navbar/Navbar";
 import Footer from "../components/sections/Footer/Footer";
 import ClientRouter from "astro/components/ClientRouter.astro";
+import { ThemeProvider } from "../components/ThemeProvider";
 
 type Props = {};
 ---
@@ -23,11 +24,12 @@ type Props = {};
     <ClientRouter />
   </head>
   <body>
+    <ThemeProvider client:load />
     <Header client:load transition:persist />
     <Navbar client:load path={Astro.url.pathname} transition:persist />
-
+    
     <slot />
     
-	<Footer client:load  />
+	  <Footer client:load  />
   </body>
 </html>
