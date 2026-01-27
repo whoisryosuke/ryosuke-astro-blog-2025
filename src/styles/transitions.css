@@ -1,0 +1,4 @@
+::view-transition-old(title),
+::view-transition-new(title) {
+  animation-duration: 0.5s;
+}

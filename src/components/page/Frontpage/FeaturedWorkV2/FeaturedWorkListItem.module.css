@@ -1,0 +1,34 @@
+.Link {
+  text-decoration: none;
+}
+
+.Title {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-15);
+  color: var(--color-gray-600);
+
+  transition-property: color;
+  transition-timing-function: ease-in-out;
+  transition-duration: 220ms;
+
+  view-transition-name: title;
+}
+
+.Title:hover {
+  color: var(--color-primary);
+}
+
+.MidiNote {
+  width: 150px;
+  height: 20px;
+  border-radius: var(--space-0-75);
+  background-color: var(--color-gray-600);
+
+  transition-property: background-color;
+  transition-timing-function: ease-in-out;
+  transition-duration: 220ms;
+}
+
+.MidiNote:hover {
+  background-color: var(--color-primary);
+}

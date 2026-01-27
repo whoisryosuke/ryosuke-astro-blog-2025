@@ -1,0 +1,7 @@
+.Title {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-15);
+  color: var(--color-gray-600);
+
+  view-transition-name: title;
+}

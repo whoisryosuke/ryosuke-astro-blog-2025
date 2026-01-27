@@ -4,6 +4,7 @@ import Fonts from "../components/Fonts";
 import "../styles/global.css";
 import "../styles/tokens.css";
 import "../styles/typography.css";
+import "../styles/transitions.css";
 import Header from "../components/sections/Header/Header";
 import Navbar from "../components/sections/Header/Navbar/Navbar";
 import Footer from "../components/sections/Footer/Footer";
@@ -19,9 +20,11 @@ type Props = {};
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="me" href="https://mastodon.gamedev.place/@whoisryosuke" />
+
+    <meta name="view-transition" content="same-origin" />
     <Fonts />
     
-    <ClientRouter />
+    <!-- <ClientRouter /> -->
   </head>
   <body>
     <ThemeProvider client:load />

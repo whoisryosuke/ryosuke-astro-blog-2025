@@ -1,0 +1,16 @@
+---
+import type { FeaturedWorkSlideData } from '../components/page/Frontpage/FeaturedWork/FeaturedWorkSlider/slides';
+import ProjectPageContent from '../components/projects/ProjectPageContent';
+
+
+type Props = {
+    project: FeaturedWorkSlideData
+};
+
+const {project} = Astro.props;
+
+---
+
+<section class="ProjectPage">
+    <ProjectPageContent project={project} client:load />
+</section>

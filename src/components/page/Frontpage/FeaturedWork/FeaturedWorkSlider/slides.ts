@@ -1,6 +1,7 @@
 export type FeaturedWorkSlideDataType = "NDA" | "CASE_STUDY";
 
 export type FeaturedWorkSlideData = {
+  slug: string;
   title: string;
   type: FeaturedWorkSlideDataType;
   tags: string[];
@@ -9,21 +10,24 @@ export type FeaturedWorkSlideData = {
 };
 export const FEATURED_WORK_SLIDES: FeaturedWorkSlideData[] = [
   {
-    title: "PlayStation Portal",
+    slug: "playstation-2020",
+    title: "PlayStation",
     type: "NDA",
-    tags: ["React Native", "Animation"],
+    tags: ["React Native", "Animation", "C++", "Graphics Programming"],
     cover_image: "portal.png",
   },
   {
-    title: "PlayStation 5 - Media Tab",
-    type: "NDA",
-    tags: ["React Native"],
-    cover_image: "portal.png",
-  },
-  {
-    title: "MIDI Synth UI",
+    slug: "clawdio",
+    title: "Clawdio",
     type: "CASE_STUDY",
-    tags: ["React", "Figma"],
+    tags: ["Rust", "WASM", "TypeScript", "Audio Programming"],
+    cover_image: "portal.png",
+  },
+  {
+    slug: "midi-motion",
+    title: "MIDI Motion",
+    type: "CASE_STUDY",
+    tags: ["Blender", "Python", "Audio Programming"],
     cover_image: "portal.png",
   },
 ];
