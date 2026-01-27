@@ -12,5 +12,5 @@ const {project} = Astro.props;
 ---
 
 <section class="ProjectPage">
-    <ProjectPageContent project={project} client:load />
+    <ProjectPageContent project={project} client:only="react" />
 </section>

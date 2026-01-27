@@ -1,4 +1,14 @@
+@view-transition {
+  navigation: auto;
+}
+
 ::view-transition-old(title),
 ::view-transition-new(title) {
-  animation-duration: 0.5s;
+  /* animation: none; */
+  mix-blend-mode: normal;
+}
+
+::view-transition-group(title) {
+  animation-duration: 3s;
+  animation-timing-function: ease-in-out;
 }

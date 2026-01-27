@@ -13,7 +13,7 @@ import RootLayout from '../layouts/RootLayout.astro';
 
 <RootLayout>
 	<div style="width:100%; height:300px;background-color:var(--color-light-gray);margin-bottom:2rem;"></div>
-	<FeaturedWorkV2 client:load />
+	<FeaturedWorkV2  client:only="react" />
 	<!-- <FeaturedWork client:load /> -->
 	<!-- <ArtWall client:load  /> -->
 	<SelectedBlogs client:load  />
