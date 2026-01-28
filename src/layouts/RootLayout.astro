@@ -14,7 +14,7 @@ import { ThemeProvider } from "../components/ThemeProvider";
 type Props = {};
 ---
 
-<html>
+<html transition:name="root" transition:animate="none">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,12 +26,14 @@ type Props = {};
     <ClientRouter />
   </head>
   <body>
-    <ThemeProvider client:load />
+    <ThemeProvider client:load transition:persist />
     <Header client:load transition:persist />
     <Navbar client:load path={Astro.url.pathname} transition:persist />
     
-    <slot />
+    <main transition:animate="slide">
+      <slot />
+    </main>
     
-	  <Footer client:load  />
+	  <Footer client:load transition:persist  />
   </body>
 </html>

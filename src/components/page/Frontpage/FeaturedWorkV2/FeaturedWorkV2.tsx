@@ -1,7 +1,7 @@
 import React from "react";
 import { FEATURED_WORK_SLIDES } from "../FeaturedWork/FeaturedWorkSlider/slides";
 import Stack from "../../../primitives/Stack/Stack";
-import FeaturedWorkListItem from "./FeaturedWorkListItem";
+import ProductPageHeader from "../../../projects/ProductPageHeader/ProductPageHeader";
 
 type Props = {};
 
@@ -11,7 +11,7 @@ const FeaturedWorkV2 = (props: Props) => {
       <h2>Featured Work</h2>
       <Stack>
         {FEATURED_WORK_SLIDES.map((work) => (
-          <FeaturedWorkListItem work={work} />
+          <ProductPageHeader work={work} />
         ))}
       </Stack>
     </div>

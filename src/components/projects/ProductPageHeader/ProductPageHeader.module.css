@@ -10,8 +10,6 @@
   transition-property: color;
   transition-timing-function: ease-in-out;
   transition-duration: 220ms;
-
-  view-transition-name: title;
 }
 
 .Title:hover {

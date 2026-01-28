@@ -3,9 +3,12 @@ import BaseHead from '../components/BaseHead.astro';
 import AboutSection from '../components/page/Frontpage/AboutSection/AboutSection';
 import ArtWall from '../components/page/Frontpage/ArtWall/ArtWall';
 import FeaturedWork from '../components/page/Frontpage/FeaturedWork/FeaturedWork';
+import { FEATURED_WORK_SLIDES } from '../components/page/Frontpage/FeaturedWork/FeaturedWorkSlider/slides';
 import FeaturedWorkV2 from '../components/page/Frontpage/FeaturedWorkV2/FeaturedWorkV2';
 import SelectedBlogs from '../components/page/Frontpage/SelectedBlogs/SelectedBlogs';
 import Container from '../components/primitives/Container/Container';
+import Stack from '../components/primitives/Stack/Stack';
+import ProductPageHeader from '../components/projects/ProductPageHeader/ProductPageHeader';
 import Footer from '../components/sections/Footer/Footer';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import RootLayout from '../layouts/RootLayout.astro';
@@ -13,7 +16,16 @@ import RootLayout from '../layouts/RootLayout.astro';
 
 <RootLayout>
 	<div style="width:100%; height:300px;background-color:var(--color-light-gray);margin-bottom:2rem;"></div>
-	<FeaturedWorkV2  client:only="react" />
+    <div>
+      <h2>Featured Work</h2>
+      <Stack>
+        {FEATURED_WORK_SLIDES.map((work) => (
+		  <div transition:name="project-header"  transition:animate="slide">
+          	<ProductPageHeader work={work} client:load />
+		  </div>
+        ))}
+      </Stack>
+    </div>
 	<!-- <FeaturedWork client:load /> -->
 	<!-- <ArtWall client:load  /> -->
 	<SelectedBlogs client:load  />
