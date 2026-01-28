@@ -13,7 +13,7 @@ const {project} = Astro.props;
 ---
 
 <section class="ProjectPage">
-    <div transition:name="project-header"  transition:animate="slide">
+    <div transition:name={`project-header-${project.slug}`}  transition:animate="slide">
         <ProductPageHeader work={project} />
     </div>
     <!-- <ProjectPageContent project={project} client:load /> -->

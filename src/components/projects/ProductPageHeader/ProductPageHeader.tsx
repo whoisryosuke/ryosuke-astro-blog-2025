@@ -25,7 +25,7 @@ const ProductPageHeader = ({ work }: Props) => {
           <div
             key={index}
             className={styles.MidiNote}
-            style={{ viewTransitionName: `note-${index}` }}
+            style={{ viewTransitionName: `note-${work.slug}-${index}` }}
           />
         ))}
       </Stack>

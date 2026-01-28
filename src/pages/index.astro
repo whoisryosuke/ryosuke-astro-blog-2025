@@ -20,7 +20,7 @@ import RootLayout from '../layouts/RootLayout.astro';
       <h2>Featured Work</h2>
       <Stack>
         {FEATURED_WORK_SLIDES.map((work) => (
-		  <div transition:name="project-header"  transition:animate="slide">
+		  <div transition:name={`project-header-${work.slug}`}  transition:animate="slide">
           	<ProductPageHeader work={work} client:load />
 		  </div>
         ))}
