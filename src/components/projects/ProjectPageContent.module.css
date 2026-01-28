@@ -5,3 +5,19 @@
 
   view-transition-name: title;
 }
+
+.MidiNote {
+  width: 150px;
+  height: 20px;
+  padding: var(--space-0-75);
+  border-radius: var(--space-0-75);
+  background-color: var(--color-gray-600);
+
+  transition-property: background-color;
+  transition-timing-function: ease-in-out;
+  transition-duration: 220ms;
+}
+
+.MidiNote:hover {
+  background-color: var(--color-primary);
+}

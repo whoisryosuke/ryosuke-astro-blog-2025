@@ -11,7 +11,12 @@ type Props = {
 const FeaturedWorkListItem = ({ work }: Props) => {
   return (
     <a href={`/projects/${work.slug}`} className={styles.Link}>
-      <h3 className={styles.Title}>{work.title}</h3>
+      <h3
+        className={styles.Title}
+        style={{ viewTransitionName: `title-${work.slug}` }}
+      >
+        {work.title}
+      </h3>
       <Stack horizontal>
         {new Array(4).fill(0).map((_, index) => (
           <div
