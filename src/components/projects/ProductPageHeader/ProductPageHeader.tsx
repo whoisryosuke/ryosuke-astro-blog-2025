@@ -3,6 +3,7 @@ import type { FeaturedWorkSlideData } from "../../page/Frontpage/FeaturedWork/Fe
 import Stack from "../../primitives/Stack/Stack";
 import styles from "./ProductPageHeader.module.css";
 import type { CollectionEntry } from "astro:content";
+import ProjectMidiNote from "./ProjectMidiNote";
 
 type Props = {
   work: CollectionEntry<"projects">;
@@ -22,12 +23,8 @@ const ProductPageHeader = ({ work: project }: Props) => {
         {project.data.title}
       </h3>
       <Stack horizontal>
-        {project.data.images.map((_, index) => (
-          <div
-            key={index}
-            className={styles.MidiNote}
-            style={{ viewTransitionName: `note-${project.id}-${index}` }}
-          />
+        {project.data.images.map((image, index) => (
+          <ProjectMidiNote key={index} projectId={project.id} image={image} />
         ))}
       </Stack>
     </a>

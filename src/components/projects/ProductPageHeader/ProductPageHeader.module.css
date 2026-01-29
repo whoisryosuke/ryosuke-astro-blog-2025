@@ -22,6 +22,7 @@
   height: 20px;
   border-radius: var(--space-0-75);
   background-color: var(--color-gray-600);
+  border: 0;
 
   transition-property: background-color;
   transition-timing-function: ease-in-out;
@@ -30,6 +31,18 @@
 
 .MidiNote:hover {
   background-color: var(--color-primary);
+}
+
+.MidiNote img {
+  width: 150px;
+  height: auto;
+  position: fixed;
+
+  opacity: 0;
+}
+
+.MidiNote img[data-visible="true"] {
+  opacity: 1;
 }
 
 .OutlineButton {

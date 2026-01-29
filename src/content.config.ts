@@ -32,7 +32,7 @@ const projects = defineCollection({
       images: z.array(z.string()),
       // Transform string to Date object
       date: z.coerce.date(),
-      cover_image: image().optional(),
+      cover_image: z.string().optional(),
     }),
 });
 
