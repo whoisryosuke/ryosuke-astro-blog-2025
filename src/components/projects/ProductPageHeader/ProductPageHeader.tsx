@@ -2,30 +2,31 @@ import React from "react";
 import type { FeaturedWorkSlideData } from "../../page/Frontpage/FeaturedWork/FeaturedWorkSlider/slides";
 import Stack from "../../primitives/Stack/Stack";
 import styles from "./ProductPageHeader.module.css";
+import type { CollectionEntry } from "astro:content";
 
 type Props = {
-  work: FeaturedWorkSlideData;
+  work: CollectionEntry<"projects">;
 };
 
-const ProductPageHeader = ({ work }: Props) => {
+const ProductPageHeader = ({ work: project }: Props) => {
   return (
     <a
-      href={`/projects/${work.slug}`}
+      href={`/projects/${project.id}`}
       className={styles.Link}
-      style={{ viewTransitionName: `title-${work.slug}` }}
+      style={{ viewTransitionName: `title-${project.id}` }}
     >
       <h3
         className={styles.Title}
         // style={{ viewTransitionName: `title-${work.slug}` }}
       >
-        {work.title}
+        {project.data.title}
       </h3>
       <Stack horizontal>
-        {new Array(4).fill(0).map((_, index) => (
+        {project.data.images.map((_, index) => (
           <div
             key={index}
             className={styles.MidiNote}
-            style={{ viewTransitionName: `note-${work.slug}-${index}` }}
+            style={{ viewTransitionName: `note-${project.id}-${index}` }}
           />
         ))}
       </Stack>

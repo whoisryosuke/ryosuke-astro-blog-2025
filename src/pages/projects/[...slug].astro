@@ -7,18 +7,21 @@ import { FEATURED_WORK_SLIDES, type FeaturedWorkSlideData } from '../../componen
 import ProjectPost from '../../layouts/ProjectPost.astro';
 
 export async function getStaticPaths() {
-	const posts = FEATURED_WORK_SLIDES;
+	const posts = await getCollection('projects');
 	return posts.map((post) => ({
-		params: { slug: post.slug },
+		params: { slug: post.id },
 		props: post,
 	}));
 }
-type Props = FeaturedWorkSlideData;
+type Props = CollectionEntry<'projects'>;
 
 const project = Astro.props;
+const { Content } = await render(project);
 
 ---
 
 <RootLayout>
-    <ProjectPost project={project} />
+    <ProjectPost project={project}>
+		<Content components={components} />
+	</ProjectPost>
 </RootLayout>

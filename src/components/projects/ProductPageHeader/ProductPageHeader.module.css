@@ -6,6 +6,7 @@
   font-family: var(--font-family-heading);
   font-size: var(--font-size-15);
   color: var(--color-gray-600);
+  margin: 0;
 
   transition-property: color;
   transition-timing-function: ease-in-out;
@@ -29,4 +30,17 @@
 
 .MidiNote:hover {
   background-color: var(--color-primary);
+}
+
+.OutlineButton {
+  padding: var(--space-0-5) var(--space-0-75);
+  border-radius: var(--space-0-5);
+  border: 1px solid var(--color-gray-300);
+  color: var(--color-gray-300);
+  text-decoration: none;
+}
+
+.OutlineButton:hover {
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
 }

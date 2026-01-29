@@ -2,16 +2,19 @@ import React from "react";
 import { FEATURED_WORK_SLIDES } from "../FeaturedWork/FeaturedWorkSlider/slides";
 import Stack from "../../../primitives/Stack/Stack";
 import ProductPageHeader from "../../../projects/ProductPageHeader/ProductPageHeader";
+import type { CollectionEntry } from "astro:content";
 
-type Props = {};
+type Props = {
+  projects: CollectionEntry<"projects">[];
+};
 
-const FeaturedWorkV2 = (props: Props) => {
+const FeaturedWorkV2 = ({ projects }: Props) => {
   return (
     <div>
       <h2>Featured Work</h2>
       <Stack>
-        {FEATURED_WORK_SLIDES.map((work) => (
-          <ProductPageHeader work={work} />
+        {projects.map((project) => (
+          <ProductPageHeader work={project} />
         ))}
       </Stack>
     </div>

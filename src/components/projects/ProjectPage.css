@@ -1,0 +1,11 @@
+.ProjectPage {
+  padding: var(--space-2);
+  margin-top: var(--space-8);
+}
+
+.ProjectPage .content {
+}
+.ProjectPage .content img {
+  width: 100%;
+  height: auto;
+}

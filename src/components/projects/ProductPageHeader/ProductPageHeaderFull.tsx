@@ -1,0 +1,36 @@
+import React from "react";
+import type { FeaturedWorkSlideData } from "../../page/Frontpage/FeaturedWork/FeaturedWorkSlider/slides";
+import Stack from "../../primitives/Stack/Stack";
+import styles from "./ProductPageHeader.module.css";
+import type { CollectionEntry } from "astro:content";
+
+type Props = {
+  project: CollectionEntry<"projects">;
+};
+
+const ProductPageHeaderFull = ({ project }: Props) => {
+  return (
+    <Stack>
+      <Stack horizontal>
+        {project.data.website && (
+          <a href={project.data.website} className={styles.OutlineButton}>
+            View project
+          </a>
+        )}
+        {project.data.case_study && (
+          <a href={project.data.case_study} className={styles.OutlineButton}>
+            Case study
+          </a>
+        )}
+      </Stack>
+      <h3 className={styles.Title}>{project.data.title}</h3>
+      <Stack horizontal>
+        {project.data.images.map((image, index) => (
+          <div key={index} className={styles.MidiNote} />
+        ))}
+      </Stack>
+    </Stack>
+  );
+};
+
+export default ProductPageHeaderFull;

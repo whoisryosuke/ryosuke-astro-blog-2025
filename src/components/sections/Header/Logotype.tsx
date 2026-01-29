@@ -48,7 +48,7 @@ const Logotype = (props: Props) => {
       animate="show"
       whileHover="hover"
       className="Logotype"
-      href="#"
+      href="/"
     >
       {letters}
     </motion.a>

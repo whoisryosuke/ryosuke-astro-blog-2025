@@ -1,4 +1,5 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import AboutSection from '../components/page/Frontpage/AboutSection/AboutSection';
 import ArtWall from '../components/page/Frontpage/ArtWall/ArtWall';
@@ -12,21 +13,14 @@ import ProductPageHeader from '../components/projects/ProductPageHeader/ProductP
 import Footer from '../components/sections/Footer/Footer';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import RootLayout from '../layouts/RootLayout.astro';
+
+
+const projects = await getCollection('projects');
 ---
 
 <RootLayout>
 	<div style="width:100%; height:300px;background-color:var(--color-light-gray);margin-bottom:2rem;"></div>
-    <div>
-      <h2>Featured Work</h2>
-      <Stack>
-        {FEATURED_WORK_SLIDES.map((work) => (
-		  <div transition:name={`project-header-${work.slug}`}  transition:animate="slide">
-          	<ProductPageHeader work={work} client:load />
-		  </div>
-        ))}
-      </Stack>
-    </div>
-	<!-- <FeaturedWork client:load /> -->
+	<FeaturedWorkV2 projects={projects} client:load />
 	<!-- <ArtWall client:load  /> -->
 	<SelectedBlogs client:load  />
 	<AboutSection client:load  />

@@ -1,11 +1,13 @@
 ---
+import type { CollectionEntry } from 'astro:content';
 import type { FeaturedWorkSlideData } from '../components/page/Frontpage/FeaturedWork/FeaturedWorkSlider/slides';
 import ProductPageHeader from '../components/projects/ProductPageHeader/ProductPageHeader';
 import ProjectPageContent from '../components/projects/ProjectPageContent';
-
+import ProductPageHeaderFull from '../components/projects/ProductPageHeader/ProductPageHeaderFull';
+import "../components/projects/ProjectPage.css"
 
 type Props = {
-    project: FeaturedWorkSlideData
+    project: CollectionEntry<'projects'>
 };
 
 const {project} = Astro.props;
@@ -13,8 +15,8 @@ const {project} = Astro.props;
 ---
 
 <section class="ProjectPage">
-    <div transition:name={`project-header-${project.slug}`}  transition:animate="slide">
-        <ProductPageHeader work={project} />
+    <ProductPageHeaderFull project={project} />
+    <div class="content">
+        <slot />
     </div>
-    <!-- <ProjectPageContent project={project} client:load /> -->
 </section>
