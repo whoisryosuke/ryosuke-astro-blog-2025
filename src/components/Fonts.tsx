@@ -1,4 +1,6 @@
 import React from "react";
+import "@fontsource/stack-sans-text/400.css";
+import "@fontsource/stack-sans-text/700.css";
 
 type Props = {};
 

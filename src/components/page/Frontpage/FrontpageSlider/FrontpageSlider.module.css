@@ -53,3 +53,12 @@
   right: -25%;
   transform: rotate(10deg);
 }
+
+.TitleSliderItem {
+  font-size: var(--font-size-12);
+  padding: 0 var(--space-4);
+}
+
+.TitleSliderItem[data-active="true"] {
+  color: var(--color-primary);
+}

@@ -463,6 +463,16 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.2.10.tgz#a2a1e3812d14525f725d011a73eceb41fef5bc1c"
   integrity sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==
 
+"@fontsource/ibm-plex-mono@^5.2.7":
+  version "5.2.7"
+  resolved "https://registry.yarnpkg.com/@fontsource/ibm-plex-mono/-/ibm-plex-mono-5.2.7.tgz#ef5b6f052115fdf6666208a5f8a0f13fcd7ba1fd"
+  integrity sha512-MKAb8qV+CaiMQn2B0dIi1OV3565NYzp3WN5b4oT6LTkk+F0jR6j0ZN+5BKJiIhffDC3rtBULsYZE65+0018z9w==
+
+"@fontsource/stack-sans-text@^5.2.1":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@fontsource/stack-sans-text/-/stack-sans-text-5.2.1.tgz#b183cc1d5dac5e813c7bb7dcd53111108334657a"
+  integrity sha512-ir7IsU6RGo9XOmRBnCdNzSLWAqdOl2Gdab63khjK8w9kN900OmOn3ebXj0bWf1wLQx1hTSpJnJMlB1ijBaH0lw==
+
 "@img/colour@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@img/colour/-/colour-1.0.0.tgz#d2fabb223455a793bf3bf9c70de3d28526aa8311"

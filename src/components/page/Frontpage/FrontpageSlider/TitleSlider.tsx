@@ -20,6 +20,7 @@ const TitleSlider = ({
   const [containerWidth, setContainerWidth] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const itemRefs = useRef<HTMLDivElement[]>([]);
   const x = useMotionValue(0);
 
   // Update container width on mount and resize
@@ -36,11 +37,13 @@ const TitleSlider = ({
   }, []);
 
   // Item width (adjust as needed)
-  const itemWidth = 200;
+  // const itemWidth = 200;
   const gap = 20;
 
   // Calculate the offset needed to center the active item
   const calculateOffset = (index: number) => {
+    if (!itemRefs.current[index]) return 0;
+    const itemWidth = itemRefs.current[index].getBoundingClientRect().width;
     const itemPosition = index * (itemWidth + gap);
     const centerOffset = containerWidth / 2 - itemWidth / 2;
     return centerOffset - itemPosition;
@@ -120,12 +123,17 @@ const TitleSlider = ({
       >
         {projects.map((item, index) => (
           <motion.div
+            ref={(el) => {
+              if (el) {
+                itemRefs.current[index] = el;
+              }
+            }}
             key={index}
-            className={`slider-item ${index === selectedProjectIndex ? "active" : ""}`}
+            className={styles.TitleSliderItem}
+            data-active={index === selectedProjectIndex}
             style={{
               scale: itemScale(index),
               opacity: itemOpacity(index),
-              width: itemWidth,
             }}
             onClick={() => !isDragging && setSelectedProjectIndex(index)}
           >
