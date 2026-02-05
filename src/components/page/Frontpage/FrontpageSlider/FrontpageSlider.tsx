@@ -21,7 +21,7 @@ const FrontpageSlider = ({ projects }: Props) => {
           setCurrentTab={setCurrentTab}
         />
 
-        <TabComponent />
+        <TabComponent projects={projects} />
       </div>
     </div>
   );

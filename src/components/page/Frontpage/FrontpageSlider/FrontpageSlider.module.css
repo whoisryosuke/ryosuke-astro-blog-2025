@@ -7,3 +7,38 @@
   padding: var(--space-3);
   padding-top: var(--space-10);
 }
+
+.ProjectPreview {
+  display: flex;
+  justify-content: center;
+}
+
+.ProjectImageContainer {
+  position: relative;
+  width: 50%;
+}
+
+.ProjectImage {
+  width: 100%;
+  height: auto;
+}
+
+.ProjectImage[data-index="1"],
+.ProjectImage[data-index="2"] {
+  width: 60%;
+
+  position: absolute;
+  top: 30%;
+  z-index: -1;
+}
+
+.ProjectImage[data-index="1"] {
+  left: -25%;
+
+  transform: rotate(-10deg);
+}
+
+.ProjectImage[data-index="2"] {
+  right: -25%;
+  transform: rotate(10deg);
+}
