@@ -20,7 +20,7 @@ const TitleSlider = ({
   const [containerWidth, setContainerWidth] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const itemRefs = useRef<HTMLDivElement[]>([]);
+  const itemRefs = useRef<HTMLButtonElement[]>([]);
   const x = useMotionValue(0);
 
   // Update container width on mount and resize
@@ -122,7 +122,7 @@ const TitleSlider = ({
         style={{ x }}
       >
         {projects.map((item, index) => (
-          <motion.div
+          <motion.button
             ref={(el) => {
               if (el) {
                 itemRefs.current[index] = el;
@@ -138,7 +138,7 @@ const TitleSlider = ({
             onClick={() => !isDragging && setSelectedProjectIndex(index)}
           >
             {item.data.title}
-          </motion.div>
+          </motion.button>
         ))}
       </MotionStack>
     </Stack>
