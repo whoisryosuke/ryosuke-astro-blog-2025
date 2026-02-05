@@ -8,7 +8,7 @@
   background-color: var(--color-secondary);
   border-radius: var(--space-0-5);
 
-  color: var(--color-black);
+  color: var(--color-gray-500);
   font-size: var(--font-size-8);
   font-family: var(--font-family-mono);
   text-decoration: none;
@@ -55,6 +55,7 @@
   transform: translateX(calc(-1 * var(--space-0-5)));
 }
 
+.Button[data-selected="true"]::after,
 .Button:focus::after,
 .Button:hover::after {
   transform: scaleX(1);
@@ -70,11 +71,12 @@
 /* Clear styles */
 .Button.secondary,
 .Button.ghost {
-  color: var(--color-text);
+  color: var(--color-gray-500);
   border-color: var(--color-secondary);
   filter: drop-shadow(0px 2px 6px var(--gray-10));
   box-shadow: none;
-  transition: background-color 420ms var(--easing-in-out-quart),
+  transition:
+    background-color 420ms var(--easing-in-out-quart),
     border-color 420ms var(--easing-in-out-quart),
     filter 420ms var(--easing-in-out-quart);
 }
@@ -89,7 +91,7 @@
 }
 
 .Button.outline {
-  border: 1.5px solid var(--color-black);
+  border: 1.5px solid var(--color-gray-500);
   border-radius: var(--space-0-75);
   padding-right: var(--space-5);
 }
@@ -117,6 +119,7 @@
   filter: drop-shadow(0px 2px 2px var(--gray-10));
 }
 
+.Button[data-selected="true"],
 .Button.outline:focus,
 .Button.outline:hover {
   color: var(--color-secondary-hover);

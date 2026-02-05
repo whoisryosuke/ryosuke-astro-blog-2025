@@ -28,7 +28,7 @@ const Button = ({
         className,
         ghostStyles,
         secondaryStyles,
-        outlineStyles
+        outlineStyles,
       )}
       {...props}
     >
