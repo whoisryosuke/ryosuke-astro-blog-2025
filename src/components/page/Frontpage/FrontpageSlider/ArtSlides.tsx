@@ -18,14 +18,18 @@ const ArtSlides = ({
   const [containerWidth, setContainerWidth] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const itemRefs = useRef<HTMLDivElement[]>([]);
+  const slideSize = useRef(0);
   const x = useMotionValue(0);
 
   // Initialize position on mount
   useLayoutEffect(() => {
-    if (containerWidth > 0 && itemRefs.current[selectedProjectIndex]) {
-      const targetX = calculateOffset(selectedProjectIndex);
-      x.set(targetX); // Set immediately without animation on mount
+    if (containerWidth > 0 && containerRef.current) {
+      // Get size of the slide for use later
+      const firstEl = containerRef.current.children.item(0)?.children.item(0);
+      slideSize.current = firstEl?.getBoundingClientRect().width ?? 0;
+
+      // const targetX = calculateOffset(selectedProjectIndex);
+      // x.set(targetX); // Set immediately without animation on mount
     }
   }, [containerWidth]); // Only run when containerWidth changes from 0
 
@@ -46,18 +50,10 @@ const ArtSlides = ({
 
   // Calculate the offset needed to center the active item
   const calculateOffset = (index: number) => {
-    if (!itemRefs.current[index]) return 0;
-
-    let totalWidthBefore = 0;
-    for (let i = 0; i < index; i++) {
-      if (itemRefs.current[i]) {
-        totalWidthBefore +=
-          itemRefs.current[i].getBoundingClientRect().width + gap;
-      }
-    }
+    const offset = index * slideSize.current;
     // Just return the negative position - no need to add centerOffset
     // because justify-content: center is already handling that
-    return -totalWidthBefore;
+    return -offset;
   };
 
   // Animate to centered position when active index changes
@@ -80,18 +76,11 @@ const ArtSlides = ({
     const currentX = x.get();
 
     // Find which index would be centered at this x position
-    let closestIndex = selectedProjectIndex;
-    let smallestDiff = Infinity;
-
-    for (let i = 0; i < ART_DATA.length; i++) {
-      const targetX = calculateOffset(i);
-      const diff = Math.abs(currentX - targetX);
-
-      if (diff < smallestDiff) {
-        smallestDiff = diff;
-        closestIndex = i;
-      }
-    }
+    const closestIndex = Math.max(
+      Math.floor(Math.abs(currentX) / slideSize.current),
+      0,
+    );
+    console.log("closestIndex", closestIndex, currentX, slideSize.current);
 
     setSelectedProjectIndex(closestIndex);
   };
@@ -134,11 +123,6 @@ const ArtSlides = ({
       >
         {ART_DATA.map((item, index) => (
           <motion.div
-            ref={(el) => {
-              if (el) {
-                itemRefs.current[index] = el;
-              }
-            }}
             key={index}
             className={styles.ArtSlide}
             data-active={index === selectedProjectIndex}
