@@ -23,9 +23,7 @@ const ArtSlides = ({
   const slideSize = useRef(0);
   const x = useMotionValue(0);
   // Gets center of screen then figures out where centered slide would start
-  // I'm skeptical here, because centered is technically 1/2 -- but 1/4 works.
-  // I'm thinking retina is throwing things off somehow with it's 2x multiplier.
-  const centerOffset = containerWidth / 4 - slideSize.current / 2;
+  const centerOffset = containerWidth / 2 - slideSize.current / 2;
 
   // Get slide size when window resizes
   useLayoutEffect(() => {
@@ -42,7 +40,8 @@ const ArtSlides = ({
   useLayoutEffect(() => {
     const updateWidth = () => {
       if (containerRef.current) {
-        setContainerWidth(containerRef.current.offsetWidth);
+        const containerLeft = containerRef.current.getBoundingClientRect().left;
+        setContainerWidth(window.innerWidth - containerLeft);
       }
     };
 
