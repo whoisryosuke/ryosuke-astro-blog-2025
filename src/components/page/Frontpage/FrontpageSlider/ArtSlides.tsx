@@ -50,16 +50,19 @@ const ArtSlides = ({
 
   // Calculate the offset needed to center the active item
   const calculateOffset = (index: number) => {
-    const offset = index * slideSize.current;
-    // Just return the negative position - no need to add centerOffset
-    // because justify-content: center is already handling that
-    return -offset;
+    // Gets center of screen then figures out where centered slide would start
+    const centerOffset = window.innerWidth / 2 - slideSize.current / 2;
+    // We figure out the slide position if it was placed on left side
+    const offset = index * (slideSize.current + gap);
+    // Then shift it to the center
+    return -offset + centerOffset;
   };
 
   // Animate to centered position when active index changes
   useEffect(() => {
     if (containerWidth > 0 && !isDragging) {
       const targetX = calculateOffset(selectedProjectIndex);
+      console.log("clicked - scroll to ", targetX);
       animate(x, targetX, {
         type: "spring",
         stiffness: 200,
@@ -76,11 +79,18 @@ const ArtSlides = ({
     const currentX = x.get();
 
     // Find which index would be centered at this x position
-    const closestIndex = Math.max(
-      Math.floor(Math.abs(currentX) / slideSize.current),
-      0,
+    const centerOffset = window.innerWidth / 2 - slideSize.current / 2;
+    const centeredX = Math.abs(currentX) + centerOffset;
+    const closestIndex = Math.min(
+      Math.max(Math.floor(centeredX / slideSize.current), 0),
+      ART_DATA.length - 1,
     );
-    console.log("closestIndex", closestIndex, currentX, slideSize.current);
+    console.log("closestIndex", {
+      closestIndex,
+      currentX,
+      selectedProjectIndex,
+      slideSize: slideSize.current,
+    });
 
     setSelectedProjectIndex(closestIndex);
   };
@@ -124,6 +134,7 @@ const ArtSlides = ({
         {ART_DATA.map((item, index) => (
           <motion.div
             key={index}
+            id={index.toString()}
             className={styles.ArtSlide}
             data-active={index === selectedProjectIndex}
             style={{
