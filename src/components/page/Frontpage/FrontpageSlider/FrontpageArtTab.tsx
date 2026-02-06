@@ -1,9 +1,37 @@
-import React from "react";
+import type { CollectionEntry } from "astro:content";
+import React, { useState } from "react";
+import ProjectPreview from "./ProjectPreview";
+import TitleSlider from "./TitleSlider";
+import styles from "./FrontpageSlider.module.css";
+import { AnimatePresence } from "motion/react";
+import ArtSlides from "./ArtSlides";
+import { ART_DATA } from "../../../../data/art";
 
-type Props = {};
+type Props = {
+  projects: CollectionEntry<"projects">[];
+};
 
-const FrontpageArtTab = (props: Props) => {
-  return <div>FrontpageArtTab</div>;
+const FrontpageArtTab = ({ projects }: Props) => {
+  const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
+
+  const titles = ART_DATA.map((art) => ({
+    id: art.title,
+    title: art.title,
+  }));
+
+  return (
+    <div className={styles.TabContainer}>
+      <ArtSlides
+        selectedProjectIndex={selectedProjectIndex}
+        setSelectedProjectIndex={setSelectedProjectIndex}
+      />
+      <TitleSlider
+        titles={titles}
+        selectedProjectIndex={selectedProjectIndex}
+        setSelectedProjectIndex={setSelectedProjectIndex}
+      />
+    </div>
+  );
 };
 
 export default FrontpageArtTab;

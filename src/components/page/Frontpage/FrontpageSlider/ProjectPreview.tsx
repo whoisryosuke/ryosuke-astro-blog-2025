@@ -1,6 +1,7 @@
 import type { CollectionEntry } from "astro:content";
 import React from "react";
 import styles from "./FrontpageSlider.module.css";
+import { motion } from "motion/react";
 
 type Props = {
   project: CollectionEntry<"projects">;
@@ -8,7 +9,13 @@ type Props = {
 
 const ProjectPreview = ({ project }: Props) => {
   return (
-    <div className={styles.ProjectPreview}>
+    <motion.div
+      key={project.id}
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      className={styles.ProjectPreview}
+    >
       <div className={styles.ProjectImageContainer}>
         {project.data.images.map((image, index) => (
           <img
@@ -20,7 +27,7 @@ const ProjectPreview = ({ project }: Props) => {
           />
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

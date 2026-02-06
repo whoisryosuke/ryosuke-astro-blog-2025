@@ -6,14 +6,19 @@ import styles from "./FrontpageSlider.module.css";
 
 const MotionStack = motion(Stack);
 
+type TitleData = {
+  id: string;
+  title: string;
+};
+
 type Props = {
-  projects: CollectionEntry<"projects">[];
+  titles: TitleData[];
   selectedProjectIndex: number;
   setSelectedProjectIndex: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const TitleSlider = ({
-  projects,
+  titles,
   selectedProjectIndex,
   setSelectedProjectIndex,
 }: Props) => {
@@ -43,10 +48,18 @@ const TitleSlider = ({
   // Calculate the offset needed to center the active item
   const calculateOffset = (index: number) => {
     if (!itemRefs.current[index]) return 0;
-    const itemWidth = itemRefs.current[index].getBoundingClientRect().width;
-    const itemPosition = index * (itemWidth + gap);
-    const centerOffset = containerWidth / 2 - itemWidth / 2;
-    return centerOffset - itemPosition;
+
+    let totalWidthBefore = 0;
+    for (let i = 0; i < index; i++) {
+      if (itemRefs.current[i]) {
+        totalWidthBefore +=
+          itemRefs.current[i].getBoundingClientRect().width + gap;
+      }
+    }
+
+    // Just return the negative position - no need to add centerOffset
+    // because justify-content: center is already handling that
+    return -totalWidthBefore;
   };
 
   // Animate to centered position when active index changes
@@ -72,7 +85,7 @@ const TitleSlider = ({
     let closestIndex = selectedProjectIndex;
     let smallestDiff = Infinity;
 
-    for (let i = 0; i < projects.length; i++) {
+    for (let i = 0; i < titles.length; i++) {
       const targetX = calculateOffset(i);
       const diff = Math.abs(currentX - targetX);
 
@@ -92,8 +105,22 @@ const TitleSlider = ({
   // Scale transform for items based on distance from center
   const itemScale = (index: number) => {
     return useTransform(x, (value) => {
-      const targetX = calculateOffset(index);
-      const distance = Math.abs(value - targetX);
+      // Calculate where this item actually is on screen
+      let itemLeftPosition = 0;
+      for (let i = 0; i < index; i++) {
+        if (itemRefs.current[i]) {
+          itemLeftPosition +=
+            itemRefs.current[i].getBoundingClientRect().width + gap;
+        }
+      }
+
+      const itemWidth =
+        itemRefs.current[index]?.getBoundingClientRect().width || 0;
+      const itemCenter = itemLeftPosition + itemWidth / 2;
+      const viewportCenter = containerWidth / 2;
+
+      // Distance from item's center to viewport center, accounting for scroll
+      const distance = Math.abs(itemCenter + value - viewportCenter);
       const scale = Math.max(0.8, 1 - distance / 1000);
       return scale;
     });
@@ -119,9 +146,9 @@ const TitleSlider = ({
         dragMomentum={false}
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
-        style={{ x }}
+        style={{ x, gap }}
       >
-        {projects.map((item, index) => (
+        {titles.map((item, index) => (
           <motion.button
             ref={(el) => {
               if (el) {
@@ -135,9 +162,10 @@ const TitleSlider = ({
               scale: itemScale(index),
               opacity: itemOpacity(index),
             }}
+            draggable={false}
             onClick={() => !isDragging && setSelectedProjectIndex(index)}
           >
-            {item.data.title}
+            {item.title}
           </motion.button>
         ))}
       </MotionStack>
