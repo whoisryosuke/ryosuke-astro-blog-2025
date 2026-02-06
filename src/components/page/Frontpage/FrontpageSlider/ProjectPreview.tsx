@@ -14,7 +14,7 @@ const ProjectPreview = ({ project }: Props) => {
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
-      className={styles.ProjectPreview}
+      className={[styles.ProjectPreview, styles.CenterFlex].join(" ")}
     >
       <div className={styles.ProjectImageContainer}>
         {project.data.images.map((image, index) => (

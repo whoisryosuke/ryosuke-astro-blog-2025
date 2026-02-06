@@ -4,7 +4,9 @@ import { animate, motion, useMotionValue, useTransform } from "motion/react";
 import Stack from "../../../primitives/Stack/Stack";
 import { ART_DATA } from "../../../../data/art";
 
-const MotionStack = motion(Stack);
+const SLIDE_GAP = 20;
+
+const MotionStack = motion.create(Stack);
 
 type Props = {
   selectedProjectIndex: number;
@@ -49,12 +51,10 @@ const ArtSlides = ({
     return () => window.removeEventListener("resize", updateWidth);
   }, []);
 
-  const gap = 20;
-
   // Calculate the offset needed to center the active item
   const calculateOffset = (index: number) => {
     // We figure out the slide position if it was placed on left side
-    const offset = index * (slideSize.current + gap);
+    const offset = index * (slideSize.current + SLIDE_GAP);
     // Then shift it to the center
     return -offset + centerOffset;
   };
@@ -81,7 +81,7 @@ const ArtSlides = ({
 
     // Find which index would be centered at this x position
     const centeredX = -currentX + centerOffset;
-    const fullSlideSize = slideSize.current + gap;
+    const fullSlideSize = slideSize.current + SLIDE_GAP;
     const closestIndex = Math.min(
       Math.max(Math.round(centeredX / fullSlideSize), 0),
       ART_DATA.length - 1,
@@ -130,7 +130,7 @@ const ArtSlides = ({
         dragMomentum={false}
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
-        style={{ x, gap }}
+        style={{ x, gap: SLIDE_GAP }}
       >
         {ART_DATA.map((item, index) => (
           <motion.div

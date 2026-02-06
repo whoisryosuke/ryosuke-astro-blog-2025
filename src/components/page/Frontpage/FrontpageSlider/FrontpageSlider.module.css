@@ -4,6 +4,10 @@
   display: flex;
 }
 
+.CenterFlex {
+  justify-content: center;
+}
+
 .Content {
   padding: var(--space-3);
   padding-top: var(--space-10);
