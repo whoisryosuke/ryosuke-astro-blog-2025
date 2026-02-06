@@ -76,18 +76,18 @@ const TitleSlider = ({
     const currentX = x.get();
 
     // Find which index would be centered at this x position
-    let closestIndex = selectedProjectIndex;
-    let smallestDiff = Infinity;
-
-    for (let i = 0; i < titles.length; i++) {
-      const targetX = calculateOffset(i);
-      const diff = Math.abs(currentX - targetX);
-
-      if (diff < smallestDiff) {
-        smallestDiff = diff;
-        closestIndex = i;
-      }
-    }
+    const centeredX = -currentX + centerOffset;
+    const fullSlideSize = SLIDE_WIDTH + SLIDE_GAP;
+    const closestIndex = Math.min(
+      Math.max(Math.round(centeredX / fullSlideSize), 0),
+      titles.length - 1,
+    );
+    // console.log("closestIndex", {
+    //   closestIndex,
+    //   currentX,
+    //   selectedProjectIndex,
+    //   slideSize: slideSize.current,
+    // });
 
     setSelectedProjectIndex(closestIndex);
   };
