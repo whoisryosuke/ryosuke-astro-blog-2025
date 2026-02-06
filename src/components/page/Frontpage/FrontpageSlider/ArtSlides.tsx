@@ -20,21 +20,24 @@ const ArtSlides = ({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const slideSize = useRef(0);
   const x = useMotionValue(0);
+  // Gets center of screen then figures out where centered slide would start
+  // I'm skeptical here, because centered is technically 1/2 -- but 1/4 works.
+  // I'm thinking retina is throwing things off somehow with it's 2x multiplier.
+  const centerOffset = containerWidth / 4 - slideSize.current / 2;
 
-  // Initialize position on mount
+  // Get slide size when window resizes
   useLayoutEffect(() => {
     if (containerWidth > 0 && containerRef.current) {
-      // Get size of the slide for use later
-      const firstEl = containerRef.current.children.item(0)?.children.item(0);
-      slideSize.current = firstEl?.getBoundingClientRect().width ?? 0;
-
-      // const targetX = calculateOffset(selectedProjectIndex);
-      // x.set(targetX); // Set immediately without animation on mount
+      // Get size of a slide for use later
+      const firstEl = containerRef.current.children
+        .item(0)
+        ?.children.item(0) as HTMLDivElement;
+      slideSize.current = firstEl?.offsetWidth ?? 0;
     }
-  }, [containerWidth]); // Only run when containerWidth changes from 0
+  }, [containerWidth]);
 
   // Update container width on mount and resize
-  useEffect(() => {
+  useLayoutEffect(() => {
     const updateWidth = () => {
       if (containerRef.current) {
         setContainerWidth(containerRef.current.offsetWidth);
@@ -50,8 +53,6 @@ const ArtSlides = ({
 
   // Calculate the offset needed to center the active item
   const calculateOffset = (index: number) => {
-    // Gets center of screen then figures out where centered slide would start
-    const centerOffset = window.innerWidth / 2 - slideSize.current / 2;
     // We figure out the slide position if it was placed on left side
     const offset = index * (slideSize.current + gap);
     // Then shift it to the center
@@ -79,18 +80,18 @@ const ArtSlides = ({
     const currentX = x.get();
 
     // Find which index would be centered at this x position
-    const centerOffset = window.innerWidth / 2 - slideSize.current / 2;
-    const centeredX = Math.abs(currentX) + centerOffset;
+    const centeredX = -currentX + centerOffset;
+    const fullSlideSize = slideSize.current + gap;
     const closestIndex = Math.min(
-      Math.max(Math.floor(centeredX / slideSize.current), 0),
+      Math.max(Math.round(centeredX / fullSlideSize), 0),
       ART_DATA.length - 1,
     );
-    console.log("closestIndex", {
-      closestIndex,
-      currentX,
-      selectedProjectIndex,
-      slideSize: slideSize.current,
-    });
+    // console.log("closestIndex", {
+    //   closestIndex,
+    //   currentX,
+    //   selectedProjectIndex,
+    //   slideSize: slideSize.current,
+    // });
 
     setSelectedProjectIndex(closestIndex);
   };
