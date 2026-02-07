@@ -93,3 +93,32 @@
   object-fit: contain;
   border-radius: var(--space-1);
 }
+
+.SliderNav {
+  justify-content: center;
+}
+
+.SliderNav button,
+.SliderNav small {
+  padding: var(--space-0-5);
+  font-size: var(--font-size-4);
+}
+
+.SliderNav button {
+  min-width: 4rem;
+  background: none;
+  border: 1.5px solid var(--color-gray-800);
+  border-radius: var(--space-0-5);
+  display: flex;
+  justify-content: end;
+  transition: border-color 420ms var(--easing-in-out-quart);
+}
+
+.SliderNav button:hover {
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
+}
+
+.SliderNav button:first-child {
+  justify-content: start;
+}

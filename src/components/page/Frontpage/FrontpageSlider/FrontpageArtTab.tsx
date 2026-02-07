@@ -6,6 +6,7 @@ import styles from "./FrontpageSlider.module.css";
 import { AnimatePresence } from "motion/react";
 import ArtSlides from "./ArtSlides";
 import { ART_DATA } from "../../../../data/art";
+import SliderNav from "./SliderNav";
 
 type Props = {
   projects: CollectionEntry<"projects">[];
@@ -27,6 +28,10 @@ const FrontpageArtTab = ({ projects }: Props) => {
       />
       <TitleSlider
         titles={titles}
+        selectedProjectIndex={selectedProjectIndex}
+        setSelectedProjectIndex={setSelectedProjectIndex}
+      />
+      <SliderNav
         selectedProjectIndex={selectedProjectIndex}
         setSelectedProjectIndex={setSelectedProjectIndex}
       />
