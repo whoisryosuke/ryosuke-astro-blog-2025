@@ -1,5 +1,11 @@
 import type { CollectionEntry } from "astro:content";
-import { animate, motion, useMotionValue, useTransform } from "motion/react";
+import {
+  animate,
+  isBrowser,
+  motion,
+  useMotionValue,
+  useTransform,
+} from "motion/react";
 import React, { useEffect, useRef, useState } from "react";
 import Stack from "../../../primitives/Stack/Stack";
 import styles from "./FrontpageSlider.module.css";
@@ -53,7 +59,7 @@ const TitleSlider = ({
   const calculateOffset = (index: number) => {
     const itemLeft = itemRefs.current[index]?.offsetLeft ?? 0;
     const itemWidth = itemRefs.current[index]?.offsetWidth ?? 1;
-    const screenCenter = window.innerWidth / 2;
+    const screenCenter = isBrowser ? window.innerWidth / 2 : 1;
     const offset = itemLeft - screenCenter + itemWidth / 2;
     // Then shift it to the center
     return -offset;
