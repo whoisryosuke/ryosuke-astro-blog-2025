@@ -28,6 +28,7 @@ const TitleSlider = ({
   const [containerWidth, setContainerWidth] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const itemRefs = useRef<HTMLButtonElement[]>([]);
   const x = useMotionValue(0);
   // Gets center of screen then figures out where centered slide would start
   const centerOffset = containerWidth / 2 - SLIDE_WIDTH / 2;
@@ -50,16 +51,19 @@ const TitleSlider = ({
 
   // Calculate the offset needed to center the active item
   const calculateOffset = (index: number) => {
-    // We figure out the slide position if it was placed on left side
-    const offset = index * (SLIDE_WIDTH + SLIDE_GAP);
+    const itemLeft = itemRefs.current[index]?.offsetLeft ?? 0;
+    const itemWidth = itemRefs.current[index]?.offsetWidth ?? 1;
+    const screenCenter = window.innerWidth / 2;
+    const offset = itemLeft - screenCenter + itemWidth / 2;
     // Then shift it to the center
-    return -offset + centerOffset;
+    return -offset;
   };
 
   // Animate to centered position when active index changes
   useEffect(() => {
     if (containerWidth > 0 && !isDragging) {
       const targetX = calculateOffset(selectedProjectIndex);
+      console.log("animating to center", targetX);
       animate(x, targetX, {
         type: "spring",
         stiffness: 300,
@@ -130,11 +134,14 @@ const TitleSlider = ({
       >
         {titles.map((item, index) => (
           <motion.button
+            ref={(el) => {
+              if (el) itemRefs.current[index] = el;
+            }}
             key={index}
             className={styles.TitleSliderItem}
             data-active={index === selectedProjectIndex}
             style={{
-              minWidth: SLIDE_WIDTH,
+              // minWidth: SLIDE_WIDTH,
               scale: itemScale(index),
               opacity: itemOpacity(index),
             }}

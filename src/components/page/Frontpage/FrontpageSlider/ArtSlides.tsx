@@ -138,7 +138,7 @@ const ArtSlides = ({
             className={styles.ArtSlide}
             data-active={index === selectedProjectIndex}
             style={{
-              scale: itemScale(index),
+              // scale: itemScale(index),
               opacity: itemOpacity(index),
             }}
             onClick={() => !isDragging && setSelectedProjectIndex(index)}
