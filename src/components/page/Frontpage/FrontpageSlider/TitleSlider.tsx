@@ -56,20 +56,25 @@ const TitleSlider = ({
   // const itemWidth = 200;
 
   // Calculate the offset needed to center the active item
-  const calculateOffset = (index: number) => {
+  const calculateOffset = (index: number, center: boolean = false) => {
     const itemLeft = itemRefs.current[index]?.offsetLeft ?? 0;
     const itemWidth = itemRefs.current[index]?.offsetWidth ?? 1;
     const screenCenter = isBrowser ? window.innerWidth / 2 : 1;
-    const offset = itemLeft - screenCenter + itemWidth / 2;
+
+    let offset = itemLeft;
+
     // Then shift it to the center
+    if (center) {
+      offset = itemLeft - screenCenter + itemWidth / 2;
+    }
+
     return -offset;
   };
 
   // Animate to centered position when active index changes
   useEffect(() => {
     if (containerWidth > 0 && !isDragging) {
-      const targetX = calculateOffset(selectedProjectIndex);
-      console.log("animating to center", targetX);
+      const targetX = calculateOffset(selectedProjectIndex, true);
       animate(x, targetX, {
         type: "spring",
         stiffness: 300,
@@ -85,45 +90,35 @@ const TitleSlider = ({
     // Get the current x position
     const currentX = x.get();
 
-    // Find which index would be centered at this x position
-    const centeredX = -currentX + centerOffset;
-    const fullSlideSize = SLIDE_WIDTH + SLIDE_GAP;
-    const closestIndex = Math.min(
-      Math.max(Math.round(centeredX / fullSlideSize), 0),
-      titles.length - 1,
-    );
-    // console.log("closestIndex", {
-    //   closestIndex,
-    //   currentX,
-    //   selectedProjectIndex,
-    //   slideSize: slideSize.current,
-    // });
+    console.log("drag end - x", currentX);
 
-    setSelectedProjectIndex(closestIndex);
+    let index = 0;
+    // Find closest item to this point
+    let closest = {
+      index: 0,
+      distance: Infinity,
+    };
+
+    for (const _ of itemRefs.current) {
+      const targetX = calculateOffset(index, true);
+      const distance = Math.abs(currentX - targetX);
+      if (distance > closest.distance) {
+        break;
+      }
+      if (distance < closest.distance) {
+        closest.index = index;
+        closest.distance = distance;
+      }
+
+      index += 1;
+    }
+    console.log("drag end - closest index", closest.index, closest.distance);
+
+    setSelectedProjectIndex(closest.index);
   };
 
   const handleDragStart = () => {
     setIsDragging(true);
-  };
-
-  // Scale transform for items based on distance from center
-  const itemScale = (index: number) => {
-    return useTransform(x, (value) => {
-      const targetX = calculateOffset(index);
-      const distance = Math.abs(value - targetX);
-      const scale = Math.max(0.8, 1 - distance / 1000);
-      return scale;
-    });
-  };
-
-  // Opacity transform for items
-  const itemOpacity = (index: number) => {
-    return useTransform(x, (value) => {
-      const targetX = calculateOffset(index);
-      const distance = Math.abs(value - targetX);
-      const opacity = Math.max(0.3, 1 - distance / 800);
-      return opacity;
-    });
   };
 
   return (
@@ -146,11 +141,6 @@ const TitleSlider = ({
             key={index}
             className={styles.TitleSliderItem}
             data-active={index === selectedProjectIndex}
-            style={{
-              // minWidth: SLIDE_WIDTH,
-              scale: itemScale(index),
-              opacity: itemOpacity(index),
-            }}
             draggable={false}
             onClick={() => !isDragging && setSelectedProjectIndex(index)}
           >
