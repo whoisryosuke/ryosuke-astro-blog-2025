@@ -5,17 +5,19 @@ import styles from "./FrontpageSlider.module.css";
 import { ART_DATA } from "../../../../data/art";
 
 type Props = {
+  length: number;
   selectedProjectIndex: number;
   setSelectedProjectIndex: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const SliderNav = ({
+  length,
   selectedProjectIndex,
   setSelectedProjectIndex,
   ...props
 }: Props) => {
   const next = () => {
-    setSelectedProjectIndex((prev) => Math.min(prev + 1, ART_DATA.length - 1));
+    setSelectedProjectIndex((prev) => Math.min(prev + 1, length - 1));
   };
 
   const prev = () => {
@@ -25,13 +27,17 @@ const SliderNav = ({
   return (
     <Stack horizontal className={styles.SliderNav}>
       <button onClick={prev}>
-        <BiChevronLeft />
+        <BiChevronLeft size={24} />
       </button>
-      <small>{selectedProjectIndex + 1}</small>
-      <small>/</small>
-      <small>{ART_DATA.length}</small>
+
+      <Stack horizontal className={styles.SliderNavText}>
+        <small>{selectedProjectIndex + 1}</small>
+        <small>/</small>
+        <small>{length}</small>
+      </Stack>
+
       <button onClick={next}>
-        <BiChevronRight />
+        <BiChevronRight size={24} />
       </button>
     </Stack>
   );

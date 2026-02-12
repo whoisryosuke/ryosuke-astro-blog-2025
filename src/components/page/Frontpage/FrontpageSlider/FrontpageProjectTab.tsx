@@ -4,6 +4,8 @@ import ProjectPreview from "./ProjectPreview";
 import TitleSlider from "./TitleSlider";
 import styles from "./FrontpageSlider.module.css";
 import { AnimatePresence } from "motion/react";
+import SliderNav from "./SliderNav";
+import ProjectSlides from "./ProjectSlides";
 
 type Props = {
   projects: CollectionEntry<"projects">[];
@@ -19,11 +21,21 @@ const FrontpageProjectTab = ({ projects }: Props) => {
 
   return (
     <div className={styles.TabContainer}>
-      <AnimatePresence>
+      {/* <AnimatePresence>
         <ProjectPreview project={projects[selectedProjectIndex]} />
-      </AnimatePresence>
+      </AnimatePresence> */}
+      <ProjectSlides
+        projects={projects}
+        selectedProjectIndex={selectedProjectIndex}
+        setSelectedProjectIndex={setSelectedProjectIndex}
+      />
       <TitleSlider
         titles={titles}
+        selectedProjectIndex={selectedProjectIndex}
+        setSelectedProjectIndex={setSelectedProjectIndex}
+      />
+      <SliderNav
+        length={projects.length}
         selectedProjectIndex={selectedProjectIndex}
         setSelectedProjectIndex={setSelectedProjectIndex}
       />

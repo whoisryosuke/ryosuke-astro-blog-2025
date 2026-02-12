@@ -63,7 +63,7 @@
 
 .TitleSliderItem {
   font-family: var(--font-family-body);
-  font-size: var(--font-size-12);
+  font-size: var(--font-size-15);
   padding: 0 var(--space-4);
   text-transform: none;
   border: 0;
@@ -86,6 +86,9 @@
   height: 100%;
   aspect-ratio: 9/16;
 }
+.ArtSlide.ProjectSlide {
+  aspect-ratio: 1/1;
+}
 
 .ArtSlide img {
   display: block;
@@ -97,29 +100,50 @@
 
 .SliderNav {
   justify-content: center;
+  align-items: stretch;
 }
 
-.SliderNav button,
+.SliderNavText {
+  align-items: center;
+  padding: var(--space-0-5) var(--space-2);
+}
+
 .SliderNav small {
-  padding: var(--space-0-5);
-  font-size: var(--font-size-4);
+  padding: 0 var(--space-0-5);
+}
+.SliderNav button,
+.SliderNavText {
+  background: none;
+  font-size: var(--font-size-8);
+  border: 1.5px solid var(--color-gray-800);
+  border-radius: var(--space-0-5);
 }
 
 .SliderNav button {
   min-width: 4rem;
-  background: none;
-  border: 1.5px solid var(--color-gray-800);
-  border-radius: var(--space-0-5);
   display: flex;
+  padding: var(--space-0-5);
   justify-content: end;
   transition: border-color 420ms var(--easing-in-out-quart);
 }
 
 .SliderNav button:hover {
-  border-color: var(--color-secondary);
-  color: var(--color-secondary);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .SliderNav button:first-child {
   justify-content: start;
+}
+
+.ProjectSlideImage {
+  height: 100%;
+  display: flex;
+}
+.ProjectSlideImage img {
+  display: block;
+  width: auto;
+  height: 100%;
+  object-fit: contain;
+  border-radius: var(--space-1);
 }

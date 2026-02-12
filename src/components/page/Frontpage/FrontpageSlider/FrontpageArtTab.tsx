@@ -32,6 +32,7 @@ const FrontpageArtTab = ({ projects }: Props) => {
         setSelectedProjectIndex={setSelectedProjectIndex}
       />
       <SliderNav
+        length={ART_DATA.length}
         selectedProjectIndex={selectedProjectIndex}
         setSelectedProjectIndex={setSelectedProjectIndex}
       />
