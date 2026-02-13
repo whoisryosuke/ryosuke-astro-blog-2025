@@ -71,13 +71,7 @@ const ArtSlides = ({
     }
   }, [selectedProjectIndex, containerWidth, isDragging]);
 
-  // Handle drag end to snap to nearest item
-  const handleDragEnd = () => {
-    setIsDragging(false);
-
-    // Get the current x position
-    const currentX = x.get();
-
+  const getClosestByDistance = (currentX: number) => {
     // Find which index would be centered at this x position
     const centeredX = -currentX + centerOffset;
     const fullSlideSize = slideSize.current + SLIDE_GAP;
@@ -85,6 +79,18 @@ const ArtSlides = ({
       Math.max(Math.round(centeredX / fullSlideSize), 0),
       ART_DATA.length - 1,
     );
+
+    return closestIndex;
+  };
+
+  // Handle drag end to snap to nearest item
+  const handleDragEnd = () => {
+    setIsDragging(false);
+
+    // Get the current x position
+    const currentX = x.get();
+    const closestIndex = getClosestByDistance(currentX);
+
     // console.log("closestIndex", {
     //   closestIndex,
     //   currentX,
@@ -99,16 +105,6 @@ const ArtSlides = ({
     setIsDragging(true);
   };
 
-  // Scale transform for items based on distance from center
-  const itemScale = (index: number) => {
-    return useTransform(x, (value) => {
-      const targetX = calculateOffset(index);
-      const distance = Math.abs(value - targetX);
-      const scale = Math.max(0.8, 1 - distance / 1000);
-      return scale;
-    });
-  };
-
   // Opacity transform for items
   const itemOpacity = (index: number) => {
     return useTransform(x, (value) => {
@@ -118,6 +114,26 @@ const ArtSlides = ({
       return opacity;
     });
   };
+
+  const handleScroll = (event) => {
+    // Determine scroll direction and amount
+    const scrollAmountY = event.deltaY * -10;
+
+    const currentX = x.get();
+    const targetX = currentX + scrollAmountY;
+
+    const closestIndex = getClosestByDistance(targetX);
+    setSelectedProjectIndex(closestIndex);
+  };
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    containerRef.current.addEventListener("wheel", handleScroll);
+
+    return () => {
+      containerRef.current?.removeEventListener("wheel", handleScroll);
+    };
+  }, []);
 
   return (
     <div ref={containerRef} className={styles.ProjectPreview}>

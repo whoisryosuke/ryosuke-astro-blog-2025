@@ -68,15 +68,7 @@ const ProjectSlides = ({
     }
   }, [selectedProjectIndex, isDragging]);
 
-  // Handle drag end to snap to nearest item
-  const handleDragEnd = () => {
-    setIsDragging(false);
-
-    // Get the current x position
-    const currentX = x.get();
-
-    console.log("drag end - x", currentX);
-
+  const getClosestByDistance = (currentX: number) => {
     let index = 0;
     // Find closest item to this point
     let closest = {
@@ -97,6 +89,20 @@ const ProjectSlides = ({
 
       index += 1;
     }
+    return closest;
+  };
+
+  // Handle drag end to snap to nearest item
+  const handleDragEnd = () => {
+    setIsDragging(false);
+
+    // Get the current x position
+    const currentX = x.get();
+
+    console.log("drag end - x", currentX);
+
+    const closest = getClosestByDistance(currentX);
+
     console.log("drag end - closest index", closest.index, closest.distance);
 
     setSelectedProjectIndex(closest.index);
@@ -111,6 +117,27 @@ const ProjectSlides = ({
       e.preventDefault();
     }
   };
+
+  const handleScroll = (event) => {
+    // Determine scroll direction and amount
+    const scrollAmountY = event.deltaY * -10;
+
+    const currentX = x.get();
+    const targetX = currentX + scrollAmountY;
+
+    const closest = getClosestByDistance(targetX);
+    setSelectedProjectIndex(closest.index);
+  };
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    containerRef.current.addEventListener("wheel", handleScroll);
+
+    return () => {
+      containerRef.current?.removeEventListener("wheel", handleScroll);
+    };
+  }, []);
 
   return (
     <Stack className={styles.ProjectPreview} ref={containerRef}>

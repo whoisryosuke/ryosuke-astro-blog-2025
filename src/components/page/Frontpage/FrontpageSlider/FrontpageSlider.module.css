@@ -30,6 +30,7 @@
   display: flex;
   /* justify-content: center; */
   overflow: hidden;
+  margin-bottom: var(--space-1);
 }
 
 .ProjectImageContainer {
