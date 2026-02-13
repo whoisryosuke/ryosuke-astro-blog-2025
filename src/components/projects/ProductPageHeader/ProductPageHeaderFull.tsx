@@ -3,6 +3,7 @@ import type { FeaturedWorkSlideData } from "../../page/Frontpage/FeaturedWork/Fe
 import Stack from "../../primitives/Stack/Stack";
 import styles from "./ProductPageHeader.module.css";
 import type { CollectionEntry } from "astro:content";
+import Button from "../../primitives/Button/Button";
 
 type Props = {
   project: CollectionEntry<"projects">;
@@ -13,14 +14,14 @@ const ProductPageHeaderFull = ({ project }: Props) => {
     <Stack>
       <Stack horizontal>
         {project.data.website && (
-          <a href={project.data.website} className={styles.OutlineButton}>
+          <Button as="a" href={project.data.website} outline>
             View project
-          </a>
+          </Button>
         )}
         {project.data.case_study && (
-          <a href={project.data.case_study} className={styles.OutlineButton}>
+          <Button as="a" href={project.data.case_study} outline>
             Case study
-          </a>
+          </Button>
         )}
       </Stack>
       <h3 className={styles.Title}>{project.data.title}</h3>

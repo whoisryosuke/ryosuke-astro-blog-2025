@@ -15,6 +15,7 @@
     "@astrojs/sitemap": "^3.6.0",
     "@base-ui/react": "^1.1.0",
     "@fontsource/ibm-plex-mono": "^5.2.7",
+    "@fontsource/manrope": "^5.2.8",
     "@fontsource/stack-sans-text": "^5.2.1",
     "@nanostores/react": "^1.0.0",
     "@types/react": "^19.2.0",

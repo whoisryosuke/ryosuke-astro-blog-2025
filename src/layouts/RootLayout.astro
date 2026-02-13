@@ -6,6 +6,8 @@ import "../styles/typography.css";
 
 import "@fontsource/stack-sans-text/400.css"
 import "@fontsource/stack-sans-text/700.css"
+import '@fontsource/manrope/400.css';
+import '@fontsource/manrope/700.css';
 import "@fontsource/ibm-plex-mono";
 
 // import "../styles/transitions.css";
@@ -32,7 +34,7 @@ type Props = {};
     <Header client:load transition:persist />
     <Navbar client:load path={Astro.url.pathname} transition:persist />
     
-    <main transition:animate="slide">
+    <main transition:animate="fade">
       <slot />
     </main>
     

@@ -64,7 +64,7 @@
 }
 
 .TitleSliderItem {
-  font-family: var(--font-family-body);
+  font-family: var(--font-family-heading);
   font-size: var(--font-size-10);
   margin-bottom: var(--space-2);
   padding: 0 var(--space-4);
