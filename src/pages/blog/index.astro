@@ -12,6 +12,7 @@ import SectionHeading from '../../components/page/Frontpage/SectionHeading/Secti
 import SelectedBlogList from '../../components/page/Frontpage/SelectedBlogs/SelectedBlogList';
 import type { SelectedBlogData } from '../../data/selected-blogs';
 import PageHeader from '../../layouts/PageHeader.astro';
+import Container from '../../components/primitives/Container/Container';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
@@ -38,34 +39,19 @@ console.log('posts', sortedPosts, sortedPostsKeys)
 ---
 
 <RootLayout>
-	<PageHeader title="Blog">
-	<Stack gap="var(--space-10)">
-{
-	sortedPostsKeys.map(year => (
-		<Stack key={year} gap="var(--space-6)">
-			<SectionHeading small title={year} />
-			<Stack>
-				<SelectedBlogList posts={sortedPosts[year]} />
-			</Stack>
-		</Stack>
-	))
-}
-
-			<!-- {
-				posts.map((post) => (
-					<li>
-						<a href={`/blog/${post.id}/`}>
-							{post.data.cover_image && (
-								<Image width={720} height={360} src={post.data.cover_image} alt="" />
-							)}
-							<h4 class="title">{post.data.title}</h4>
-							<p class="date">
-								<FormattedDate date={post.data.date} />
-							</p>
-						</a>
-					</li>
+	<Container>
+		<h1>Blog</h1>
+		<Stack gap="var(--space-10)">
+			{
+				sortedPostsKeys.map(year => (
+					<Stack key={year} gap="var(--space-6)">
+						<h2>{year}</h2>
+						<Stack>
+							<SelectedBlogList posts={sortedPosts[year]} />
+						</Stack>
+					</Stack>
 				))
-			} -->
-	</Stack>
-	</BlogIndex>
+			}
+		</Stack>
+	</Container>
 </RootLayout>

@@ -1,12 +1,12 @@
 .SelectedBlogList {
   list-style-type: none;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1-5);
 }
 
 .SelectedBlogListItem a {
+  display: flex;
+  gap: var(--space-2);
+
   position: relative;
   text-decoration: none;
   color: var(--color-black);
@@ -21,37 +21,46 @@
 
 .SelectedBlogListItem {
   display: flex;
-  gap: var(--space-2);
   align-items: center;
 }
 
+.SelectedBlogListItem:hover a h3,
 .SelectedBlogListItem svg path,
-.SelectedBlogListItem a::before {
+.SelectedBlogListItem h3::before {
   transition-timing-function: ease-in-out;
   transition-duration: 420ms;
 }
 
-.SelectedBlogListItem a::before {
+.SelectedBlogListItem h3::before {
   content: "";
   position: absolute;
-  width: 100%;
+  width: 0%;
   height: 100%;
-  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  border-width: 1.5px;
+  border-style: solid;
   border-radius: var(--space-0-75);
   padding: var(--space-0-75) var(--space-1);
   padding-right: var(--space-10);
-  top: calc(-1 * var(--space-0-5));
+  top: calc(-1 * var(--space-0-75));
   left: calc(-1 * var(--space-1));
   z-index: 10;
+  opacity: 0;
 
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition-property: opacity, transform;
+  /* transform: scaleX(0); */
+  /* transform-origin: left center; */
+  transition-property: opacity, width;
+}
+.SelectedBlogListItem:hover a h3 {
+  color: var(--color-secondary);
+  transition-property: color;
 }
 
-.SelectedBlogListItem a:focus::before,
-.SelectedBlogListItem:hover a::before {
-  transform: scaleX(1);
+.SelectedBlogListItem a:focus h3::before,
+.SelectedBlogListItem:hover h3::before {
+  /* transform: scaleX(1); */
+  width: 100%;
+  opacity: 1;
 }
 
 .SelectedBlogListItem svg {
@@ -82,6 +91,6 @@
 
   animation-name: hoverAnimation;
   animation-iteration-count: infinite;
-  animation-duration: 420ms;
+  animation-duration: 700ms;
   animation-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }

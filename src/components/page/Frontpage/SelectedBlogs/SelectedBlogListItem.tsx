@@ -4,8 +4,8 @@ import FileIcon from "../../../icons/FileIcon";
 const SelectedBlogListItem = ({ title, url }: SelectedBlogData) => {
   return (
     <li className="SelectedBlogListItem">
-      <FileIcon />
       <a href={url}>
+        <FileIcon />
         <h3>{title}</h3>
       </a>
     </li>
