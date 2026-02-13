@@ -2,7 +2,6 @@
 title: shortcode - Lightbox using Semantic UI + JQuery 🖼🔍
 date: "2018-05-16"
 section: blog
-cover_image: "./shortcode-code-snippets.jpg"
 tags: ["wordpress", "sql", "shortcode", "code snippet", "tips"]
 ---
 
@@ -52,7 +51,7 @@ Using just a few lines of jQuery, combined with the Semantic UI Modal component,
     $("body").append(
       '<div class="ui basic modal"><div class="content"><img src="' +
         image +
-        '" width="100%" /></div></div>'
+        '" width="100%" /></div></div>',
     );
     $(".ui.basic.modal").remove().modal("show");
   });
