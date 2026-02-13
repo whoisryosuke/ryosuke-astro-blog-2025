@@ -35,29 +35,10 @@ const ProjectSlides = ({
   selectedProjectIndex,
   setSelectedProjectIndex,
 }: Props) => {
-  const [containerWidth, setContainerWidth] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const itemRefs = useRef<HTMLDivElement[]>([]);
   const x = useMotionValue(0);
-  // Gets center of screen then figures out where centered slide would start
-  const centerOffset = containerWidth / 2 - SLIDE_WIDTH / 2;
-
-  // Update container width on mount and resize
-  useEffect(() => {
-    const updateWidth = () => {
-      if (containerRef.current) {
-        setContainerWidth(containerRef.current.offsetWidth);
-      }
-    };
-
-    updateWidth();
-    window.addEventListener("resize", updateWidth);
-    return () => window.removeEventListener("resize", updateWidth);
-  }, []);
-
-  // Item width (adjust as needed)
-  // const itemWidth = 200;
 
   // Calculate the offset needed to center the active item
   const calculateOffset = (index: number, center: boolean = false) => {
@@ -77,7 +58,7 @@ const ProjectSlides = ({
 
   // Animate to centered position when active index changes
   useEffect(() => {
-    if (containerWidth > 0 && !isDragging) {
+    if (!isDragging) {
       const targetX = calculateOffset(selectedProjectIndex, true);
       animate(x, targetX, {
         type: "spring",
@@ -85,7 +66,7 @@ const ProjectSlides = ({
         damping: 30,
       });
     }
-  }, [selectedProjectIndex, containerWidth, isDragging]);
+  }, [selectedProjectIndex, isDragging]);
 
   // Handle drag end to snap to nearest item
   const handleDragEnd = () => {
