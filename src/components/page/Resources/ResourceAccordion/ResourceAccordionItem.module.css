@@ -1,0 +1,86 @@
+.Container {
+  --duration: 420ms;
+  --easing: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.Container[data-active="true"] .SubMenu {
+  grid-template-rows: 1fr;
+}
+
+.Container .SubMenu > div {
+  min-height: 0;
+  transition: visibility 1s;
+  visibility: hidden;
+}
+
+.Container[data-active="true"] .SubMenu > div {
+  visibility: visible;
+}
+.Button:hover h3,
+.Container[data-active="true"] .Button h3 {
+  color: var(--color-primary);
+}
+.Container[data-active="true"] .Button span {
+  transform: rotate(-180deg);
+}
+
+.Button {
+  background: transparent;
+  border: 0;
+  display: flex;
+  align-items: center;
+}
+
+.Button span {
+  display: flex;
+  gap: var(--space-0-5);
+}
+
+.Button h3 {
+  font-size: var(--font-size-16);
+  margin: 0;
+  /* margin-left: var(--space-2); */
+  text-transform: none;
+}
+
+.SubMenu {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration) var(--easing);
+  overflow: hidden;
+}
+
+.SubMenuContent {
+  align-items: start;
+}
+
+.SubMenuImages > div {
+  height: 200px;
+  overflow: hidden;
+  border-radius: var(--space-1);
+}
+
+.SubMenuImages img {
+  transform: translateY(-50%);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .SubMenuImages img {
+    animation: upAndDown 4200ms cubic-bezier(0, 0.55, 0.45, 1);
+    animation-iteration-count: infinite;
+  }
+}
+
+@keyframes upAndDown {
+  0% {
+    transform: translateY(-50%);
+  }
+  25% {
+    transform: translateY(-25%);
+  }
+  50% {
+    transform: translateY(-75%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
