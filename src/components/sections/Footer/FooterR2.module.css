@@ -1,0 +1,73 @@
+.Container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  font-size: var(--font-size-2);
+  color: var(--color-gray-600);
+}
+.Content {
+  padding: var(--space-2);
+  justify-content: space-between;
+}
+
+.Copytext:hover {
+  color: var(--color-gray-400);
+}
+
+.Social {
+  gap: 1rem;
+}
+
+.Social a {
+  text-decoration: none;
+  --color: var(--color-gray-600);
+  color: var(--color);
+
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0);
+
+  transition-property: color, text-shadow;
+  transition-timing-function: ease-in-out;
+  transition-duration: 220ms;
+}
+
+/* YouTube */
+.Social a:hover[data-platform="youtube"] {
+  --color: #ff0000;
+}
+
+/* Twitch */
+.Social a:hover[data-platform="twitch"] {
+  --color: #9146ff;
+}
+
+/* Threads */
+/* GitHub */
+/* Patreon */
+.Social a:hover[data-platform="github"],
+.Social a:hover[data-platform="threads"],
+.Social a:hover[data-platform="patreon"] {
+  --color: var(--color-gray-100);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 1);
+}
+
+/* Bluesky */
+.Social a:hover[data-platform="bluesky"] {
+  --color: #208bfe;
+}
+
+/* LinkedIn */
+.Social a:hover[data-platform="linkedin"] {
+  --color: #0a66c2;
+}
+
+/* Mastodon */
+.Social a:hover[data-platform="mastodon"] {
+  --color: #615ef8;
+}
+
+/* Instagram */
+.Social a:hover[data-platform="instagram"] {
+  --color: #c13584;
+}

@@ -11,7 +11,7 @@ import "@fontsource/ibm-plex-mono";
 // import "../styles/transitions.css";
 import Header from "../components/sections/Header/Header";
 import Navbar from "../components/sections/Header/Navbar/Navbar";
-import Footer from "../components/sections/Footer/Footer";
+import FooterR2 from "../components/sections/Footer/FooterR2";
 import ClientRouter from "astro/components/ClientRouter.astro";
 import { ThemeProvider } from "../components/ThemeProvider";
 
@@ -36,6 +36,6 @@ type Props = {};
       <slot />
     </main>
     
-	  <Footer client:load transition:persist  />
+	  <FooterR2 client:load transition:persist  />
   </body>
 </html>

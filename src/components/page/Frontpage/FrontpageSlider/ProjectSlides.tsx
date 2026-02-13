@@ -6,7 +6,12 @@ import {
   useMotionValue,
   useTransform,
 } from "motion/react";
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  type MouseEventHandler,
+} from "react";
 import Stack from "../../../primitives/Stack/Stack";
 import styles from "./FrontpageSlider.module.css";
 
@@ -120,6 +125,12 @@ const ProjectSlides = ({
     setIsDragging(true);
   };
 
+  const handleProjectLink: MouseEventHandler = (e) => {
+    if (isDragging) {
+      e.preventDefault();
+    }
+  };
+
   return (
     <Stack className={styles.ProjectPreview} ref={containerRef}>
       <MotionStack
@@ -148,6 +159,17 @@ const ProjectSlides = ({
               data-index={index}
               draggable={false}
             />
+            {index == selectedProjectIndex && (
+              <a
+                href={`/projects/${project.id}`}
+                className={styles.ProjectSlideLink}
+                onClick={handleProjectLink}
+                data-visible={index == selectedProjectIndex}
+                draggable={false}
+              >
+                <span>👀</span>
+              </a>
+            )}
           </div>
         ))}
       </MotionStack>
