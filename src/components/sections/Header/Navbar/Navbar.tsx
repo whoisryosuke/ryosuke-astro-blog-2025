@@ -16,10 +16,10 @@ const LINKS: NavLink[] = [
     href: "/blog",
     text: "Blog",
   },
-  {
-    href: "/work",
-    text: "Work",
-  },
+  // {
+  //   href: "/work",
+  //   text: "Work",
+  // },
   {
     href: "/resources",
     text: "Resources",
@@ -68,7 +68,7 @@ const Navbar = ({ path }: Props) => {
       <NavbarLink
         key={link.href}
         href={link.href}
-        selected={link.href == path}
+        selected={path.includes(link.href)}
         setSelectedLink={setSelectedLink}
         resetHash={resetHash}
         handleReset={handleReset}

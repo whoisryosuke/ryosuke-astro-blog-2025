@@ -20,6 +20,7 @@
   padding: 0;
   position: relative;
   z-index: 420;
+  transition-property: color;
 }
 
 .SelectedBlogListItem {
@@ -54,9 +55,10 @@
   /* transform-origin: left center; */
   transition-property: opacity, width;
 }
-.SelectedBlogListItem:hover a h3 {
+
+.SelectedBlogListItem:hover a h3,
+.SelectedBlogListItem a:focus h3 {
   color: var(--color-secondary);
-  transition-property: color;
 }
 
 .SelectedBlogListItem a:focus h3::before,
@@ -87,7 +89,7 @@
   }
 }
 
-.SelectedBlogListItem:focus svg,
+.SelectedBlogListItem a:focus svg,
 .SelectedBlogListItem:hover svg {
   --light: var(--color-secondary);
   --shadow: var(--color-secondary-hover);
