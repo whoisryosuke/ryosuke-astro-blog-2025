@@ -1,12 +1,13 @@
 import React, { forwardRef } from "react";
 import "./BlogTag.css";
+import { slugify } from "../../../../utils/text";
 
 type Props = {
   tag: string;
 };
 const BlogTag = forwardRef<HTMLAnchorElement, Props>(({ tag }, ref) => {
   return (
-    <a ref={ref} href="#" className="BlogTag">
+    <a ref={ref} href={`/blog/tagged/${slugify(tag)}`} className="BlogTag">
       <h2>{tag}</h2>
     </a>
   );

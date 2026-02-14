@@ -20,16 +20,13 @@
 /* Global styles for blog content */
 
 .BlogPost a {
-  color: var(--color-primary);
-  transition-property: color;
-  transition-timing-function: ease-in-out;
-  transition-duration: 220ms;
+  text-decoration: none;
 }
 .BlogPost a:hover {
-  color: var(--color-primary-lighter);
+  color: var(--color-link-lighter);
 }
 .BlogPost a:active {
-  color: var(--color-primary-darker);
+  color: var(--color-link-darker);
 }
 
 .BlogPost img {
