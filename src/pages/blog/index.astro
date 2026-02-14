@@ -32,7 +32,7 @@ const sortedPosts = posts.reduce((merge, post) => {
 	return merge
 }, {} as Record<string, SelectedBlogData[]>)
 
-const sortedPostsKeys = Object.keys(sortedPosts);
+const sortedPostsKeys = Object.keys(sortedPosts).reverse();
 
 console.log('posts', sortedPosts, sortedPostsKeys)
 
@@ -41,14 +41,12 @@ console.log('posts', sortedPosts, sortedPostsKeys)
 <RootLayout>
 	<Container>
 		<h1>Blog</h1>
-		<Stack gap="var(--space-10)">
+		<Stack gap="var(--space-5)">
 			{
 				sortedPostsKeys.map(year => (
 					<Stack key={year} gap="var(--space-6)">
 						<h2>{year}</h2>
-						<Stack>
-							<SelectedBlogList posts={sortedPosts[year]} />
-						</Stack>
+						<SelectedBlogList posts={sortedPosts[year]} />
 					</Stack>
 				))
 			}
