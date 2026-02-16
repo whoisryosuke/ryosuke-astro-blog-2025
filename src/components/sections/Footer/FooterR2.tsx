@@ -33,7 +33,7 @@ const FooterR2 = (props: Props) => {
   );
   return (
     <div className={styles.Container}>
-      <Stack horizontal className={styles.Content}>
+      <Stack horizontal responsive className={styles.Content}>
         <Stack horizontal className={styles.Social}>
           {SOCIAL_MEDIA_ACCOUNTS.connect.map(renderProfile)}
           {SOCIAL_MEDIA_ACCOUNTS.watch.map(renderProfile)}
