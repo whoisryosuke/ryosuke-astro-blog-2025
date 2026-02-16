@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import type { WaveformHeadingData } from "./types";
 import BlogWaveformMarker from "./BlogWaveformMarker";
-import playheadStyles from "./BlogWaveformPlayhead.module.css";
 import styles from "./BlogTOCWaveform.module.css";
 import { Tooltip } from "@base-ui/react";
 
 const markerTooltip = Tooltip.createHandle<string>();
 
 type Props = {
+  width: number;
   headings: WaveformHeadingData[];
   pageSize: number;
   selectedHeading: WaveformHeadingData | null;
@@ -17,6 +17,7 @@ type Props = {
 };
 
 const BlogWaveformMarkers = ({
+  width,
   headings,
   pageSize,
   selectedHeading,
@@ -25,6 +26,7 @@ const BlogWaveformMarkers = ({
   const renderHeadings = headings.map((heading) => (
     <BlogWaveformMarker
       key={heading.id}
+      width={width}
       heading={heading}
       pageSize={pageSize}
       handle={markerTooltip}
@@ -33,7 +35,7 @@ const BlogWaveformMarkers = ({
   ));
 
   return (
-    <div className={playheadStyles.Container} data-small={true}>
+    <div className={styles.MarkerContainer} data-small={true}>
       <Tooltip.Provider>
         {renderHeadings}
         <Tooltip.Root

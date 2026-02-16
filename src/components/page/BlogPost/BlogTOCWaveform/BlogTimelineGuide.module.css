@@ -1,6 +1,10 @@
 .Container {
   width: 100%;
-  padding-top: var(--space-1-5);
+  padding-top: var(--space-0-5);
+
+  @media screen and (min-width: 1200px) {
+    padding-top: var(--space-1-5);
+  }
 }
 
 .Numbers,

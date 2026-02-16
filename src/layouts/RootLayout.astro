@@ -38,6 +38,6 @@ type Props = {};
       <slot />
     </main>
     
-	  <FooterR2 client:load transition:persist  />
+	  <FooterR2 path={Astro.url.pathname} client:load transition:persist  />
   </body>
 </html>

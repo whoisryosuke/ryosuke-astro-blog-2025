@@ -18,9 +18,11 @@ const SOCIAL_SHORT_NAMES = {
   instagram: "IG",
 };
 
-type Props = {};
+type Props = {
+  path: string;
+};
 
-const FooterR2 = (props: Props) => {
+const FooterR2 = ({ path }: Props) => {
   const renderProfile = (profile: SocialMediaAccount) => (
     <a
       href={profile.url}
@@ -32,7 +34,7 @@ const FooterR2 = (props: Props) => {
     </a>
   );
   return (
-    <div className={styles.Container}>
+    <div className={styles.Container} data-blog={path.includes("blog")}>
       <Stack horizontal responsive className={styles.Content}>
         <Stack horizontal className={styles.Social}>
           {SOCIAL_MEDIA_ACCOUNTS.connect.map(renderProfile)}

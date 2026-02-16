@@ -20,6 +20,16 @@ const BlogTOCWaveform = ({ waveform }: Props) => {
   const [pageSize, setPageSize] = useState(100);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const observer = useRef<IntersectionObserver | null>(null);
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const observeHeading = (el: Element) => {
     if (!observer.current) return;
@@ -108,10 +118,15 @@ const BlogTOCWaveform = ({ waveform }: Props) => {
         <div className={styles.WaveformArea}>
           <BlogTimelineGuide />
           <div className={styles.WaveformContainer}>
-            <BlogWaveformCanvas data={waveform} width={420} height={100} />
-            <BlogWaveformPlayhead />
+            <BlogWaveformCanvas
+              data={waveform}
+              width={width > 600 ? 420 : width * 0.85}
+              height={100}
+            />
+            <BlogWaveformPlayhead width={width > 600 ? 420 : width * 0.85} />
           </div>
           <BlogWaveformMarkers
+            width={width > 600 ? 420 : width * 0.85}
             headings={headings}
             pageSize={pageSize}
             selectedHeading={selectedHeading}

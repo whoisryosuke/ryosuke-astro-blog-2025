@@ -7,6 +7,7 @@ import { Tooltip } from "@base-ui/react/tooltip";
 import BlogWaveformMarkerIcon from "../../../icons/BlogWaveformMarkerIcon";
 
 type Props = {
+  width: number;
   heading: WaveformHeadingData;
   pageSize: number;
   handle: Tooltip.Handle<string>;
@@ -16,6 +17,7 @@ type Props = {
 };
 
 const BlogWaveformMarker = ({
+  width,
   heading,
   pageSize,
   handle,
@@ -23,7 +25,7 @@ const BlogWaveformMarker = ({
 }: Props) => {
   // The position is a proportional calc based on page size vs this waveform size
   // but we also subtract half the width of the icon to center it (e.g. `8`)
-  const x = map(heading.y, 0, pageSize, 0, 420) - 12;
+  const x = map(heading.y, 0, pageSize, 0, width) - 12;
 
   const selectHeading = () => {
     setSelectedHeading(heading);
