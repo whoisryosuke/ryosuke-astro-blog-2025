@@ -31,9 +31,26 @@
 
 .BlogPost a {
   text-decoration: none;
+  border-bottom: 1px solid transparent;
+
+  transition-property: border-color;
+  transition-timing-function: ease-in-out;
+  transition-duration: 220ms;
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  .BlogPost a,
+  .BlogPost blockquote a {
+    transition-property: color, border-color;
+    transition-timing-function: ease-in-out;
+    transition-duration: 220ms;
+  }
+}
+
+.BlogPost a:focus,
 .BlogPost a:hover {
   color: var(--color-link-lighter);
+  border-color: var(--color-link-lighter);
 }
 .BlogPost a:active {
   color: var(--color-link-darker);
@@ -73,6 +90,10 @@
 }
 .BlogPost blockquote a {
   color: var(--color-black);
+  border-bottom: 1px solid var(--color-black);
+}
+.BlogPost blockquote a:hover {
+  border-color: var(--color-primary);
 }
 
 .BlogPost blockquote,

@@ -77,6 +77,12 @@
   animation-direction: alternate;
 }
 
+@media screen and (min-width: 1200px) {
+  .BlogPostTitle h1 {
+    font-size: var(--font-size-16);
+  }
+}
+
 .BlogPostTitle:hover h1 {
   animation-play-state: paused;
 }

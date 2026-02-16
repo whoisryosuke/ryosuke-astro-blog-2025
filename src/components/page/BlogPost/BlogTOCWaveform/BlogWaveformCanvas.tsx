@@ -147,10 +147,10 @@ const BlogWaveformCanvas = ({
       {...props}
       width={width}
       height={height}
-      onClick={handleClick}
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
-      onMouseMove={handleMouseMove}
+      // onClick={handleClick}
+      // onMouseDown={handleMouseDown}
+      // onMouseUp={handleMouseUp}
+      // onMouseMove={handleMouseMove}
     />
   );
 };

@@ -1,0 +1,7 @@
+.List {
+  list-style-image: url("/icons/3d-bullet-light.svg");
+}
+
+.List li::marker {
+  font-size: 1.5rem;
+}

@@ -1,0 +1,26 @@
+.Input {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 710;
+
+  background: transparent;
+}
+
+.Input::-moz-range-thumb,
+.Input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 30px;
+  height: 100%;
+  background-color: transparent;
+  border: 0;
+}
+
+.Input::-moz-range-track {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}

@@ -38,7 +38,7 @@ const BlogTOCSidebar = ({
           <BiSidebar />
         </button>
       </div>
-      <div className={styles.List}>
+      <div className={styles.List} inert={!visible}>
         {headings.map((heading, index) => (
           <BlogTOCSidebarItem
             heading={heading}

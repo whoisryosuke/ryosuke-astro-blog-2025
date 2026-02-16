@@ -6,6 +6,7 @@ import BlogWaveformMarkers from "./BlogWaveformMarkers";
 import BlogTimelineGuide from "./BlogTimelineGuide";
 import BlogTOCSidebar from "./BlogTOCSidebar";
 import type { WaveformHeadingData } from "./types";
+import BlogWaveformInput from "./BlogWaveformInput";
 
 type Props = {
   waveform: number[];
@@ -131,6 +132,7 @@ const BlogTOCWaveform = ({ waveform }: Props) => {
               width={waveformWidth}
               height={visible ? 300 : 100}
             />
+            <BlogWaveformInput />
             <BlogWaveformPlayhead width={largeWidth} />
           </div>
           <BlogWaveformMarkers

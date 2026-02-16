@@ -3,8 +3,8 @@
   padding-right: var(--space-10);
   border-radius: var(--space-0-75);
   color: var(--color-text);
-  /* border: 1.5px solid var(--color-black); */
-  background-color: var(--color-gray-700);
+  border: 1.5px solid var(--color-gray-700);
+  /* background-color: var(--color-gray-700); */
 }
 
 .BlogPostDate p {
@@ -13,7 +13,6 @@
 
 .BlogPostDate h4 {
   margin: 0;
-  font-family: var(--font-family-mono);
   text-transform: uppercase;
   font-size: var(--font-size-6);
   font-weight: bold;

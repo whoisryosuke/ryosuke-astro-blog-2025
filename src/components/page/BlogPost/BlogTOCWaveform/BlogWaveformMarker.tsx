@@ -45,6 +45,7 @@ const BlogWaveformMarker = ({
           style={{ "--x": `${x}px` }}
           onClick={selectHeading}
           onMouseOver={selectHeading}
+          onFocus={selectHeading}
         />
       )}
     >
