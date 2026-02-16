@@ -46,7 +46,7 @@ const ResourceAccordionItem = ({
       </button>
 
       <div className={styles.SubMenu}>
-        <Stack horizontal className={styles.SubMenuContent}>
+        <Stack horizontal responsive className={styles.SubMenuContent}>
           {githubUrl && (
             <Button as="a" href={githubUrl} outline target="_blank">
               Source Code
