@@ -29,8 +29,15 @@
   }
 }
 
+.Content[data-visible="true"] {
+  height: 300px;
+}
+
 .WaveformArea {
   position: relative;
+}
+
+.WaveformArea[data-visible="true"] {
 }
 
 .WaveformContainer {

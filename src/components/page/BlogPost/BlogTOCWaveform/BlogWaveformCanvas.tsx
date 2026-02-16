@@ -18,7 +18,14 @@ type Props = Omit<HTMLProps<HTMLCanvasElement>, "data"> & {
   data: number[];
 };
 
-const BlogWaveformCanvas = ({ animated, fps, data, ...props }: Props) => {
+const BlogWaveformCanvas = ({
+  animated,
+  fps,
+  data,
+  width,
+  height,
+  ...props
+}: Props) => {
   const [pressed, setPressed] = useState(false);
   const { colorMode } = useStore(themeStore);
   const bgColor = colorMode === "dark" ? "#022727" : "hsl(180, 80%, 20%)";
@@ -117,7 +124,7 @@ const BlogWaveformCanvas = ({ animated, fps, data, ...props }: Props) => {
     return () => {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, [draw, lineColor, bgColor, fps]);
+  }, [draw, width, height, lineColor, bgColor, fps]);
 
   const handleMouseDown: MouseEventHandler<HTMLCanvasElement> = (e) => {
     setPressed(true);
@@ -138,6 +145,8 @@ const BlogWaveformCanvas = ({ animated, fps, data, ...props }: Props) => {
     <canvas
       ref={canvasRef}
       {...props}
+      width={width}
+      height={height}
       onClick={handleClick}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}

@@ -13,7 +13,8 @@ type Props = {
 
 const BlogTOCWaveform = ({ waveform }: Props) => {
   const HEADING_TAG_NAMES = ["H1", "H2", "H3", "H4", "H5", "H6"];
-
+  // Is TOC visible?
+  const [visible, setVisible] = useState(false);
   const [headings, setHeadings] = useState<WaveformHeadingData[]>([]);
   const [selectedHeading, setSelectedHeading] =
     useState<WaveformHeadingData | null>(null);
@@ -108,25 +109,32 @@ const BlogTOCWaveform = ({ waveform }: Props) => {
     loadHeaders();
   }, []);
 
+  const largeWidth = width > 600 ? 420 : width * 0.85;
+  const shortWidth = width > 600 ? width * 0.3 : width * 0.3;
+  const waveformWidth = visible ? shortWidth : largeWidth;
+
   return (
     <div className={styles.Container}>
-      <div className={styles.Content}>
+      <div className={styles.Content} data-visible={visible}>
         <BlogTOCSidebar
+          width={largeWidth}
           headings={headings}
           setSelectedHeading={setSelectedHeading}
+          visible={visible}
+          setVisible={setVisible}
         />
-        <div className={styles.WaveformArea}>
+        <div className={styles.WaveformArea} data-visible={visible}>
           <BlogTimelineGuide />
           <div className={styles.WaveformContainer}>
             <BlogWaveformCanvas
               data={waveform}
-              width={width > 600 ? 420 : width * 0.85}
-              height={100}
+              width={waveformWidth}
+              height={visible ? 300 : 100}
             />
-            <BlogWaveformPlayhead width={width > 600 ? 420 : width * 0.85} />
+            <BlogWaveformPlayhead width={largeWidth} />
           </div>
           <BlogWaveformMarkers
-            width={width > 600 ? 420 : width * 0.85}
+            width={waveformWidth}
             headings={headings}
             pageSize={pageSize}
             selectedHeading={selectedHeading}

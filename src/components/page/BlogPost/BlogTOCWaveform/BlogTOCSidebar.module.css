@@ -69,5 +69,5 @@
   width: auto;
 }
 .Container[data-visible="true"] {
-  width: 300px;
+  width: var(--width, 300px);
 }
