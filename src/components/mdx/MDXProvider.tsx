@@ -7,6 +7,7 @@ import TweetEmbed from "./Embeds/TweetEmbed";
 
 export const components = {
   ul: List,
+  ol: (props: any) => <List ordered {...props} />,
   Stack,
   Box: (props: any) => <div {...props} />,
   ThreadsEmbed,

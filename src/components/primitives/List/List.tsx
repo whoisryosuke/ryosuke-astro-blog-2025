@@ -1,13 +1,19 @@
 import React, { type PropsWithChildren } from "react";
 import styles from "./List.module.css";
 
-type Props = {};
+type Props = {
+  ordered: boolean;
+};
 
-const List = ({ children, ...props }: PropsWithChildren<Props>) => {
+const List = ({ children, ordered, ...props }: PropsWithChildren<Props>) => {
+  const Component = ordered ? "ol" : "ul";
   return (
-    <ul className={styles.List} {...props}>
+    <Component
+      className={[styles.List, ordered && styles.Ordered].join(" ")}
+      {...props}
+    >
       {children}
-    </ul>
+    </Component>
   );
 };
 
