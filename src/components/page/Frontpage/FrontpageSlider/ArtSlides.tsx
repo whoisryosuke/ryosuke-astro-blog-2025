@@ -159,7 +159,11 @@ const ArtSlides = ({
             }}
             onClick={() => !isDragging && setSelectedProjectIndex(index)}
           >
-            <img src={`./images/art-slides/${item.image}`} draggable={false} />
+            <img
+              src={`./images/art-slides/${item.image}`}
+              draggable={false}
+              className={styles.ArtSlideImage}
+            />
           </motion.div>
         ))}
       </MotionStack>

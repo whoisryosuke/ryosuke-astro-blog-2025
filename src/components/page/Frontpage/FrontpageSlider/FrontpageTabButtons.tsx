@@ -25,7 +25,12 @@ const FrontpageTabButtons = ({ currentTab, setCurrentTab }: Props) => {
   return (
     <Stack
       horizontal
-      style={{ justifyContent: "end", marginBottom: "var(--space-1)" }}
+      style={{
+        justifyContent: "end",
+        paddingLeft: "var(--space-1)",
+        paddingRight: "var(--space-1)",
+        marginBottom: "var(--space-1)",
+      }}
     >
       {renderButtons}
     </Stack>

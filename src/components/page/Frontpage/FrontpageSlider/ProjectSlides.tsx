@@ -37,7 +37,7 @@ const ProjectSlides = ({
 }: Props) => {
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const itemRefs = useRef<HTMLDivElement[]>([]);
+  const itemRefs = useRef<HTMLAnchorElement[]>([]);
   const x = useMotionValue(0);
 
   // Calculate the offset needed to center the active item
@@ -139,6 +139,14 @@ const ProjectSlides = ({
     };
   }, []);
 
+  const handleClick =
+    (index: number): MouseEventHandler =>
+    (e) => {
+      const isSelected = index == selectedProjectIndex;
+      if (!isSelected || isDragging) e.preventDefault();
+      !isDragging && setSelectedProjectIndex(index);
+    };
+
   return (
     <Stack className={styles.ProjectPreview} ref={containerRef}>
       <MotionStack
@@ -152,33 +160,32 @@ const ProjectSlides = ({
         style={{ x }}
       >
         {projects.map((project, index) => (
-          <div
+          <a
             key={project.data.cover_image}
+            href={`/projects/${project.id}`}
             ref={(el) => {
               if (el) itemRefs.current[index] = el;
             }}
             className={`${styles.ArtSlide} ${styles.ProjectSlide}`}
-            onClick={() => !isDragging && setSelectedProjectIndex(index)}
+            onClick={handleClick(index)}
+            data-visible={index == selectedProjectIndex}
             draggable={false}
           >
             <img
               src={`/projects/${project.id}/${project.data.cover_image}`}
-              loading="lazy"
               data-index={index}
               draggable={false}
+              className={styles.ArtSlideImage}
             />
-            {index == selectedProjectIndex && (
-              <a
-                href={`/projects/${project.id}`}
-                className={styles.ProjectSlideLink}
-                onClick={handleProjectLink}
-                data-visible={index == selectedProjectIndex}
-                draggable={false}
-              >
-                <span>👀</span>
-              </a>
-            )}
-          </div>
+            <span>
+              {project.data.images.map((image) => (
+                <img
+                  src={`/projects/${project.id}/${image}`}
+                  className={styles.ArtSlideExtraImg}
+                />
+              ))}
+            </span>
+          </a>
         ))}
       </MotionStack>
     </Stack>

@@ -18,6 +18,11 @@ import ClientRouter from "astro/components/ClientRouter.astro";
 import { ThemeProvider } from "../components/ThemeProvider";
 
 type Props = {};
+
+const pathSplit = Astro.url.pathname.split("/").filter(val => val !='');
+const basePath = pathSplit.length >= 1 ? pathSplit[0] : "root";
+console.log('basePath', basePath, Astro.url.pathname)
+
 ---
 
 <html transition:name="root" transition:animate="none">
@@ -29,7 +34,7 @@ type Props = {};
 
     <ClientRouter />
   </head>
-  <body>
+  <body class={basePath}>
     <ThemeProvider client:load transition:persist />
     <Header client:load transition:persist />
     <Navbar client:load path={Astro.url.pathname} transition:persist />
