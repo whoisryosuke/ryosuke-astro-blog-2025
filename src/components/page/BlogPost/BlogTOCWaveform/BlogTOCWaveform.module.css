@@ -42,6 +42,7 @@
 
 .WaveformContainer {
   position: relative;
+  z-index: 710;
 }
 
 .WaveformContainer canvas {

@@ -4,12 +4,14 @@ import {
   type MouseEventHandler,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from "react";
 import map from "../../../../utils/map";
 import { useStore } from "@nanostores/react";
 import { themeStore } from "../../../../store/theme";
+import throttle from "../../../../utils/throttle";
 
 type Props = Omit<HTMLProps<HTMLCanvasElement>, "data"> & {
   // waveform: number[];
@@ -35,6 +37,7 @@ const BlogWaveformCanvas = ({
     null,
   );
   const prevTime = useRef(0);
+  const containerCache = useRef<DOMRect | null>(null);
 
   const draw = useCallback(
     (now: number) => {
@@ -97,18 +100,39 @@ const BlogWaveformCanvas = ({
     [data, lineColor, bgColor, animated, fps],
   );
 
-  const calcRelativePosition = (e: MouseEvent<any>) => {
+  const scrollTo = (pagePosition: number) => {
+    window.scrollTo({
+      top: pagePosition,
+    });
+  };
+
+  const refreshContainerCache = () => {
     if (!canvasRef.current) return;
-    const canvasRect = canvasRef.current.getBoundingClientRect();
-    const relativePos = e.clientX - canvasRect.left;
-    const percent = relativePos / canvasRect.width;
+    containerCache.current = canvasRef.current.getBoundingClientRect();
+  };
+
+  useLayoutEffect(() => {
+    refreshContainerCache();
+
+    window.addEventListener("resize", refreshContainerCache);
+
+    return () => {
+      window.removeEventListener("resize", refreshContainerCache);
+    };
+  }, []);
+
+  const throttledScrollTo = useCallback(throttle(scrollTo, 200), []);
+
+  const calcRelativePosition = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    if (!containerCache.current) return;
+    const relativePos = e.clientX - containerCache.current.left;
+    const percent = relativePos / containerCache.current.width;
 
     const pagePosition =
       (document.documentElement.scrollHeight - window.innerHeight) * percent;
 
-    window.scrollTo({
-      top: pagePosition,
-    });
+    console.log("scrolling", pagePosition);
+    throttledScrollTo(pagePosition);
   };
 
   const handleClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -147,10 +171,10 @@ const BlogWaveformCanvas = ({
       {...props}
       width={width}
       height={height}
-      // onClick={handleClick}
-      // onMouseDown={handleMouseDown}
-      // onMouseUp={handleMouseUp}
-      // onMouseMove={handleMouseMove}
+      onClick={handleClick}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onMouseMove={handleMouseMove}
     />
   );
 };

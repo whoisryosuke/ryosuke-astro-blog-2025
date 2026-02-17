@@ -132,7 +132,7 @@ const BlogTOCWaveform = ({ waveform }: Props) => {
               width={waveformWidth}
               height={visible ? 300 : 100}
             />
-            <BlogWaveformInput />
+            {/* <BlogWaveformInput /> */}
             <BlogWaveformPlayhead width={largeWidth} />
           </div>
           <BlogWaveformMarkers
