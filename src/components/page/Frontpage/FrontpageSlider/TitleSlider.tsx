@@ -71,8 +71,6 @@ const TitleSlider = ({
     // Get the current x position
     const currentX = x.get();
 
-    console.log("drag end - x", currentX);
-
     let index = 0;
     // Find closest item to this point
     let closest = {
@@ -93,8 +91,6 @@ const TitleSlider = ({
 
       index += 1;
     }
-    console.log("drag end - closest index", closest.index, closest.distance);
-
     setSelectedProjectIndex(closest.index);
   };
 

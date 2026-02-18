@@ -99,11 +99,7 @@ const ProjectSlides = ({
     // Get the current x position
     const currentX = x.get();
 
-    console.log("drag end - x", currentX);
-
     const closest = getClosestByDistance(currentX);
-
-    console.log("drag end - closest index", closest.index, closest.distance);
 
     setSelectedProjectIndex(closest.index);
   };

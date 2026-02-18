@@ -13,13 +13,11 @@ export async function getStaticPaths() {
 	const tags = new Set<string>();
     posts.forEach(post => post.data.tags.forEach(tag => tags.add(tag)))
 
-    console.log('static path tags', tags)
 
     const tagPaths = [...tags].map((tag) => ({
 		params: { tag: slugify(tag) },
 		props: {tag},
 	}));
-    console.log('static path tags paths', tagPaths)
 
     return tagPaths
 }

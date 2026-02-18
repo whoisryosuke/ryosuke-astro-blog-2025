@@ -70,7 +70,6 @@ const BlogTOCWaveform = ({ waveform }: Props) => {
     setHeadings(newHeadings);
     setSelectedHeading(newHeadings[0]);
 
-    console.log("window size", document.documentElement.scrollHeight);
     setPageSize(document.documentElement.scrollHeight - window.innerHeight);
   };
 

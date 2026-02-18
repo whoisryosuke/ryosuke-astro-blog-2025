@@ -21,7 +21,6 @@ type Props = {};
 
 const pathSplit = Astro.url.pathname.split("/").filter(val => val !='');
 const basePath = pathSplit.length >= 1 ? pathSplit[0] : "root";
-console.log('basePath', basePath, Astro.url.pathname)
 
 ---
 

@@ -131,12 +131,10 @@ const BlogWaveformCanvas = ({
     const pagePosition =
       (document.documentElement.scrollHeight - window.innerHeight) * percent;
 
-    console.log("scrolling", pagePosition);
     throttledScrollTo(pagePosition);
   };
 
   const handleClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    console.log("event", e);
     if (!canvasRef.current) return;
 
     calcRelativePosition(e);
@@ -161,7 +159,6 @@ const BlogWaveformCanvas = ({
 
   const handleMouseMove: MouseEventHandler<HTMLCanvasElement> = (e) => {
     if (!pressed) return;
-    console.log("mouse moving", e);
     calcRelativePosition(e);
   };
 

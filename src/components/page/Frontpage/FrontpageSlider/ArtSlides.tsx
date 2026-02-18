@@ -63,7 +63,6 @@ const ArtSlides = ({
   useEffect(() => {
     if (containerWidth.current > 0 && !isDragging) {
       const targetX = calculateOffset(selectedProjectIndex);
-      console.log("clicked - scroll to ", targetX);
       animate(x, targetX, {
         type: "spring",
         stiffness: 200,
@@ -78,12 +77,10 @@ const ArtSlides = ({
     // Find which index would be centered at this x position
     const centeredX = -currentX + centerOffset;
     const fullSlideSize = slideSize.current + SLIDE_GAP;
-    console.log("fullSlideSize", fullSlideSize);
     const closestIndex = Math.min(
       Math.max(Math.round(centeredX / fullSlideSize), 0),
       ART_DATA.length - 1,
     );
-    console.log("closestIndex", closestIndex, centeredX / fullSlideSize);
 
     return closestIndex;
   };
@@ -128,21 +125,15 @@ const ArtSlides = ({
     // Determine scroll direction and amount
     const scrollAmountY = event.deltaY * -10;
 
-    console.log("scroll amt", scrollAmountY);
-
     const currentX = x.get();
     const targetX = currentX + scrollAmountY;
-    console.log("scroll targetX", targetX);
 
     const closestIndex = getClosestByDistance(targetX);
-    console.log("scroll closestIndex", closestIndex);
     setSelectedProjectIndex(closestIndex);
   };
 
   useLayoutEffect(() => {
     if (!containerRef.current) return;
-
-    console.log("wheel event attached");
 
     containerRef.current.addEventListener("wheel", handleScroll);
 

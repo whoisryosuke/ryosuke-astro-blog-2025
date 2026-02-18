@@ -18,7 +18,6 @@ const TransitionLink = ({ href, ...props }: Props) => {
     document.startViewTransition(() => {
       // Navigate to the new page
       window.location.href = href;
-      console.log("starting transition...");
     });
   };
   return <a href={href} onClick={handleClick} {...props} />;

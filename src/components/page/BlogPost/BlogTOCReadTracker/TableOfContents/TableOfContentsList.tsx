@@ -71,7 +71,6 @@ const TableOfContentsList = ({ expanded, setExpanded }: Props) => {
     // Got at least 1 element? We want the item closest to top
     if (sortedElements.length >= 1) {
       const selectedHeading = sortedElements[0];
-      console.log("found a heading selecting", selectedHeading.target);
       setSelectedHeading(selectedHeading.target.id);
     }
   };
