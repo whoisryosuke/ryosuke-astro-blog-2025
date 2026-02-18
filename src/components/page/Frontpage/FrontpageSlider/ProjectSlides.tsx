@@ -118,7 +118,11 @@ const ProjectSlides = ({
     }
   };
 
-  const handleScroll = (event) => {
+  /**
+   * When user scrolls with mouse wheel,
+   * scroll slider and select next/prev item.
+   */
+  const handleScroll = (event: WheelEvent) => {
     // Determine scroll direction and amount
     const scrollAmountY = event.deltaY * -10;
 
@@ -139,6 +143,8 @@ const ProjectSlides = ({
     };
   }, []);
 
+  // Selects current slide - but only when user isn't dragging.
+  // Also - it's a link, so allow user to navigate when slide is selected.
   const handleClick =
     (index: number): MouseEventHandler =>
     (e) => {

@@ -22,31 +22,25 @@ const ArtSlides = ({
   selectedProjectIndex,
   setSelectedProjectIndex,
 }: Props) => {
-  const [containerWidth, setContainerWidth] = useState(0);
+  const containerWidth = useRef(0);
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const slideSize = useRef(0);
   const x = useMotionValue(0);
-  // Gets center of screen then figures out where centered slide would start
-  const centerOffset = containerWidth / 2 - slideSize.current / 2;
-
-  // Get slide size when window resizes
-  useLayoutEffect(() => {
-    if (containerWidth > 0 && containerRef.current) {
-      // Get size of a slide for use later
-      const firstEl = containerRef.current.children
-        .item(0)
-        ?.children.item(0) as HTMLDivElement;
-      slideSize.current = firstEl?.offsetWidth ?? 0;
-    }
-  }, [containerWidth]);
 
   // Update container width on mount and resize
+  // Get slide size when window resizes
   useLayoutEffect(() => {
     const updateWidth = () => {
       if (containerRef.current) {
         const containerLeft = containerRef.current.getBoundingClientRect().left;
-        setContainerWidth(window.innerWidth - containerLeft);
+        containerWidth.current = window.innerWidth - containerLeft;
+
+        // Get size of a slide for use later
+        const firstEl = containerRef.current.children
+          .item(0)
+          ?.children.item(0) as HTMLDivElement;
+        slideSize.current = firstEl?.offsetWidth ?? 0;
       }
     };
 
@@ -57,6 +51,8 @@ const ArtSlides = ({
 
   // Calculate the offset needed to center the active item
   const calculateOffset = (index: number) => {
+    // Gets center of screen then figures out where centered slide would start
+    const centerOffset = containerWidth.current / 2 - slideSize.current / 2;
     // We figure out the slide position if it was placed on left side
     const offset = index * (slideSize.current + SLIDE_GAP);
     // Then shift it to the center
@@ -65,7 +61,7 @@ const ArtSlides = ({
 
   // Animate to centered position when active index changes
   useEffect(() => {
-    if (containerWidth > 0 && !isDragging) {
+    if (containerWidth.current > 0 && !isDragging) {
       const targetX = calculateOffset(selectedProjectIndex);
       console.log("clicked - scroll to ", targetX);
       animate(x, targetX, {
@@ -77,13 +73,17 @@ const ArtSlides = ({
   }, [selectedProjectIndex, containerWidth, isDragging]);
 
   const getClosestByDistance = (currentX: number) => {
+    // Gets center of screen then figures out where centered slide would start
+    const centerOffset = containerWidth.current / 2 - slideSize.current / 2;
     // Find which index would be centered at this x position
     const centeredX = -currentX + centerOffset;
     const fullSlideSize = slideSize.current + SLIDE_GAP;
+    console.log("fullSlideSize", fullSlideSize);
     const closestIndex = Math.min(
       Math.max(Math.round(centeredX / fullSlideSize), 0),
       ART_DATA.length - 1,
     );
+    console.log("closestIndex", closestIndex, centeredX / fullSlideSize);
 
     return closestIndex;
   };
@@ -120,19 +120,30 @@ const ArtSlides = ({
     });
   };
 
-  const handleScroll = (event) => {
+  /**
+   * When user scrolls with mouse wheel,
+   * scroll slider and select next/prev item.
+   */
+  const handleScroll = (event: WheelEvent) => {
     // Determine scroll direction and amount
     const scrollAmountY = event.deltaY * -10;
 
+    console.log("scroll amt", scrollAmountY);
+
     const currentX = x.get();
     const targetX = currentX + scrollAmountY;
+    console.log("scroll targetX", targetX);
 
     const closestIndex = getClosestByDistance(targetX);
+    console.log("scroll closestIndex", closestIndex);
     setSelectedProjectIndex(closestIndex);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!containerRef.current) return;
+
+    console.log("wheel event attached");
+
     containerRef.current.addEventListener("wheel", handleScroll);
 
     return () => {
