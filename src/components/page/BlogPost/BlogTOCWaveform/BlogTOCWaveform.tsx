@@ -25,7 +25,10 @@ const BlogTOCWaveform = ({ waveform }: Props) => {
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
-    const handleResize = () => setWidth(window.innerWidth);
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+      setPageSize(document.documentElement.scrollHeight - window.innerHeight);
+    };
 
     window.addEventListener("resize", handleResize);
     return () => {
@@ -87,8 +90,6 @@ const BlogTOCWaveform = ({ waveform }: Props) => {
         headings.find((heading) => heading.id == selectedHeading.target.id),
       );
     }
-
-    setPageSize(document.documentElement.scrollHeight - window.innerHeight);
   };
 
   const createObserver = () => {
