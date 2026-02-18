@@ -15,42 +15,42 @@ const youtube: SocialMediaAccount = {
 };
 const twitch: SocialMediaAccount = {
   username: "whoisryosuke",
-  url: "",
+  url: "https://www.twitch.tv/whoisryosuke",
   platform: "twitch",
 };
 const threads: SocialMediaAccount = {
   username: "whoisryosuke",
-  url: "",
+  url: "https://www.threads.com/@whoisryosuke",
   platform: "threads",
 };
 const bluesky: SocialMediaAccount = {
   username: "whoisryosuke",
-  url: "",
+  url: "https://bsky.app/profile/whoisryosuke.bsky.social",
   platform: "bluesky",
 };
 const github: SocialMediaAccount = {
   username: "whoisryosuke",
-  url: "",
+  url: "https://github.com/whoisryosuke/",
   platform: "github",
 };
 const linkedin: SocialMediaAccount = {
   username: "whoisryosuke",
-  url: "",
+  url: "https://www.linkedin.com/in/whoisryosuke/",
   platform: "linkedin",
 };
 const patreon: SocialMediaAccount = {
   username: "whoisryosuke",
-  url: "",
+  url: "https://www.patreon.com/c/whoisryosuke",
   platform: "patreon",
 };
 const mastodon: SocialMediaAccount = {
   username: "whoisryosuke",
-  url: "",
+  url: "https://mastodon.gamedev.place/@whoisryosuke",
   platform: "mastodon",
 };
 const instagram: SocialMediaAccount = {
   username: "whoisryosuke",
-  url: "",
+  url: "https://www.instagram.com/whoisryosuke/",
   platform: "instagram",
 };
 
@@ -62,7 +62,7 @@ export type SocialMediaStructure = {
 };
 
 export const SOCIAL_MEDIA_ACCOUNTS: SocialMediaStructure = {
-  connect: [mastodon, bluesky, threads, instagram],
+  connect: [mastodon, bluesky, threads, instagram, github, linkedin],
   watch: [youtube, twitch],
   support: [patreon],
 };
