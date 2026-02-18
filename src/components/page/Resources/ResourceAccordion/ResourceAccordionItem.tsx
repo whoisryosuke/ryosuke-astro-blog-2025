@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef, type ForwardedRef } from "react";
 import styles from "./ResourceAccordionItem.module.css";
 import type { Resource } from "../../../../data/resources";
 import Stack from "../../../primitives/Stack/Stack";
@@ -9,32 +9,44 @@ import ResourcePreviewImage from "../ResourceTable/ResourcePreviewImage";
 type Props = Resource & {
   selectedResource: string;
   setSelectedResource: (resourceId: string) => void;
+  index: number;
 };
 
-const ResourceAccordionItem = ({
-  name,
-  category,
-  blog,
-  githubUrl,
-  images = [],
-  selectedResource,
-  setSelectedResource,
-}: Props) => {
-  const handleSelection = () => {
-    setSelectedResource(name);
-  };
-  const isActive = selectedResource == name;
+const ResourceAccordionItem = forwardRef(
+  (
+    {
+      name,
+      category,
+      blog,
+      githubUrl,
+      images = [],
+      selectedResource,
+      setSelectedResource,
+      index,
+    }: Props,
+    ref: ForwardedRef<HTMLDivElement>,
+  ) => {
+    const handleSelection = () => {
+      setSelectedResource(name);
+    };
+    const isActive = selectedResource == name;
 
-  const renderImages = images.map((image) => (
-    <div key={image}>
-      <ResourcePreviewImage name={name} image={image} />
-    </div>
-  ));
+    const renderImages = images.map((image) => (
+      <div key={image}>
+        <ResourcePreviewImage name={name} image={image} />
+      </div>
+    ));
 
-  return (
-    <div className={styles.Container} data-active={isActive}>
-      <button className={styles.Button} onClick={handleSelection}>
-        {/* <span>
+    return (
+      <div
+        ref={ref}
+        className={styles.Container}
+        data-active={isActive}
+        data-name={name}
+        data-index={index}
+      >
+        <button className={styles.Button} onClick={handleSelection}>
+          {/* <span>
           {category.map((categoryIconName) => (
             <ResourceListItemIcon
               key={categoryIconName}
@@ -42,28 +54,32 @@ const ResourceAccordionItem = ({
             />
           ))}
         </span> */}
-        <h3>{name}</h3>
-      </button>
+          <h3>{name}</h3>
+        </button>
 
-      <div className={styles.SubMenu}>
-        <Stack horizontal responsive className={styles.SubMenuContent}>
-          {githubUrl && (
-            <Button as="a" href={githubUrl} outline target="_blank">
-              Source Code
-            </Button>
-          )}
-          {blog && (
-            <Button as="a" href={blog} outline>
-              Case Study
-            </Button>
-          )}
-          <Stack className={styles.SubMenuImages} horizontal>
-            {renderImages}
+        <div className={styles.SubMenu}>
+          <Stack horizontal responsive className={styles.SubMenuContent}>
+            {githubUrl && (
+              <Button as="a" href={githubUrl} outline target="_blank">
+                Source Code
+              </Button>
+            )}
+            {blog && (
+              <Button as="a" href={blog} outline>
+                Case Study
+              </Button>
+            )}
+            <Stack className={styles.SubMenuImages} horizontal>
+              {renderImages}
+            </Stack>
           </Stack>
-        </Stack>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  },
+);
+
+// Optional: Assign a display name for better React DevTools debugging
+ResourceAccordionItem.displayName = "ResourceAccordionItem";
 
 export default ResourceAccordionItem;
