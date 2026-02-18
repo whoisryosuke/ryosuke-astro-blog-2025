@@ -20,6 +20,11 @@
 .SelectedBlogListItem svg {
   width: 36px;
 }
+@media screen and (min-width: 1200px) {
+  .SelectedBlogListItem svg {
+    width: 64px;
+  }
+}
 
 .SelectedBlogListItem h3 {
   flex: 1;
@@ -27,9 +32,16 @@
   position: relative;
   z-index: 420;
   transition-property: color;
+  font-size: var(--font-size-12);
 
   padding: var(--space-0-75) var(--space-1);
   padding-right: var(--space-10);
+}
+
+@media screen and (min-width: 1200px) {
+  .SelectedBlogListItem h3 {
+    font-size: var(--font-size-15);
+  }
 }
 
 .SelectedBlogListItem {
