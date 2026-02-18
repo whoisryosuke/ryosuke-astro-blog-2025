@@ -1,15 +1,18 @@
 import * as React from "react";
 import type { SVGProps } from "react";
+import styles from "./SocialIconStyles.module.css";
+
 const InstagramIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={62}
-    height={62}
+    // width={62}
+    // height={62}
+    viewBox="0 0 62 62"
     fill="none"
     {...props}
   >
     <g
-      className="logo"
+      className={styles.Logo}
       fill="var(--fill)"
       stroke="var(--stroke)"
       clipPath="url(#Instagram_svg__a)"

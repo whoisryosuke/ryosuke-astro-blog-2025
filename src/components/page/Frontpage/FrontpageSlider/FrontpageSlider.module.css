@@ -89,6 +89,33 @@
   height: 100%;
 }
 
+.ArtSlideHoverBox {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.ArtSlideInteraction {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: var(--space-2);
+}
+
+.ArtSlideInteraction a {
+  display: block;
+  transform: translateY(30px);
+  opacity: 0;
+
+  transition-property: opacity, transform;
+  transition-timing-function: ease-in-out;
+  transition-duration: 420ms;
+}
+.ArtSlide[data-active="true"] .ArtSlideInteraction a {
+  transform: translateY(0);
+  opacity: 1;
+}
+
 .ArtSlide {
   position: relative;
   display: flex;

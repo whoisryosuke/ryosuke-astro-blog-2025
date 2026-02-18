@@ -3,8 +3,13 @@ import styles from "./FrontpageSlider.module.css";
 import { animate, motion, useMotionValue, useTransform } from "motion/react";
 import Stack from "../../../primitives/Stack/Stack";
 import { ART_DATA } from "../../../../data/art";
+import { BiHeart, BiHeartCircle } from "react-icons/bi";
+import BlueskyIcon from "../../../icons/Bluesky";
+import InstagramIcon from "../../../icons/Instagram";
+import socialIconStyles from "../../../icons/SocialIconStyles.module.css";
 
 const SLIDE_GAP = 20;
+const SOCIAL_ICON_SIZE = 36;
 
 const MotionStack = motion.create(Stack);
 
@@ -159,11 +164,44 @@ const ArtSlides = ({
             }}
             onClick={() => !isDragging && setSelectedProjectIndex(index)}
           >
-            <img
-              src={`./images/art-slides/${item.image}`}
-              draggable={false}
-              className={styles.ArtSlideImage}
-            />
+            <div className={styles.ArtSlideHoverBox}>
+              <img
+                src={`./images/art-slides/${item.image}`}
+                draggable={false}
+                className={styles.ArtSlideImage}
+              />
+              <div
+                className={[
+                  styles.ArtSlideInteraction,
+                  socialIconStyles.SocialButtons,
+                ].join(" ")}
+              >
+                {item.ig && (
+                  <a
+                    href={`https://www.instagram.com/whoisryosuke/${item.ig}`}
+                    className={socialIconStyles.InstagramIcon}
+                    target="_blank"
+                  >
+                    <InstagramIcon
+                      width={SOCIAL_ICON_SIZE}
+                      height={SOCIAL_ICON_SIZE}
+                    />
+                  </a>
+                )}
+                {item.bsky && (
+                  <a
+                    href={`https://bsky.app/profile/whoisryosuke.bsky.social/post/${item.bsky}`}
+                    className={socialIconStyles.BlueskyIcon}
+                    target="_blank"
+                  >
+                    <BlueskyIcon
+                      width={SOCIAL_ICON_SIZE}
+                      height={SOCIAL_ICON_SIZE}
+                    />
+                  </a>
+                )}
+              </div>
+            </div>
           </motion.div>
         ))}
       </MotionStack>

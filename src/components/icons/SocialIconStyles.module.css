@@ -1,0 +1,29 @@
+.SocialButtons a svg path,
+.SocialButtons a svg g {
+  transition-property: transform, fill, stroke;
+  transition-timing-function: ease-in-out;
+  transition-duration: 420ms;
+}
+.SocialButtons a svg {
+  --stroke: var(--color-light-gray);
+  --fill: transparent;
+}
+
+.SocialButtons a svg .Logo {
+  transform: rotate(0);
+  transform-origin: center;
+}
+
+.SocialButtons a:hover svg .Logo {
+  transform: rotate(15deg);
+}
+
+.BlueskyIcon:hover svg {
+  --fill: #208bfe;
+  --stroke: #208bfe;
+}
+
+.InstagramIcon:hover svg {
+  --fill: #c13584;
+  --stroke: #c13584;
+}
