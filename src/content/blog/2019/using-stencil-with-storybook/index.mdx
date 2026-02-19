@@ -46,7 +46,7 @@ The benefits of Storybook don't end there:
 
 You can see the accessibility tab of Storybook in action here notifying that colors don't meet the WCAG standard.
 
-![Example of knobs in action](Using%20StencilJS%20and%20Storybook/Screen_Shot_2019-12-03_at_12.37.21_PM.png)
+![Example of knobs in action](./Screen_Shot_2019-12-03_at_12.37.21_PM.png)
 
 Using "knobs", anyone with access to the Storybook can input custom content into designated areas of your components (like swapping a button's text or an input's number value).
 
@@ -119,7 +119,7 @@ module.exports = async ({ config }) => {
     function (file) {
       jsFilePath = path.join(
         __dirname,
-        `../dist/collection/components/${file}/${file}.js`
+        `../dist/collection/components/${file}/${file}.js`,
       );
       try {
         if (fs.existsSync(jsFilePath)) {
@@ -131,7 +131,7 @@ module.exports = async ({ config }) => {
 
       cssFilePath = path.join(
         __dirname,
-        `../dist/collection/components/${file}/${file}.css`
+        `../dist/collection/components/${file}/${file}.css`,
       );
       try {
         if (fs.existsSync(cssFilePath)) {
@@ -140,7 +140,7 @@ module.exports = async ({ config }) => {
       } catch (err) {
         console.error(err);
       }
-    }
+    },
   );
 
   config.plugins.push(
@@ -150,7 +150,7 @@ module.exports = async ({ config }) => {
         to: "./",
         context: "dist",
       },
-    ])
+    ]),
   );
 
   config.plugins.push(new WriteFilePlugin());

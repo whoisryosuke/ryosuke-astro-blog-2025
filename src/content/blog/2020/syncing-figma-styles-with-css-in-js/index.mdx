@@ -21,7 +21,7 @@ Since Figma opened up it's API to plugin developers, I thought this would be a g
 
 I created a Figma plugin called **Styled Theme Generator** that converts Figma color and text styles into a CSS in JS theme, or vice versa, importing a theme and generating Figma styles. I'll go over the process and what I discovered creating this plugin.
 
-![An animated GIF demonstrating the use of the plugin to generate a CSS in JS theme from a design system's Figma document with several text and color styles — and pasting the results into VSCode](./generating_theme_JSON_from_figma_styles_-_0.5x.gif)
+![An animated GIF demonstrating the use of the plugin to generate a CSS in JS theme from a design system's Figma document with several text and color styles — and pasting the results into VSCode](/blog/2020/syncing-figma-styles-with-css-in-js/generating_theme_JSON_from_figma_styles_-_0.5x.gif)
 
 Check out [the source code here](https://github.com/whoisryosuke/styled-theme-generator), or keep reading to learn more!
 
@@ -215,7 +215,7 @@ const fontSizesWithDupes = textStyles
   .sort((a, b) => a - b);
 // Remove dupes
 const fontSizes = fontSizesWithDupes.filter(
-  (item, index) => fontSizesWithDupes.indexOf(item) == index
+  (item, index) => fontSizesWithDupes.indexOf(item) == index,
 );
 ```
 
@@ -344,7 +344,7 @@ Based on the [PaintStyle](https://www.figma.com/plugin-docs/api/PaintStyle/) and
 const colors = figma.getLocalPaintStyles();
 
 colors.map(({ paints, type, remote, name }) =>
-  console.log(JSON.stringify({ paints, type, remote, name }))
+  console.log(JSON.stringify({ paints, type, remote, name })),
 );
 ```
 
@@ -408,7 +408,7 @@ Figma colors are in RGB format, but they're stored as a value from 0 to 1, inste
 ```jsx
 const { r, g, b } = paint.color;
 let newColor = `rgba (${Math.round(r * 255)}, ${Math.round(
-  g * 255
+  g * 255,
 )}, ${Math.round(b * 255)}, ${paint.opacity})`;
 ```
 
@@ -590,7 +590,7 @@ I also added `esModuleInterop` as `true` to `tsconfig.json`:
 
 ## ⬇️ Importing themes
 
-![An animated GIF demonstrating the plugin's ability to accept a JSON theme object inside the `<textarea>` input, clicking a button labeled "import", and generating color styles in the sidebar of a new Figma document.](./importing_CSS_in_JS_theme_and_generating_Figma_color_styles_-_0.5x.gif)
+![An animated GIF demonstrating the plugin's ability to accept a JSON theme object inside the `<textarea>` input, clicking a button labeled "import", and generating color styles in the sidebar of a new Figma document.](/blog/2020/syncing-figma-styles-with-css-in-js/importing_CSS_in_JS_theme_and_generating_Figma_color_styles_-_0.5x.gif)
 
 Once I figured out the process of reading from Figma's text and color styles, I moved into the import process. I added a `<textarea>` input to the plugin's UI code where user's can paste a JSON object of their theme.
 
@@ -624,7 +624,7 @@ document.getElementById("generate").onclick = () => {
   if (textbox.innerHTML !== "") {
     parent.postMessage(
       { pluginMessage: { type: "generate", theme: textbox.innerHTML } },
-      "*"
+      "*",
     );
   } else {
     const errorBox = document.getElementById("msg");
@@ -660,7 +660,7 @@ Object.keys(theme.text)?.map(async (name) => {
   const themeFont = theme.text[name];
   // See if name exists in document styles
   const localStyle = localTextStyles.find(
-    ({ name: localName }) => localName === name
+    ({ name: localName }) => localName === name,
   );
   // Use existing style or create new one
   const textStyle = localStyle || figma.createTextStyle();
