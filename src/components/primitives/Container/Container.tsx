@@ -1,7 +1,7 @@
-import React from "react";
+import React, { type HTMLProps } from "react";
 import "./Container.css";
 
-type Props = {};
+type Props = HTMLProps<HTMLDivElement> & {};
 
 const Container = (props: Props) => {
   return <div className="Container" {...props} />;

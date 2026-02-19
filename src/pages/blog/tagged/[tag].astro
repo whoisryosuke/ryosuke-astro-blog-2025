@@ -31,9 +31,11 @@ const filteredPosts = posts.filter(post => post.data.tags.includes(tag)).map(pos
     url: post.id
 }));
 
+const title = `#${tag}`
+const description = `Blog posts tagged ${tag}`
 ---
 
-<RootLayout>
+<RootLayout title={title} description={description}>
     <Container>
         <h1>#{tag}</h1>
 		<Stack gap="var(--space-6)">

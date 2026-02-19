@@ -18,9 +18,11 @@ type Props = CollectionEntry<'projects'>;
 const project = Astro.props;
 const { Content } = await render(project);
 
+const title = `${project.data.title}.project`
+
 ---
 
-<RootLayout>
+<RootLayout title={title} description={project.data.description}>
     <ProjectPost project={project}>
 		<Content components={components} />
 	</ProjectPost>

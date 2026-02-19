@@ -16,20 +16,24 @@ import Navbar from "../components/sections/Header/Navbar/Navbar";
 import FooterR2 from "../components/sections/Footer/FooterR2";
 import ClientRouter from "astro/components/ClientRouter.astro";
 import { ThemeProvider } from "../components/ThemeProvider";
+import BaseHead from "../components/BaseHead.astro";
 
-type Props = {};
+type Props = {
+	title?: string;
+	description?: string;
+	image?: ImageMetadata;
+};
 
 const pathSplit = Astro.url.pathname.split("/").filter(val => val !='');
 const basePath = pathSplit.length >= 1 ? pathSplit[0] : "root";
+
+const { title, description, image } = Astro.props;
 
 ---
 
 <html transition:name="root" transition:animate="none">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="me" href="https://mastodon.gamedev.place/@whoisryosuke" />
+    <BaseHead title={title} description={description} image={image} />
 
     <ClientRouter />
   </head>
@@ -37,6 +41,7 @@ const basePath = pathSplit.length >= 1 ? pathSplit[0] : "root";
     <ThemeProvider client:load transition:persist />
     <Header client:load transition:persist />
     <Navbar client:load path={Astro.url.pathname} transition:persist />
+
     
     <main transition:animate="fade">
       <slot />
