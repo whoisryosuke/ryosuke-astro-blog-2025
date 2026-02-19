@@ -16,10 +16,10 @@ Yet another home for my art and thoughts about design and development. Designed 
 ## Getting started
 
 1. Clone repo.
-1. `yarn`
-1. `yarn dev`
+1. `npm i`
+1. `npm run dev`
 
-> To preview on mobile, use `yarn dev --host`.
+> To preview on mobile, use `npm run dev --host`.
 
 ## Notes
 
