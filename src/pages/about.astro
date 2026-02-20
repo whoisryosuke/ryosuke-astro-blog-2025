@@ -1,0 +1,12 @@
+---
+import RootLayout from '../layouts/RootLayout.astro';
+import AboutSection from '../components/page/Frontpage/AboutSection/AboutSection';
+import SamplerPad from '../components/page/About/SamplerPad/SamplerPad';
+import Stack from '../components/primitives/Stack/Stack';
+---
+
+<RootLayout>
+	<Stack style={{ height: "100dvh" }}>
+	<SamplerPad client:load />
+	</Stack>
+</RootLayout>

@@ -1,0 +1,19 @@
+.Container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-column-gap: var(--space-1);
+  grid-row-gap: var(--space-1);
+  flex: 1;
+}
+
+.Button {
+  background: transparent;
+  border-radius: var(--space-1);
+  border: 1.5px solid var(--color-gray-500);
+  border-radius: var(--space-0-5);
+}
+
+.Button[data-pressed="true"] {
+  background: var(--color-gray-500);
+}

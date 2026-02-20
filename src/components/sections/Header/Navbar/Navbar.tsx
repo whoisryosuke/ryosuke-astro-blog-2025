@@ -9,7 +9,7 @@ type NavLink = {
 };
 const LINKS: NavLink[] = [
   {
-    href: "/",
+    href: "/about",
     text: "About",
   },
   {
