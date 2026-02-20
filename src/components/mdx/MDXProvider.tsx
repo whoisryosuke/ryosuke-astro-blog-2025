@@ -10,6 +10,12 @@ export const components = {
   ol: (props: any) => <List ordered {...props} />,
   Stack,
   Box: (props: any) => <div {...props} />,
+  PortfolioText: (props: any) => (
+    <Stack
+      style={{ width: "100%", maxWidth: "600px", margin: "auto" }}
+      {...props}
+    />
+  ),
   ThreadsEmbed,
   TweetEmbed,
   CodepenEmbed,
