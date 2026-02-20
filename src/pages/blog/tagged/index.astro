@@ -12,7 +12,7 @@ const posts = await getCollection('blog');
 const uniqueTags = new Set<string>();
 posts.forEach(post => post.data.tags.forEach(tag => uniqueTags.add(tag)))
 
-const tags = [...uniqueTags];
+const tags = [...uniqueTags].sort()
 
 ---
 
