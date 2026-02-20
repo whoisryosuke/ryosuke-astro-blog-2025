@@ -11,19 +11,37 @@ cover_image: "frontpage.jpg"
 
 ![Frontpage](/projects/clawdio/frontpage.jpg)
 
-![Frontpage](/projects/clawdio/frontpage-bitcrusher.jpg)
+<PortfolioText>
 
-![Frontpage](/projects/clawdio/web-nodes-preview.jpg)
+In 2025 as part of my exploration in audio programming, I developed [**Clawdio**](https://whoisryosuke.github.io/clawdio/), an open source JavaScript library for adding effects to Web Audio powered applications. The effects are written in Rust code and compiled to WASM to run on the web, while a JavaScript library acts as a wrapper around it to make it easy to use.
+
+</PortfolioText>
+
+![Clawdio frontpage](/projects/clawdio/frontpage-bitcrusher.jpg)
+
+![Web audio node graph application with Clawdio nodes](/projects/clawdio/web-nodes-preview.jpg)
 
 <Stack horizontal centered>
 
-![Frontpage](/projects/clawdio/web-nodes-piano-node.jpg)
+![Web Audio Node Graph - Piano node](/projects/clawdio/web-nodes-piano-node.jpg)
 
-![Frontpage](/projects/clawdio/web-nodes-drum-pad.jpg)
+![Web Audio Node Graph - Drum pad node](/projects/clawdio/web-nodes-drum-pad.jpg)
 
 </Stack>
 
-![Frontpage](/projects/clawdio/visual-testing.jpg)
+<PortfolioText>
+
+In order to test the library, I built an interactive node graph that leveraged the Web Audio API to hear the synthesized output. I was able to quickly add nodes to the system for Clawdio, like a Bitcrusher node, and even chain other visualization nodes to verify output visually as well as audibly.
+
+</PortfolioText>
+
+![VSCode IDE with test code on left and a line graph viz on the right](/projects/clawdio/visual-testing.jpg)
+
+<PortfolioText>
+
+I also developed a testing suite for the Rust backend to visualize and verify the low level signal math. The unit tests can optionally export a line graph with their output.
+
+</PortfolioText>
 
 <BlueskyEmbed id="3lxafs5zemz2v" />
 
