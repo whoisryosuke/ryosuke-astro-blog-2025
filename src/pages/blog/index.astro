@@ -13,6 +13,7 @@ import SelectedBlogList from '../../components/page/Frontpage/SelectedBlogs/Sele
 import type { SelectedBlogData } from '../../data/selected-blogs';
 import PageHeader from '../../layouts/PageHeader.astro';
 import Container from '../../components/primitives/Container/Container';
+import Button from '../../components/primitives/Button/Button';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
@@ -38,16 +39,21 @@ const sortedPostsKeys = Object.keys(sortedPosts).reverse();
 
 <RootLayout title="Blog Archive">
 	<Container>
-		<h1>Blog</h1>
-		<Stack gap="var(--space-5)">
-			{
-				sortedPostsKeys.map(year => (
-					<Stack key={year} gap="var(--space-6)">
-						<h2>{year}</h2>
-						<SelectedBlogList posts={sortedPosts[year]} />
-					</Stack>
-				))
-			}
+		<Stack gap="var(--space-2)">
+			<h1>Blog</h1>
+			<Stack horizontal>
+				<Button as="a" href="/blog/tagged/" outline>Browse by tag</Button>
+			</Stack>
+			<Stack gap="var(--space-5)">
+				{
+					sortedPostsKeys.map(year => (
+						<Stack key={year} gap="var(--space-6)">
+							<h2>{year}</h2>
+							<SelectedBlogList posts={sortedPosts[year]} />
+						</Stack>
+					))
+				}
+			</Stack>
 		</Stack>
 	</Container>
 </RootLayout>

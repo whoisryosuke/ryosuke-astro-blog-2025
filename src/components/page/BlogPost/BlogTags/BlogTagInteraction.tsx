@@ -1,7 +1,9 @@
 import {
   type ComponentProps,
+  type CSSProperties,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from "react";
@@ -11,18 +13,26 @@ import "./BlogTagInteraction.css";
 import BlogPostTitle from "../BlogPostTitle/BlogPostTitle";
 
 type Props = {
+  title?: string;
   tags: string[];
+  height?: number;
 };
 
-const BlogTagInteraction = ({ tags, ...props }: Props) => {
+const BlogTagInteraction = ({
+  tags,
+  height = 420,
+  title = "Looking for something?",
+  ...props
+}: Props) => {
   const bgColor = "#80cbcc";
   const lineColor = "#626263";
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const tagContainerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const data = useRef<Uint8Array>(new Uint8Array(0));
   const animationRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(
-    null
+    null,
   );
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const tagsRef = useRef<HTMLAnchorElement[]>([]);
@@ -70,14 +80,23 @@ const BlogTagInteraction = ({ tags, ...props }: Props) => {
 
       animationRef.current = requestAnimationFrame(draw);
     },
-    [data, lineColor, bgColor]
+    [data, lineColor, bgColor],
   );
 
   const handleResize = () => {
     if (!canvasRef.current) return;
     canvasRef.current.width = window.innerWidth;
     // canvasRef.current.height = Math.min(window.innerWidth / 1.62, 420);
-    canvasRef.current.height = 420;
+    // canvasRef.current.height = height;
+    console.log(
+      "container height",
+      tagContainerRef.current?.getBoundingClientRect().height,
+    );
+    const newHeight =
+      tagContainerRef.current?.getBoundingClientRect().height ?? height;
+    canvasRef.current.height = newHeight;
+    if (containerRef.current)
+      containerRef.current.style.height = `${newHeight}px`;
   };
 
   //   const handleMouse = (e: MouseEvent) => {
@@ -90,7 +109,7 @@ const BlogTagInteraction = ({ tags, ...props }: Props) => {
   //     isMouseHovering.current = false;
   //   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     handleResize();
     animationRef.current = requestAnimationFrame(draw);
 
@@ -111,15 +130,15 @@ const BlogTagInteraction = ({ tags, ...props }: Props) => {
 
   return (
     <div ref={containerRef} className="BlogTagInteraction">
-      <BlogPostTitle title="Looking for something?" />
+      <BlogPostTitle title={title} />
       <canvas
         ref={canvasRef}
         className="canvas"
         width="100%"
-        height="420px"
+        height={height}
         {...props}
       />
-      <div className="tags">
+      <div ref={tagContainerRef} className="tags">
         <Stack horizontal className="stack">
           {tags.map((tag) => (
             <BlogTag
