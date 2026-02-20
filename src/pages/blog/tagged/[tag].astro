@@ -7,6 +7,7 @@ import Container from '../../../components/primitives/Container/Container';
 import Stack from '../../../components/primitives/Stack/Stack';
 import SelectedBlogList from '../../../components/page/Frontpage/SelectedBlogs/SelectedBlogList';
 import { slugify } from '../../../utils/text';
+import Button from '../../../components/primitives/Button/Button';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
@@ -38,6 +39,9 @@ const description = `Blog posts tagged ${tag}`
 <RootLayout title={title} description={description}>
     <Container>
         <h1>#{tag}</h1>
+        <Stack horizontal>
+            <Button as="a" href="/blog/tagged/" outline>Browse all tags</Button>
+        </Stack>
 		<Stack gap="var(--space-6)">
             <SelectedBlogList posts={filteredPosts} />
 		</Stack>
