@@ -9,6 +9,8 @@ import {
 } from "./types";
 import Stack from "../../../primitives/Stack/Stack";
 import SampleWaveform from "./SampleWaveform";
+import WaveformBars from "./WaveformBars";
+import Container from "../../../primitives/Container/Container";
 
 function generateRandomSampleTimes() {
   const times = new Array(DRUMPAD_TOTAL_KEYS - 1)
@@ -31,6 +33,9 @@ const SamplerPad = (props: Props) => {
   const [input, setInput] = useState<InputStore>(DEFAULT_INPUT_STORE);
   const [audioCtx, setAudioCtx] = useState<AudioContext | null>(null);
   const [buffer, setBuffer] = useState<AudioBuffer | null>(null);
+  const [staticWaveform, setStaticWaveform] = useState<
+    Float32Array<ArrayBuffer>
+  >(new Float32Array());
   const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
   const [sampleTimes, setSampleTimes] = useState<number[]>([]);
 
@@ -81,26 +86,38 @@ const SamplerPad = (props: Props) => {
   }, [audioCtx]);
 
   return (
-    <Stack style={{ flex: 1 }}>
-      <SampleWaveform
-        width={420}
-        height={150}
-        audioCtx={audioCtx}
-        analyser={analyser}
-      />
-      <Drumpad
-        input={input}
-        setInput={setInput}
-        createContext={createContext}
-      />
-      <AudioPlayer
-        audioCtx={audioCtx}
-        input={input}
-        buffer={buffer}
-        sampleTimes={sampleTimes}
-        analyser={analyser}
-      />
-      <InputManager setInput={setInput} createContext={createContext} />
+    <Stack
+      horizontal
+      style={{
+        flex: 1,
+        padding: "var(--space-4)",
+        paddingLeft: "var(--space-10)",
+      }}
+    >
+      <Stack style={{ width: "61.8%" }}>
+        <SampleWaveform width={840} height={200} buffer={buffer} />
+        <Drumpad
+          input={input}
+          setInput={setInput}
+          createContext={createContext}
+        />
+        <AudioPlayer
+          audioCtx={audioCtx}
+          input={input}
+          buffer={buffer}
+          sampleTimes={sampleTimes}
+          analyser={analyser}
+        />
+      </Stack>
+      <div>
+        <h2>
+          I experiment on the cutting edge and prototype visually captivating
+          and functional products for the future.
+        </h2>
+
+        <WaveformBars analyser={analyser} />
+        <InputManager setInput={setInput} createContext={createContext} />
+      </div>
     </Stack>
   );
 };

@@ -1,0 +1,17 @@
+.Container {
+  position: fixed;
+  top: 0;
+  left: -20px;
+  width: 10%;
+  min-width: 40px;
+  max-width: 100px;
+  height: 100%;
+  gap: var(--space-0-5);
+}
+
+.Bar {
+  flex: 1;
+  width: 100%;
+  background: var(--color-gray-300);
+  border-radius: 0 var(--space-0-5) var(--space-0-5) 0;
+}
