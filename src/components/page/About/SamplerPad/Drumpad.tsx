@@ -14,7 +14,7 @@ const Drumpad = ({ input, setInput, createContext }: Props) => {
     // so we fire this off any chance we get here
     createContext();
 
-    console.log("mouse input", index, pressed);
+    // console.log("mouse input", index, pressed);
     setInput((prev) => ({
       ...prev,
       [index]: {

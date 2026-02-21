@@ -2,8 +2,28 @@ import React, { useEffect, useState } from "react";
 import Drumpad from "./Drumpad";
 import AudioPlayer from "./AudioPlayer";
 import InputManager from "./InputManager";
-import { DEFAULT_INPUT_STORE, type InputStore } from "./types";
+import {
+  DEFAULT_INPUT_STORE,
+  DRUMPAD_TOTAL_KEYS,
+  type InputStore,
+} from "./types";
 import Stack from "../../../primitives/Stack/Stack";
+import SampleWaveform from "./SampleWaveform";
+
+function generateRandomSampleTimes() {
+  const times = new Array(DRUMPAD_TOTAL_KEYS - 1)
+    .fill(0)
+    .map(() => Math.random() * DRUMPAD_TOTAL_KEYS);
+
+  // We want it to always start at 0,
+  times.push(0);
+
+  const randomTimes = times.sort((a, b) => a - b);
+
+  console.log("randomTimes", randomTimes);
+
+  return randomTimes;
+}
 
 type Props = {};
 
@@ -11,18 +31,39 @@ const SamplerPad = (props: Props) => {
   const [input, setInput] = useState<InputStore>(DEFAULT_INPUT_STORE);
   const [audioCtx, setAudioCtx] = useState<AudioContext | null>(null);
   const [buffer, setBuffer] = useState<AudioBuffer | null>(null);
+  const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
+  const [sampleTimes, setSampleTimes] = useState<number[]>([]);
 
-  console.log("audio ctx", audioCtx, buffer);
+  useEffect(() => {
+    console.log("sample waveform init");
+    // Create analyser and get buffer data
+    const ctx = createContext();
+    const analyserNode = ctx.createAnalyser();
+    // Configure analyser
+    analyserNode.fftSize = 1024;
+    analyserNode.connect(ctx.destination);
+
+    setAnalyser(analyserNode);
+  }, []);
+
+  useEffect(() => {
+    setSampleTimes(generateRandomSampleTimes());
+  }, []);
+
+  // console.log("audio ctx", audioCtx, buffer);
 
   const createContext = () => {
     if (!audioCtx) {
-      setAudioCtx(new AudioContext());
+      const newCtx = new AudioContext();
+      setAudioCtx(newCtx);
+      return newCtx;
     } else {
       // @TODO: Check if closed requires recreation
       if (audioCtx.state !== "running") {
         console.log("resuming audio ctx");
         audioCtx.resume();
       }
+      return audioCtx;
     }
   };
 
@@ -41,12 +82,24 @@ const SamplerPad = (props: Props) => {
 
   return (
     <Stack style={{ flex: 1 }}>
+      <SampleWaveform
+        width={420}
+        height={150}
+        audioCtx={audioCtx}
+        analyser={analyser}
+      />
       <Drumpad
         input={input}
         setInput={setInput}
         createContext={createContext}
       />
-      <AudioPlayer audioCtx={audioCtx} input={input} buffer={buffer} />
+      <AudioPlayer
+        audioCtx={audioCtx}
+        input={input}
+        buffer={buffer}
+        sampleTimes={sampleTimes}
+        analyser={analyser}
+      />
       <InputManager setInput={setInput} createContext={createContext} />
     </Stack>
   );
