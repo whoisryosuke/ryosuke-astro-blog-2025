@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Drumpad from "./Drumpad";
 import AudioPlayer from "./AudioPlayer";
-import InputManager from "./InputManager";
+import InputManager from "./InputManager/InputManager";
 import {
   DEFAULT_INPUT_STORE,
   DRUMPAD_TOTAL_KEYS,
@@ -116,7 +116,11 @@ const SamplerPad = (props: Props) => {
         </h2>
 
         <WaveformBars analyser={analyser} />
-        <InputManager setInput={setInput} createContext={createContext} />
+        <InputManager
+          input={input}
+          setInput={setInput}
+          createContext={createContext}
+        />
       </div>
     </Stack>
   );
