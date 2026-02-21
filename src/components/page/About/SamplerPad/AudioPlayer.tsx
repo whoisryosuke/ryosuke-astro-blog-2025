@@ -1,5 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { DRUMPAD_TOTAL_KEYS, type InputStore } from "./types";
+import {
+  DEFAULT_INPUT_STORE,
+  DRUMPAD_TOTAL_KEYS,
+  type InputStore,
+} from "./types";
 
 /**
  * Calculates detune value for audio to pitch sound up or down
@@ -34,6 +38,7 @@ const AudioPlayer = ({
   sampleTimes,
   analyser,
 }: Props) => {
+  const localInputState = useRef(DEFAULT_INPUT_STORE());
   const nodes = useRef<AudioNodeSequence[]>(
     new Array(DRUMPAD_TOTAL_KEYS).fill({
       sample: null,
@@ -119,12 +124,18 @@ const AudioPlayer = ({
 
     pressedKeys.forEach(([key]) => {
       // console.log("pressed key", key);
-      playAudio(parseInt(key));
+      if (!localInputState.current[key].pressed) {
+        playAudio(parseInt(key));
+        localInputState.current[key].pressed = true;
+      }
     });
 
     releasedKeys.forEach(([key]) => {
       // console.log("released key", key);
-      stopAudio(parseInt(key));
+      if (localInputState.current[key].pressed) {
+        stopAudio(parseInt(key));
+      }
+      localInputState.current[key].pressed = false;
     });
   }, [input]);
 

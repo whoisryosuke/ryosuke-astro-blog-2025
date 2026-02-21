@@ -28,7 +28,7 @@ const KeyboardInput = ({ input, setInput, createContext }: Props) => {
   // If pressed key is our target key then set to true
   function downHandler({ key }: KeyboardEvent): void {
     if (keys.includes(key)) {
-      createContext();
+      // createContext();
 
       //@ts-ignore
       const noteIndex = KEYBOARD_INPUT_MAP[key];

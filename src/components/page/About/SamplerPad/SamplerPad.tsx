@@ -30,12 +30,9 @@ function generateRandomSampleTimes() {
 type Props = {};
 
 const SamplerPad = (props: Props) => {
-  const [input, setInput] = useState<InputStore>(DEFAULT_INPUT_STORE);
+  const [input, setInput] = useState<InputStore>(DEFAULT_INPUT_STORE());
   const [audioCtx, setAudioCtx] = useState<AudioContext | null>(null);
   const [buffer, setBuffer] = useState<AudioBuffer | null>(null);
-  const [staticWaveform, setStaticWaveform] = useState<
-    Float32Array<ArrayBuffer>
-  >(new Float32Array());
   const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
   const [sampleTimes, setSampleTimes] = useState<number[]>([]);
 
