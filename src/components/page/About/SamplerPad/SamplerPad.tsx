@@ -41,6 +41,7 @@ const SamplerPad = (props: Props) => {
   const [noteHistory, setNoteHistory] = useState<NoteHistory>([]);
   const [playerState, setPlayerState] = useState({
     playing: false,
+    time: 0,
   });
   const timerRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(
     null,
@@ -55,6 +56,10 @@ const SamplerPad = (props: Props) => {
     prevTimeRef.current = now;
 
     timeRef.current += delta;
+    setPlayerState((prev) => ({
+      ...prev,
+      time: timeRef.current,
+    }));
 
     console.log("delta", delta, timeRef.current);
 
@@ -192,7 +197,7 @@ const SamplerPad = (props: Props) => {
         />
       </Stack>
       <div>
-        <NoteTracker noteHistory={noteHistory} />
+        <NoteTracker playerState={playerState} noteHistory={noteHistory} />
 
         <WaveformBars analyser={analyser} />
         <InputManager
