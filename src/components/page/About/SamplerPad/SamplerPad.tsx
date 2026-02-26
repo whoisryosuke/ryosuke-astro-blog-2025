@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Drumpad from "./Drumpad";
 import AudioPlayer from "./AudioPlayer";
 import InputManager from "./InputManager/InputManager";
@@ -6,11 +6,14 @@ import {
   DEFAULT_INPUT_STORE,
   DRUMPAD_TOTAL_KEYS,
   type InputStore,
+  type NoteHistory,
+  type NoteState,
 } from "./types";
 import Stack from "../../../primitives/Stack/Stack";
 import SampleWaveform from "./SampleWaveform";
 import WaveformBars from "./WaveformBars";
 import Container from "../../../primitives/Container/Container";
+import NoteTracker from "./NoteTracker";
 
 function generateRandomSampleTimes() {
   const times = new Array(DRUMPAD_TOTAL_KEYS - 1)
@@ -22,7 +25,7 @@ function generateRandomSampleTimes() {
 
   const randomTimes = times.sort((a, b) => a - b);
 
-  console.log("randomTimes", randomTimes);
+  // console.log("randomTimes", randomTimes);
 
   return randomTimes;
 }
@@ -35,6 +38,88 @@ const SamplerPad = (props: Props) => {
   const [buffer, setBuffer] = useState<AudioBuffer | null>(null);
   const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
   const [sampleTimes, setSampleTimes] = useState<number[]>([]);
+  const [noteHistory, setNoteHistory] = useState<NoteHistory>([]);
+  const [playerState, setPlayerState] = useState({
+    playing: false,
+  });
+  const timerRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(
+    null,
+  );
+  const timeRef = useRef(0);
+  const prevTimeRef = useRef<number | null>(null);
+  const lastInputTimeRef = useRef(0);
+
+  const syncTimer = (now: number) => {
+    if (!prevTimeRef.current) prevTimeRef.current = now;
+    const delta = now - prevTimeRef.current;
+    prevTimeRef.current = now;
+
+    timeRef.current += delta;
+
+    console.log("delta", delta, timeRef.current);
+
+    // Check if input has been a while...
+    const isPastTime = timeRef.current - lastInputTimeRef.current > 4200;
+    // const noNotesPlaying = !Object.values(input).find((value) => value.pressed);
+    if (isPastTime) {
+      console.log("stopping playback");
+      setPlayerState((prev) => ({
+        ...prev,
+        playing: false,
+      }));
+      timeRef.current = 0;
+      prevTimeRef.current = 0;
+    }
+
+    // Loop!
+    timerRef.current = requestAnimationFrame(syncTimer);
+  };
+
+  useEffect(() => {
+    if (playerState.playing) {
+      timerRef.current = requestAnimationFrame(syncTimer);
+    }
+    if (!playerState.playing && timerRef.current) {
+      cancelAnimationFrame(timerRef.current);
+    }
+    return () => {
+      if (timerRef.current) cancelAnimationFrame(timerRef.current);
+    };
+  }, [playerState.playing]);
+
+  const handleInput = (noteIndex: number, pressed: boolean) => {
+    console.log("input!", noteIndex, pressed);
+    // Sync input to state
+    setInput((prev) => ({
+      ...prev,
+      [noteIndex]: {
+        ...prev[noteIndex],
+        pressed,
+      },
+    }));
+
+    // Check if we're playing, if not, activate
+    if (!playerState.playing && pressed) {
+      console.log("starting playback...");
+      setPlayerState((prev) => ({
+        ...prev,
+        playing: true,
+      }));
+    }
+
+    // Save note history
+    setNoteHistory((prev) => [
+      ...prev,
+      {
+        note: noteIndex,
+        pressed,
+        time: timeRef.current,
+      },
+    ]);
+
+    // Log input time
+    lastInputTimeRef.current = timeRef.current;
+  };
 
   useEffect(() => {
     console.log("sample waveform init");
@@ -95,7 +180,7 @@ const SamplerPad = (props: Props) => {
         <SampleWaveform width={840} height={200} buffer={buffer} />
         <Drumpad
           input={input}
-          setInput={setInput}
+          setInput={handleInput}
           createContext={createContext}
         />
         <AudioPlayer
@@ -107,15 +192,12 @@ const SamplerPad = (props: Props) => {
         />
       </Stack>
       <div>
-        <h2>
-          I experiment on the cutting edge and prototype visually captivating
-          and functional products for the future.
-        </h2>
+        <NoteTracker noteHistory={noteHistory} />
 
         <WaveformBars analyser={analyser} />
         <InputManager
           input={input}
-          setInput={setInput}
+          setInput={handleInput}
           createContext={createContext}
         />
       </div>

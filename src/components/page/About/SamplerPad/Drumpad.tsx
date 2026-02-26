@@ -4,7 +4,7 @@ import styles from "./Drumpad.module.css";
 
 type Props = {
   input: InputStore;
-  setInput: React.Dispatch<React.SetStateAction<InputStore>>;
+  setInput: (noteIndex: number, pressed: boolean) => void;
   createContext: () => void;
 };
 
@@ -15,13 +15,7 @@ const Drumpad = ({ input, setInput, createContext }: Props) => {
     createContext();
 
     // console.log("mouse input", index, pressed);
-    setInput((prev) => ({
-      ...prev,
-      [index]: {
-        ...prev[index],
-        pressed,
-      },
-    }));
+    setInput(index, pressed);
   };
 
   const buttons = new Array(DRUMPAD_TOTAL_KEYS)

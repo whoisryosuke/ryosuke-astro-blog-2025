@@ -14,3 +14,11 @@ export const DEFAULT_INPUT_STORE = () =>
     }),
     {},
   );
+
+export type NoteState = {
+  note: number;
+  pressed: boolean;
+  time: number;
+};
+
+export type NoteHistory = NoteState[];

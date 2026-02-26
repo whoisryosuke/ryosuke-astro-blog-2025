@@ -3,7 +3,7 @@ import type { InputStore } from "../types";
 
 type Props = {
   input: InputStore;
-  setInput: React.Dispatch<React.SetStateAction<InputStore>>;
+  setInput: (noteIndex: number, pressed: boolean) => void;
   createContext: () => void;
 };
 
@@ -32,14 +32,7 @@ const KeyboardInput = ({ input, setInput, createContext }: Props) => {
 
       //@ts-ignore
       const noteIndex = KEYBOARD_INPUT_MAP[key];
-      if (!input[noteIndex].pressed)
-        setInput((prev) => ({
-          ...prev,
-          [noteIndex]: {
-            ...prev[noteIndex],
-            pressed: true,
-          },
-        }));
+      if (!input[noteIndex].pressed) setInput(noteIndex, true);
     }
   }
   // If released key is our target key then set to false
@@ -47,14 +40,7 @@ const KeyboardInput = ({ input, setInput, createContext }: Props) => {
     if (keys.includes(key)) {
       //@ts-ignore
       const noteIndex = KEYBOARD_INPUT_MAP[key];
-      if (!input[noteIndex].pressed)
-        setInput((prev) => ({
-          ...prev,
-          [noteIndex]: {
-            ...prev[noteIndex],
-            pressed: false,
-          },
-        }));
+      if (!input[noteIndex].pressed) setInput(noteIndex, false);
     }
   };
 

@@ -1,10 +1,10 @@
 import React from "react";
-import type { InputStore } from "../types";
+import type { InputStore, NoteHistory } from "../types";
 import KeyboardInput from "./KeyboardInput";
 
 type Props = {
   input: InputStore;
-  setInput: React.Dispatch<React.SetStateAction<InputStore>>;
+  setInput: (noteIndex: number, pressed: boolean) => void;
   createContext: () => void;
 };
 
