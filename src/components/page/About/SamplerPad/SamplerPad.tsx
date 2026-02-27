@@ -16,6 +16,8 @@ import Container from "../../../primitives/Container/Container";
 import NoteTracker from "./NoteTracker";
 import Button from "../../../primitives/Button/Button";
 import { useMeasure } from "@uidotdev/usehooks";
+import BioCard from "./BioCard";
+import styles from "./SamplerPad.module.css";
 
 function generateRandomSampleTimes() {
   const times = new Array(DRUMPAD_TOTAL_KEYS - 1)
@@ -239,15 +241,8 @@ const SamplerPad = (props: Props) => {
   };
 
   return (
-    <Stack
-      horizontal
-      style={{
-        flex: 1,
-        padding: "var(--space-4)",
-        paddingLeft: "var(--space-10)",
-      }}
-    >
-      <Stack ref={ref} style={{ width: "61.8%" }}>
+    <Stack horizontal responsive className={styles.Container}>
+      <Stack ref={ref} className={styles.MainContent}>
         <SampleWaveform
           width={width ?? 420}
           height={width ? width * 0.15 : 200}
@@ -260,25 +255,33 @@ const SamplerPad = (props: Props) => {
           height={width ? width * 0.25 : 200}
           // height={height ?? 100}
         />
+        <Stack responsive>
+          <Button onClick={handleReset} outline>
+            Reset
+          </Button>
+        </Stack>
         <Drumpad
           input={input}
           setInput={handleInput}
           createContext={createContext}
         />
       </Stack>
-      <div>
-        <Button onClick={handleReset} outline>
-          Reset
-        </Button>
-
-        <div>
+      <Stack className={styles.SideContent}>
+        <Stack>
+          <BioCard />
+          <h2>
+            I experiment on the cutting edge and prototype visually captivating
+            and functional products for the future.
+          </h2>
+        </Stack>
+        {/* <div>
           {noteHistory.map((note) => (
             <div key={`${note.note}-${note.time}`}>
               [{note.note}]: {note.time} / {note.duration}
             </div>
           ))}
-        </div>
-      </div>
+        </div> */}
+      </Stack>
 
       <WaveformBars analyser={analyser} />
       <InputManager

@@ -99,7 +99,7 @@ const NoteTracker = ({
     return () => {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, [draw, playerState.playing]);
+  }, [draw, playerState.playing, width, height]);
 
   return <canvas ref={canvasRef} {...props} width={width} height={height} />;
 };

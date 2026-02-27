@@ -70,7 +70,7 @@ const SampleWaveform = ({ width, height, buffer, ...props }: Props) => {
 
   useEffect(() => {
     draw();
-  }, [draw]);
+  }, [draw, width, height]);
 
   return <canvas ref={canvasRef} {...props} width={width} height={height} />;
 };

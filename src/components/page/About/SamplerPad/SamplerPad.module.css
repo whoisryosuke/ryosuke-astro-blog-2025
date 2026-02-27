@@ -1,0 +1,47 @@
+.Container {
+  flex: 1;
+  padding: var(--space-4);
+  padding-left: var(--space-5);
+
+  @media screen and (min-width: 1200px) {
+    padding-left: var(--space-10);
+  }
+}
+
+.MainContent {
+  width: 100%;
+  flex: 1;
+  gap: var(--space-0-5);
+  padding-top: var(--space-2);
+
+  @media screen and (min-width: 1200px) {
+    width: 61.8%;
+    max-width: 1200px;
+    gap: var(--space-1);
+  }
+}
+
+.MainContent canvas {
+  border-radius: var(--space-0-5);
+}
+
+.SideContent {
+  /* display: none; */
+  align-items: flex-start;
+
+  @media screen and (min-width: 1200px) {
+    padding: var(--space-2);
+    /* display: flex; */
+    justify-content: center;
+  }
+}
+
+.SideContent h2 {
+  font-size: 5rem;
+  margin: 0;
+  display: none;
+
+  @media screen and (min-width: 1200px) {
+    display: flex;
+  }
+}

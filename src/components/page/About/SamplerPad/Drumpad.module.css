@@ -1,13 +1,18 @@
 .Container {
-  display: grid;
+  /* display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
   grid-column-gap: var(--space-1);
-  grid-row-gap: var(--space-1);
+  grid-row-gap: var(--space-1); */
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-0-5);
+  justify-content: space-between;
   flex: 1;
 }
 
 .Button {
+  width: calc(33.3% - var(--space-0-5));
   background: transparent;
   border-radius: var(--space-1);
   border: 1.5px solid var(--color-gray-500);
