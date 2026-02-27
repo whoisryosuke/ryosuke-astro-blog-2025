@@ -15,6 +15,7 @@ import WaveformBars from "./WaveformBars";
 import Container from "../../../primitives/Container/Container";
 import NoteTracker from "./NoteTracker";
 import Button from "../../../primitives/Button/Button";
+import { useMeasure } from "@uidotdev/usehooks";
 
 function generateRandomSampleTimes() {
   const times = new Array(DRUMPAD_TOTAL_KEYS - 1)
@@ -55,6 +56,7 @@ const SamplerPad = (props: Props) => {
   const prevTimeRef = useRef<number | null>(null);
   const lastInputTimeRef = useRef(0);
   const isPlaying = useRef(false);
+  const [ref, { width, height }] = useMeasure();
 
   const syncTimer = (now: number) => {
     if (!prevTimeRef.current) prevTimeRef.current = now;
@@ -245,27 +247,26 @@ const SamplerPad = (props: Props) => {
         paddingLeft: "var(--space-10)",
       }}
     >
-      <Stack style={{ width: "61.8%" }}>
-        <SampleWaveform width={840} height={200} buffer={buffer} />
+      <Stack ref={ref} style={{ width: "61.8%" }}>
+        <SampleWaveform
+          width={width ?? 420}
+          height={width ? width * 0.15 : 200}
+          buffer={buffer}
+        />
+        <NoteTracker
+          playerState={playerState}
+          noteHistory={noteHistory}
+          width={width ?? 420}
+          height={width ? width * 0.25 : 200}
+          // height={height ?? 100}
+        />
         <Drumpad
           input={input}
           setInput={handleInput}
           createContext={createContext}
         />
-        <AudioPlayer
-          audioCtx={audioCtx}
-          input={input}
-          buffer={buffer}
-          sampleTimes={sampleTimes}
-          analyser={analyser}
-        />
       </Stack>
       <div>
-        <NoteTracker
-          playerState={playerState}
-          noteHistory={noteHistory}
-          width={800}
-        />
         <Button onClick={handleReset} outline>
           Reset
         </Button>
@@ -277,14 +278,21 @@ const SamplerPad = (props: Props) => {
             </div>
           ))}
         </div>
-
-        <WaveformBars analyser={analyser} />
-        <InputManager
-          input={input}
-          setInput={handleInput}
-          createContext={createContext}
-        />
       </div>
+
+      <WaveformBars analyser={analyser} />
+      <InputManager
+        input={input}
+        setInput={handleInput}
+        createContext={createContext}
+      />
+      <AudioPlayer
+        audioCtx={audioCtx}
+        input={input}
+        buffer={buffer}
+        sampleTimes={sampleTimes}
+        analyser={analyser}
+      />
     </Stack>
   );
 };
