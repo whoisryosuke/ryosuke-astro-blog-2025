@@ -113,14 +113,36 @@ const SamplerPad = (props: Props) => {
     }
 
     // Save note history
-    setNoteHistory((prev) => [
-      ...prev,
-      {
-        note: noteIndex,
-        pressed,
-        time: timeRef.current,
-      },
-    ]);
+    if (pressed) {
+      setNoteHistory((prev) => [
+        ...prev,
+        {
+          note: noteIndex,
+          pressed,
+          time: timeRef.current,
+          duration: -1,
+        },
+      ]);
+    } else {
+      // Released? Set the duration of note
+      setNoteHistory((prev) => {
+        const lastNote = prev.findLastIndex(
+          (note) => note.note == noteIndex && note.pressed,
+        );
+        if (lastNote >= 0) return prev;
+
+        return prev.map((note, index) => {
+          if (index == lastNote) {
+            return {
+              ...note,
+              pressed: false,
+              duration: timeRef.current - note.time,
+            };
+          }
+          return note;
+        });
+      });
+    }
 
     // Log input time
     lastInputTimeRef.current = timeRef.current;

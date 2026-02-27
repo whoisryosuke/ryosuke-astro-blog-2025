@@ -19,6 +19,7 @@ export type NoteState = {
   note: number;
   pressed: boolean;
   time: number;
+  duration: number;
 };
 
 export type NoteHistory = NoteState[];

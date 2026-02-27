@@ -21,6 +21,8 @@ type Props = Omit<HTMLProps<HTMLCanvasElement>, "data"> & {
   };
 };
 
+const TOTAL_TIME = 4200;
+
 const NoteTracker = ({
   width,
   height,
@@ -53,14 +55,36 @@ const NoteTracker = ({
 
     ctx.strokeStyle = lineColor;
 
-    const animatedX = (playerState.time / 4200) * canvasWidth;
+    const allPossibleNotes = noteHistory.reduce((merge, note) => {
+      merge.add(note.note);
+      return merge;
+    }, new Set());
+
+    const rowHeight = canvasHeight / allPossibleNotes.size;
+
+    let rowIndex = 0;
+    allPossibleNotes.forEach((noteIndex) => {
+      const notes = noteHistory.filter((note) => note.note == noteIndex);
+
+      notes.forEach((note) => {
+        const noteX = (note.time / TOTAL_TIME) * canvasWidth;
+        const duration = note.duration >= 0 ? note.duration : playerState.time;
+        const noteWidth = (duration / TOTAL_TIME) * canvasWidth;
+
+        ctx.strokeRect(noteX, rowHeight * rowIndex, noteWidth, rowHeight);
+      });
+
+      rowIndex += 1;
+    });
+
+    const animatedX = (playerState.time / TOTAL_TIME) * canvasWidth;
     ctx.beginPath();
     ctx.moveTo(animatedX, 0);
     ctx.lineTo(animatedX, canvasHeight);
     ctx.stroke();
 
     if (playerState.playing) animationRef.current = requestAnimationFrame(draw);
-  }, [playerState, lineColor, bgColor]);
+  }, [playerState, noteHistory, lineColor, bgColor]);
 
   useEffect(() => {
     draw();
