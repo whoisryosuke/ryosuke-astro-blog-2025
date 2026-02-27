@@ -228,10 +228,12 @@ const SamplerPad = (props: Props) => {
     setPlayerState((prev) => ({
       time: 0,
       playing: false,
+      totalTime: INPUT_END_TIME_CHECK,
     }));
     setNoteHistory([]);
     timeRef.current = 0;
     prevTimeRef.current = 0;
+    isPlaying.current = false;
   };
 
   return (
