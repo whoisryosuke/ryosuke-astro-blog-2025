@@ -31,6 +31,8 @@ function generateRandomSampleTimes() {
   return randomTimes;
 }
 
+const INPUT_END_TIME_CHECK = 4200;
+
 type Props = {};
 
 const SamplerPad = (props: Props) => {
@@ -44,6 +46,7 @@ const SamplerPad = (props: Props) => {
   const [playerState, setPlayerState] = useState({
     playing: false,
     time: 0,
+    totalTime: INPUT_END_TIME_CHECK,
   });
   const timerRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(
     null,
@@ -51,6 +54,7 @@ const SamplerPad = (props: Props) => {
   const timeRef = useRef(0);
   const prevTimeRef = useRef<number | null>(null);
   const lastInputTimeRef = useRef(0);
+  const isPlaying = useRef(false);
 
   const syncTimer = (now: number) => {
     if (!prevTimeRef.current) prevTimeRef.current = now;
@@ -61,21 +65,34 @@ const SamplerPad = (props: Props) => {
     setPlayerState((prev) => ({
       ...prev,
       time: timeRef.current,
+      // As we set the time, we also update the total length as needed
+      // If we exceed the default length, or any previous length, use latest time
+      totalTime: Math.max(
+        prev.totalTime,
+        timeRef.current,
+        INPUT_END_TIME_CHECK,
+      ),
     }));
 
-    console.log("delta", delta, timeRef.current);
-
     // Check if input has been a while...
-    const isPastTime = timeRef.current - lastInputTimeRef.current > 4200;
+    const isPastTime =
+      timeRef.current - lastInputTimeRef.current > INPUT_END_TIME_CHECK;
     // const noNotesPlaying = !Object.values(input).find((value) => value.pressed);
     if (isPastTime) {
       console.log("stopping playback");
+      // Slide time back if needed to get rid of empty time
+      // We go back to last input time or total time -- whichever is bigger
+      const timeCheck = timeRef.current - INPUT_END_TIME_CHECK;
+      const newTime = Math.max(timeCheck, playerState.totalTime);
+      timeRef.current = newTime;
+
+      // Stop gameplay + subtract from total time as needed
       setPlayerState((prev) => ({
         ...prev,
         playing: false,
+        totalTime: newTime,
       }));
-      timeRef.current = 0;
-      prevTimeRef.current = 0;
+      isPlaying.current = false;
     }
 
     // Loop!
@@ -94,6 +111,8 @@ const SamplerPad = (props: Props) => {
     };
   }, [playerState.playing]);
 
+  console.log("playerState", playerState);
+
   const handleInput = (noteIndex: number, pressed: boolean) => {
     console.log("input!", noteIndex, pressed);
     // New input?
@@ -110,12 +129,16 @@ const SamplerPad = (props: Props) => {
     inputCache.current[noteIndex].pressed = pressed;
 
     // Check if we're playing, if not, activate
-    if (!playerState.playing && pressed) {
+    if (!isPlaying.current && pressed) {
       console.log("starting playback...");
+      timeRef.current = 0;
+      prevTimeRef.current = 0;
       setPlayerState((prev) => ({
         ...prev,
         playing: true,
+        time: 0,
       }));
+      isPlaying.current = true;
     }
 
     // Save note history
@@ -236,7 +259,11 @@ const SamplerPad = (props: Props) => {
         />
       </Stack>
       <div>
-        <NoteTracker playerState={playerState} noteHistory={noteHistory} />
+        <NoteTracker
+          playerState={playerState}
+          noteHistory={noteHistory}
+          width={800}
+        />
         <Button onClick={handleReset} outline>
           Reset
         </Button>

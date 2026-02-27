@@ -18,6 +18,7 @@ type Props = Omit<HTMLProps<HTMLCanvasElement>, "data"> & {
   playerState: {
     playing: boolean;
     time: number;
+    totalTime: number;
   };
 };
 
@@ -47,7 +48,11 @@ const NoteTracker = ({
 
     const canvasWidth = canvas.width;
     const canvasHeight = canvas.height;
-    const totalTime = Math.max(TOTAL_TIME, playerState.time);
+    const totalTime = Math.max(
+      TOTAL_TIME,
+      playerState.time,
+      playerState.totalTime,
+    );
 
     // Clear drawing
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
