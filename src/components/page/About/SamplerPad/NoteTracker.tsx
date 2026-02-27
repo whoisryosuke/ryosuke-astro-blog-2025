@@ -47,6 +47,7 @@ const NoteTracker = ({
 
     const canvasWidth = canvas.width;
     const canvasHeight = canvas.height;
+    const totalTime = Math.max(TOTAL_TIME, playerState.time);
 
     // Clear drawing
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -67,9 +68,10 @@ const NoteTracker = ({
       const notes = noteHistory.filter((note) => note.note == noteIndex);
 
       notes.forEach((note) => {
-        const noteX = (note.time / TOTAL_TIME) * canvasWidth;
-        const duration = note.duration >= 0 ? note.duration : playerState.time;
-        const noteWidth = (duration / TOTAL_TIME) * canvasWidth;
+        const noteX = (note.time / totalTime) * canvasWidth;
+        const duration =
+          note.duration >= 0 ? note.duration : playerState.time - note.time;
+        const noteWidth = (duration / totalTime) * canvasWidth;
 
         ctx.strokeRect(noteX, rowHeight * rowIndex, noteWidth, rowHeight);
       });
@@ -77,7 +79,7 @@ const NoteTracker = ({
       rowIndex += 1;
     });
 
-    const animatedX = (playerState.time / TOTAL_TIME) * canvasWidth;
+    const animatedX = (playerState.time / totalTime) * canvasWidth;
     ctx.beginPath();
     ctx.moveTo(animatedX, 0);
     ctx.lineTo(animatedX, canvasHeight);

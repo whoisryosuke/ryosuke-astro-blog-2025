@@ -14,6 +14,7 @@ import SampleWaveform from "./SampleWaveform";
 import WaveformBars from "./WaveformBars";
 import Container from "../../../primitives/Container/Container";
 import NoteTracker from "./NoteTracker";
+import Button from "../../../primitives/Button/Button";
 
 function generateRandomSampleTimes() {
   const times = new Array(DRUMPAD_TOTAL_KEYS - 1)
@@ -34,6 +35,7 @@ type Props = {};
 
 const SamplerPad = (props: Props) => {
   const [input, setInput] = useState<InputStore>(DEFAULT_INPUT_STORE());
+  const inputCache = useRef<InputStore>(DEFAULT_INPUT_STORE());
   const [audioCtx, setAudioCtx] = useState<AudioContext | null>(null);
   const [buffer, setBuffer] = useState<AudioBuffer | null>(null);
   const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
@@ -94,6 +96,9 @@ const SamplerPad = (props: Props) => {
 
   const handleInput = (noteIndex: number, pressed: boolean) => {
     console.log("input!", noteIndex, pressed);
+    // New input?
+    if (inputCache.current[noteIndex].pressed == pressed) return;
+
     // Sync input to state
     setInput((prev) => ({
       ...prev,
@@ -102,6 +107,7 @@ const SamplerPad = (props: Props) => {
         pressed,
       },
     }));
+    inputCache.current[noteIndex].pressed = pressed;
 
     // Check if we're playing, if not, activate
     if (!playerState.playing && pressed) {
@@ -125,11 +131,12 @@ const SamplerPad = (props: Props) => {
       ]);
     } else {
       // Released? Set the duration of note
+      console.log("note released", noteIndex);
       setNoteHistory((prev) => {
         const lastNote = prev.findLastIndex(
           (note) => note.note == noteIndex && note.pressed,
         );
-        if (lastNote >= 0) return prev;
+        if (lastNote < 0) return prev;
 
         return prev.map((note, index) => {
           if (index == lastNote) {
@@ -194,6 +201,16 @@ const SamplerPad = (props: Props) => {
     if (audioCtx) loadAudio();
   }, [audioCtx]);
 
+  const handleReset = () => {
+    setPlayerState((prev) => ({
+      time: 0,
+      playing: false,
+    }));
+    setNoteHistory([]);
+    timeRef.current = 0;
+    prevTimeRef.current = 0;
+  };
+
   return (
     <Stack
       horizontal
@@ -220,6 +237,17 @@ const SamplerPad = (props: Props) => {
       </Stack>
       <div>
         <NoteTracker playerState={playerState} noteHistory={noteHistory} />
+        <Button onClick={handleReset} outline>
+          Reset
+        </Button>
+
+        <div>
+          {noteHistory.map((note) => (
+            <div key={`${note.note}-${note.time}`}>
+              [{note.note}]: {note.time} / {note.duration}
+            </div>
+          ))}
+        </div>
 
         <WaveformBars analyser={analyser} />
         <InputManager
