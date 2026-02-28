@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import NavbarLink, { type NavbarLinkMeasurement } from "./NavbarLink";
 import "./Navbar.css";
 import { motion } from "motion/react";
+import throttle from "../../../../utils/throttle";
 
 type NavLink = {
   href: string;
@@ -50,7 +51,7 @@ const Navbar = ({ path }: Props) => {
     setResetHash(Date.now());
   };
 
-  useEffect(() => {
+  const measureContainer = () => {
     const measurement = containerRef?.current?.getBoundingClientRect();
     if (!measurement) return;
     setContainerSize({
@@ -58,7 +59,20 @@ const Navbar = ({ path }: Props) => {
       left: measurement.left,
     });
 
-    //@TODO: Resize observer. Low priority since this is fairly static.
+    handleReset();
+  };
+
+  const throttledMeasureContainer = useMemo(
+    () => throttle(measureContainer, 420),
+    [],
+  );
+
+  useEffect(() => {
+    window.addEventListener("resize", throttledMeasureContainer);
+
+    return () => {
+      window.removeEventListener("resize", throttledMeasureContainer);
+    };
   }, []);
 
   const followPosition = selectedLink.left - containerSize.left;

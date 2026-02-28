@@ -2,8 +2,14 @@
   position: fixed;
   top: 0;
   left: var(--space-1);
-  padding: var(--space-1-5) var(--space-2-5);
+  padding: var(--space-0-5) var(--space-2-5);
   z-index: 999;
+}
+
+@media screen and (min-width: 1200px) {
+  .NavbarContainer {
+    padding: var(--space-1-5) var(--space-2-5);
+  }
 }
 
 .Navbar {
@@ -21,7 +27,7 @@
 .NavbarLink {
   font-family: var(--font-family-mono);
   font-size: var(--body-1);
-  padding: var(--space-0-75) var(--space-1-5);
+  padding: var(--space-0-5) var(--space-1);
   border-radius: var(--space-0-5);
 
   background-color: transparent;
@@ -37,6 +43,12 @@
   z-index: 710;
 }
 
+@media screen and (min-width: 1200px) {
+  .NavbarLink {
+    padding: var(--space-0-75) var(--space-1-5);
+  }
+}
+
 .NavbarLink.selected {
   background-color: var(--color-primary);
 }
@@ -46,13 +58,19 @@
 
   width: var(--width);
   height: 1lh;
-  padding: var(--space-0-75) 0;
+  padding: var(--space-0-5) 0;
 
   top: var(--space-0-75);
   left: var(--left);
 
   background-color: var(--color-primary);
   border-radius: var(--space-0-5);
+}
+
+@media screen and (min-width: 1200px) {
+  .Navbar .follow {
+    padding: var(--space-0-75) 0;
+  }
 }
 
 @media screen and (min-width: 600px) {
