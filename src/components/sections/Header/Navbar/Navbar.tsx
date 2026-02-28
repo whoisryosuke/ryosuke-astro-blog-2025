@@ -1,4 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import NavbarLink, { type NavbarLinkMeasurement } from "./NavbarLink";
 import "./Navbar.css";
 import { motion } from "motion/react";
@@ -67,7 +73,8 @@ const Navbar = ({ path }: Props) => {
     [],
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    measureContainer();
     window.addEventListener("resize", throttledMeasureContainer);
 
     return () => {
