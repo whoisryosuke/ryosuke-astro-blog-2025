@@ -8,6 +8,7 @@
 }
 
 .SelectedBlogListItem a {
+  width: 100%;
   display: flex;
   align-items: center;
   gap: var(--space-2);
@@ -32,14 +33,15 @@
   position: relative;
   z-index: 420;
   transition-property: color;
-  font-size: var(--font-size-12);
+  font-size: var(--font-size-10);
 
   padding: var(--space-0-75) var(--space-1);
-  padding-right: var(--space-10);
+  padding-right: var(--space-1);
 }
 
 @media screen and (min-width: 1200px) {
   .SelectedBlogListItem h3 {
+    padding-right: var(--space-10);
     font-size: var(--font-size-15);
   }
 }
