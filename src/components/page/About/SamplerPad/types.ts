@@ -18,8 +18,15 @@ export const DEFAULT_INPUT_STORE = () =>
 export type NoteState = {
   note: number;
   pressed: boolean;
+  saved: boolean;
   time: number;
   duration: number;
 };
 
 export type NoteHistory = NoteState[];
+
+export type PlayerState = {
+  playing: boolean;
+  time: number;
+  totalTime: number;
+};

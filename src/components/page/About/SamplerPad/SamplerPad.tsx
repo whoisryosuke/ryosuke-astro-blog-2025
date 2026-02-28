@@ -8,6 +8,7 @@ import {
   type InputStore,
   type NoteHistory,
   type NoteState,
+  type PlayerState,
 } from "./types";
 import Stack from "../../../primitives/Stack/Stack";
 import SampleWaveform from "./SampleWaveform";
@@ -47,7 +48,7 @@ const SamplerPad = (props: Props) => {
   const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
   const [sampleTimes, setSampleTimes] = useState<number[]>([]);
   const [noteHistory, setNoteHistory] = useState<NoteHistory>([]);
-  const [playerState, setPlayerState] = useState({
+  const [playerState, setPlayerState] = useState<PlayerState>({
     playing: false,
     time: 0,
     totalTime: INPUT_END_TIME_CHECK,
@@ -97,6 +98,12 @@ const SamplerPad = (props: Props) => {
         playing: false,
         totalTime: newTime,
       }));
+      setNoteHistory((prev) =>
+        prev.map((item) => {
+          item.saved = true;
+          return item;
+        }),
+      );
       isPlaying.current = false;
     }
 
@@ -115,8 +122,6 @@ const SamplerPad = (props: Props) => {
       if (timerRef.current) cancelAnimationFrame(timerRef.current);
     };
   }, [playerState.playing]);
-
-  console.log("playerState", playerState);
 
   const handleInput = (noteIndex: number, pressed: boolean) => {
     console.log("input!", noteIndex, pressed);
@@ -154,6 +159,7 @@ const SamplerPad = (props: Props) => {
           note: noteIndex,
           pressed,
           time: timeRef.current,
+          saved: false,
           duration: -1,
         },
       ]);
@@ -241,6 +247,19 @@ const SamplerPad = (props: Props) => {
     isPlaying.current = false;
   };
 
+  const handlePlay = () => {
+    setPlayerState((prev) => ({
+      ...prev,
+      time: 0,
+      playing: true,
+    }));
+    timeRef.current = 0;
+    prevTimeRef.current = 0;
+    isPlaying.current = true;
+  };
+
+  const isPlayBtnDisabled = noteHistory.length <= 0 && playerState.playing;
+
   return (
     <Stack horizontal responsive className={styles.Container}>
       <Stack ref={ref} className={styles.MainContent}>
@@ -256,7 +275,10 @@ const SamplerPad = (props: Props) => {
           height={width ? width * 0.25 : 200}
           // height={height ?? 100}
         />
-        <Stack responsive>
+        <Stack horizontal>
+          <Button onClick={handlePlay} outline disabled={isPlayBtnDisabled}>
+            {isPlayBtnDisabled ? "Keep jamming" : "Play"}
+          </Button>
           <Button onClick={handleReset} outline>
             Reset
           </Button>
@@ -293,6 +315,8 @@ const SamplerPad = (props: Props) => {
         buffer={buffer}
         sampleTimes={sampleTimes}
         analyser={analyser}
+        noteHistory={noteHistory}
+        playerState={playerState}
       />
     </Stack>
   );

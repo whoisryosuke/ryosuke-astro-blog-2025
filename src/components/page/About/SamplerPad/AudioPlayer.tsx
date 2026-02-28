@@ -3,6 +3,8 @@ import {
   DEFAULT_INPUT_STORE,
   DRUMPAD_TOTAL_KEYS,
   type InputStore,
+  type NoteHistory,
+  type PlayerState,
 } from "./types";
 
 /**
@@ -29,6 +31,8 @@ type Props = {
   buffer: AudioBuffer | null;
   sampleTimes: number[];
   analyser: AnalyserNode | null;
+  noteHistory: NoteHistory;
+  playerState: PlayerState;
 };
 
 const AudioPlayer = ({
@@ -37,8 +41,11 @@ const AudioPlayer = ({
   buffer,
   sampleTimes,
   analyser,
+  noteHistory,
+  playerState,
 }: Props) => {
   const localInputState = useRef(DEFAULT_INPUT_STORE());
+  const notesPlayed = useRef<number[]>([]);
   const nodes = useRef<AudioNodeSequence[]>(
     new Array(DRUMPAD_TOTAL_KEYS).fill({
       sample: null,
@@ -116,6 +123,50 @@ const AudioPlayer = ({
     // Physically stop the node after the fade
     nodes.current[index].sample.stop(currentTime + 0.1);
   };
+
+  useEffect(() => {
+    if (!playerState.playing) {
+      notesPlayed.current = [];
+      return;
+    }
+
+    const playableNotes = noteHistory.reduce((merge, note, index) => {
+      if (
+        note.saved &&
+        note.time > playerState.time - 100 &&
+        note.time < playerState.time + 100
+      ) {
+        merge.push(index);
+      }
+      return merge;
+    }, [] as number[]);
+
+    const endingNotes = noteHistory.reduce((merge, note, index) => {
+      if (
+        note.saved &&
+        note.time + note.duration > playerState.time - 100 &&
+        note.time + note.duration < playerState.time + 100
+      ) {
+        merge.push(index);
+      }
+      return merge;
+    }, [] as number[]);
+
+    playableNotes.forEach((noteIndex) => {
+      const note = noteHistory[noteIndex];
+      if (!notesPlayed.current.includes(noteIndex)) {
+        console.log("playing note", note.note, note.time);
+        playAudio(note.note);
+        notesPlayed.current.push(noteIndex);
+      }
+    });
+
+    endingNotes.forEach((noteIndex) => {
+      const note = noteHistory[noteIndex];
+      console.log("ending note", note.note, note.time);
+      stopAudio(note.note);
+    });
+  }, [playerState]);
 
   useEffect(() => {
     const inputCache = Object.entries(input);
