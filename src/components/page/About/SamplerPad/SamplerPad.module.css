@@ -21,8 +21,14 @@
   }
 }
 
+.MainContent button {
+  -webkit-user-select: none; /* iOS Safari */
+  user-select: none;
+}
+
 .MainContent canvas {
   border-radius: var(--space-0-5);
+  user-select: none;
 }
 
 .SideContent {

@@ -27,6 +27,9 @@ const Drumpad = ({ input, setInput, createContext }: Props) => {
         onMouseDown={handleMouseInput(index, true)}
         onMouseUp={handleMouseInput(index, false)}
         onMouseLeave={handleMouseInput(index, false)}
+        onTouchStart={handleMouseInput(index, true)}
+        onTouchEnd={handleMouseInput(index, false)}
+        onTouchCancel={handleMouseInput(index, false)}
         data-pressed={input[index].pressed}
       />
     ));
