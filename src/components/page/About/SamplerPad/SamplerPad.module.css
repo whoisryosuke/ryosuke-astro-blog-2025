@@ -57,7 +57,7 @@
 }
 
 .SideContent h2 span {
-  transition: text-shadow 220ms cubic-bezier(0.65, 0, 0.35, 1);
+  transition: text-shadow 220ms var(--easing-in-out-cubic);
 }
 
 .SideContent h2 span[data-lite="true"] {

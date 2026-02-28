@@ -30,7 +30,7 @@
 .Container h4 {
   padding: var(--space-0-75) var(--space-1-5);
   border-radius: var(--space-0-5);
-  background-color: var(--color-gray-700);
+  background-color: var(--color-gray-800);
   color: var(--color-gray-100);
   font-size: var(--font-size-5);
   flex: 1;
