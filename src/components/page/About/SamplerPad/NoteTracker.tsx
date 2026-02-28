@@ -12,6 +12,7 @@ import { useStore } from "@nanostores/react";
 import { themeStore } from "../../../../store/theme";
 import map from "../../../../utils/map";
 import type { NoteHistory } from "./types";
+import styles from "./SamplerPad.module.css";
 
 type Props = Omit<HTMLProps<HTMLCanvasElement>, "data"> & {
   noteHistory: NoteHistory;
@@ -32,8 +33,8 @@ const NoteTracker = ({
   ...props
 }: Props) => {
   const { colorMode } = useStore(themeStore);
-  const bgColor = colorMode === "dark" ? "#022727" : "hsl(180, 80%, 20%)";
-  const lineColor = colorMode === "dark" ? "#80cbcc" : "hsl(181, 43%, 75%)";
+  const bgColor = colorMode === "dark" ? "#292927" : "#d2d0ca";
+  const lineColor = colorMode === "dark" ? "#80cbcc" : "#3aa1a3";
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(
     null,
@@ -101,7 +102,11 @@ const NoteTracker = ({
     };
   }, [draw, playerState.playing, width, height]);
 
-  return <canvas ref={canvasRef} {...props} width={width} height={height} />;
+  return (
+    <div className={styles.NoteContainer}>
+      <canvas ref={canvasRef} {...props} width={width} height={height} />
+    </div>
+  );
 };
 
 export default NoteTracker;

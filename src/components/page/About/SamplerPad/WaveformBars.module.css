@@ -1,17 +1,30 @@
 .Container {
   position: fixed;
   top: 0;
-  left: -20px;
-  width: 10%;
+  left: calc(var(--space-6) * -1);
+  width: var(--space-10);
+  /* width: 10%;
   min-width: 40px;
-  max-width: 100px;
+  max-width: 100px; */
   height: 100%;
   gap: var(--space-0-5);
+}
+
+.Container > div {
+  flex: 1;
+  padding: var(--space-10) 0;
+  padding-top: var(--space-15);
+
+  @media screen and (min-width: 600px) {
+    padding-top: var(--space-10);
+  }
 }
 
 .Bar {
   flex: 1;
   width: 100%;
-  background: var(--color-gray-300);
+  border-width: 1.5px;
+  border-style: solid;
+  border-color: var(--color-gray-300);
   border-radius: 0 var(--space-0-5) var(--space-0-5) 0;
 }

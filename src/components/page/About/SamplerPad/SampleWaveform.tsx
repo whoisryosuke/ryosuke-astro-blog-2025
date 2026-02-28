@@ -11,6 +11,7 @@ import {
 import { useStore } from "@nanostores/react";
 import { themeStore } from "../../../../store/theme";
 import map from "../../../../utils/map";
+import styles from "./SamplerPad.module.css";
 
 type Props = Omit<HTMLProps<HTMLCanvasElement>, "data"> & {
   buffer: AudioBuffer | null;
@@ -18,8 +19,8 @@ type Props = Omit<HTMLProps<HTMLCanvasElement>, "data"> & {
 
 const SampleWaveform = ({ width, height, buffer, ...props }: Props) => {
   const { colorMode } = useStore(themeStore);
-  const bgColor = colorMode === "dark" ? "#022727" : "hsl(180, 80%, 20%)";
-  const lineColor = colorMode === "dark" ? "#80cbcc" : "hsl(181, 43%, 75%)";
+  const bgColor = colorMode === "dark" ? "#022727" : "#057d7f";
+  const lineColor = colorMode === "dark" ? "#80cbcc" : "#8fd2d3";
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const draw = useCallback(() => {
@@ -72,7 +73,11 @@ const SampleWaveform = ({ width, height, buffer, ...props }: Props) => {
     draw();
   }, [draw, width, height]);
 
-  return <canvas ref={canvasRef} {...props} width={width} height={height} />;
+  return (
+    <div className={styles.WaveformContainer}>
+      <canvas ref={canvasRef} {...props} width={width} height={height} />
+    </div>
+  );
 };
 
 export default SampleWaveform;

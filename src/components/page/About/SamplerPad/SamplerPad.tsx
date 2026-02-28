@@ -18,6 +18,7 @@ import Button from "../../../primitives/Button/Button";
 import { useMeasure } from "@uidotdev/usehooks";
 import BioCard from "./BioCard";
 import styles from "./SamplerPad.module.css";
+import Quote from "./Quote";
 
 function generateRandomSampleTimes() {
   const times = new Array(DRUMPAD_TOTAL_KEYS - 1)
@@ -244,14 +245,14 @@ const SamplerPad = (props: Props) => {
     <Stack horizontal responsive className={styles.Container}>
       <Stack ref={ref} className={styles.MainContent}>
         <SampleWaveform
-          width={width ?? 420}
+          width={width ? width - 59 : 420}
           height={width ? width * 0.15 : 200}
           buffer={buffer}
         />
         <NoteTracker
           playerState={playerState}
           noteHistory={noteHistory}
-          width={width ?? 420}
+          width={width ? width - 59 : 420}
           height={width ? width * 0.25 : 200}
           // height={height ?? 100}
         />
@@ -269,10 +270,7 @@ const SamplerPad = (props: Props) => {
       <Stack className={styles.SideContent}>
         <Stack>
           <BioCard />
-          <h2>
-            I experiment on the cutting edge and prototype visually captivating
-            and functional products for the future.
-          </h2>
+          <Quote input={input} />
         </Stack>
         {/* <div>
           {noteHistory.map((note) => (

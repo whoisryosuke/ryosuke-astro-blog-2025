@@ -88,7 +88,11 @@ const WaveformBars = ({ analyser, fps = 20 }: Props) => {
     />
   ));
 
-  return <Stack className={styles.Container}>{renderBars}</Stack>;
+  return (
+    <Stack className={styles.Container}>
+      <Stack>{renderBars}</Stack>
+    </Stack>
+  );
 };
 
 export default WaveformBars;

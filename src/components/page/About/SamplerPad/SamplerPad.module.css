@@ -27,7 +27,6 @@
 }
 
 .MainContent canvas {
-  border-radius: var(--space-0-5);
   user-select: none;
 }
 
@@ -37,8 +36,8 @@
 
   @media screen and (min-width: 1200px) {
     padding: var(--space-2);
-    /* display: flex; */
     justify-content: center;
+    flex: 1;
   }
 }
 
@@ -49,10 +48,35 @@
 
   @media screen and (min-width: 1200px) {
     font-size: 3rem;
-    display: flex;
+    display: inline-block;
   }
 
   @media screen and (min-width: 1800px) {
     font-size: 5rem;
   }
+}
+
+.SideContent h2 span {
+  transition: text-shadow 220ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.SideContent h2 span[data-lite="true"] {
+  text-shadow:
+    0 0 4px var(--color-primary),
+    0 0 0.25em var(--color-primary),
+    0 0 1em var(--color-primary);
+}
+
+.WaveformContainer,
+.NoteContainer {
+  padding: var(--space-2);
+  border-radius: var(--space-0-5);
+}
+
+.WaveformContainer {
+  background: var(--color-secondary-900);
+}
+
+.NoteContainer {
+  background: var(--color-gray-800);
 }
