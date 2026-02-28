@@ -37,11 +37,16 @@
 }
 
 .SideContent h2 {
-  font-size: 5rem;
+  font-size: 1rem;
   margin: 0;
   display: none;
 
   @media screen and (min-width: 1200px) {
+    font-size: 3rem;
     display: flex;
+  }
+
+  @media screen and (min-width: 1800px) {
+    font-size: 5rem;
   }
 }
