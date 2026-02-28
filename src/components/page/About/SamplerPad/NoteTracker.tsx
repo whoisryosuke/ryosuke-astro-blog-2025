@@ -35,6 +35,7 @@ const NoteTracker = ({
   const { colorMode } = useStore(themeStore);
   const bgColor = colorMode === "dark" ? "#292927" : "#d2d0ca";
   const lineColor = colorMode === "dark" ? "#80cbcc" : "#3aa1a3";
+  const boxColor = colorMode === "dark" ? "#057d7f" : "#057d7f";
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(
     null,
@@ -60,6 +61,7 @@ const NoteTracker = ({
     ctx.fillStyle = bgColor;
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
+    ctx.fillStyle = boxColor;
     ctx.strokeStyle = lineColor;
 
     const allPossibleNotes = noteHistory.reduce((merge, note) => {
@@ -79,7 +81,11 @@ const NoteTracker = ({
           note.duration >= 0 ? note.duration : playerState.time - note.time;
         const noteWidth = (duration / totalTime) * canvasWidth;
 
-        ctx.strokeRect(noteX, rowHeight * rowIndex, noteWidth, rowHeight);
+        if (note.saved) {
+          ctx.fillRect(noteX, rowHeight * rowIndex, noteWidth, rowHeight);
+        } else {
+          ctx.strokeRect(noteX, rowHeight * rowIndex, noteWidth, rowHeight);
+        }
       });
 
       rowIndex += 1;
@@ -92,7 +98,7 @@ const NoteTracker = ({
     ctx.stroke();
 
     if (playerState.playing) animationRef.current = requestAnimationFrame(draw);
-  }, [playerState, noteHistory, lineColor, bgColor]);
+  }, [playerState, noteHistory, lineColor, bgColor, boxColor]);
 
   useEffect(() => {
     draw();
