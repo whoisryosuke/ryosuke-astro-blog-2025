@@ -6,7 +6,7 @@
   z-index: 999;
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 600px) {
   .NavbarContainer {
     padding: var(--space-1-5) var(--space-2-5);
   }
@@ -56,7 +56,7 @@
   }
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 600px) {
   .NavbarLink {
     padding: var(--space-0-75) var(--space-1-5);
   }
