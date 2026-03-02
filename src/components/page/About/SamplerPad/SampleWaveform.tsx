@@ -51,7 +51,7 @@ const SampleWaveform = ({ width, height, buffer, ...props }: Props) => {
       const amplitude = data[index];
       // const y = (amplitude * canvasHeight) / 1.5 + canvasHeight;
       const y = map(
-        amplitude,
+        amplitude * 3,
         -1,
         1,
         0 + VERTICAL_PAD,

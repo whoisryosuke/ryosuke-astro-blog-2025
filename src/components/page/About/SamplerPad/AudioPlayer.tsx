@@ -6,6 +6,7 @@ import {
   type NoteHistory,
   type PlayerState,
 } from "./types";
+import { AUDIO_CLIP_NAMES, type AudioClipCache } from "./audio-clips";
 
 /**
  * Calculates detune value for audio to pitch sound up or down
@@ -17,7 +18,7 @@ import {
  */
 function calculateDetune(noteIndex: number, octave: number = 4) {
   const octaveOffset = (octave - 4) * 1200;
-  return noteIndex * 100 + octaveOffset;
+  return noteIndex * 50 + octaveOffset;
 }
 
 type AudioNodeSequence = {
@@ -28,7 +29,7 @@ type AudioNodeSequence = {
 type Props = {
   audioCtx: AudioContext | null;
   input: InputStore;
-  buffer: AudioBuffer | null;
+  buffers: AudioClipCache;
   sampleTimes: number[];
   analyser: AnalyserNode | null;
   noteHistory: NoteHistory;
@@ -38,7 +39,7 @@ type Props = {
 const AudioPlayer = ({
   audioCtx,
   input,
-  buffer,
+  buffers,
   sampleTimes,
   analyser,
   noteHistory,
@@ -56,15 +57,22 @@ const AudioPlayer = ({
   const gainNode = useRef<GainNode[]>(null);
 
   const playAudio = (index: number) => {
-    if (!buffer || !audioCtx) return;
+    if (!buffers || !audioCtx) return;
 
     nodes.current[index] = {
       sample: audioCtx.createBufferSource(),
       gain: audioCtx.createGain(),
     };
 
-    // console.log("playing audio...", audioCtx.state);
-    // Create a new audio nodes
+    // Create new audio nodes
+
+    // Get the current clip from cache
+    // We use the note index to check against array of clip names
+    // We use modulo here in case we don't have enough clips for notes (forces it to reuse clips)
+    const currentClipName =
+      AUDIO_CLIP_NAMES[((index + 1) % AUDIO_CLIP_NAMES.length) - 1];
+    const buffer = buffers[currentClipName];
+
     nodes.current[index].sample.buffer = buffer;
     // Tune sound to current "note" based on button position
     // @TODO: Prob won't need this if we use sample time

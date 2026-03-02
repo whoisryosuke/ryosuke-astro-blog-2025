@@ -20,6 +20,11 @@ import { useMeasure } from "@uidotdev/usehooks";
 import BioCard from "./BioCard";
 import styles from "./SamplerPad.module.css";
 import Quote from "./Quote";
+import {
+  AUDIO_CLIP_NAMES,
+  type AudioClipCache,
+  type AudioClipNames,
+} from "./audio-clips";
 
 function generateRandomSampleTimes() {
   const times = new Array(DRUMPAD_TOTAL_KEYS - 1)
@@ -44,7 +49,8 @@ const SamplerPad = (props: Props) => {
   const [input, setInput] = useState<InputStore>(DEFAULT_INPUT_STORE());
   const inputCache = useRef<InputStore>(DEFAULT_INPUT_STORE());
   const [audioCtx, setAudioCtx] = useState<AudioContext | null>(null);
-  const [buffer, setBuffer] = useState<AudioBuffer | null>(null);
+  const [buffers, setBuffers] = useState<AudioClipCache>({} as AudioClipCache);
+  const [selectedClip, setSelectedClip] = useState<AudioClipNames>("Ryo");
   const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
   const [sampleTimes, setSampleTimes] = useState<number[]>([]);
   const [noteHistory, setNoteHistory] = useState<NoteHistory>([]);
@@ -187,6 +193,11 @@ const SamplerPad = (props: Props) => {
 
     // Log input time
     lastInputTimeRef.current = timeRef.current;
+
+    // Set selected clips
+    const currentClipName =
+      AUDIO_CLIP_NAMES[((noteIndex + 1) % AUDIO_CLIP_NAMES.length) - 1];
+    setSelectedClip(currentClipName);
   };
 
   useEffect(() => {
@@ -223,16 +234,25 @@ const SamplerPad = (props: Props) => {
   };
 
   // We load the audio file when the audio context is created
-  const loadAudio = async () => {
+  const loadAudio = async (name = "C4") => {
     if (!audioCtx) return;
-    // const response = await fetch("/music/2024-12-14-rain-on-window.mp3");
-    const response = await fetch("/music/C4.mp3");
+    const response = await fetch(`/music/${name}.mp3`);
     const arrayBuffer = await response.arrayBuffer();
     const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
-    setBuffer(audioBuffer);
+    setBuffers((prev) => ({
+      ...prev,
+      [name]: audioBuffer,
+    }));
   };
+
+  const loadAllAudio = () => {
+    AUDIO_CLIP_NAMES.forEach((name) => {
+      loadAudio(name);
+    });
+  };
+
   useEffect(() => {
-    if (audioCtx) loadAudio();
+    if (audioCtx) loadAllAudio();
   }, [audioCtx]);
 
   const handleReset = () => {
@@ -266,7 +286,7 @@ const SamplerPad = (props: Props) => {
         <SampleWaveform
           width={width ? width - 59 : 420}
           height={width ? width * 0.15 : 200}
-          buffer={buffer}
+          buffer={buffers[selectedClip]}
         />
         <NoteTracker
           playerState={playerState}
@@ -312,7 +332,7 @@ const SamplerPad = (props: Props) => {
       <AudioPlayer
         audioCtx={audioCtx}
         input={input}
-        buffer={buffer}
+        buffers={buffers}
         sampleTimes={sampleTimes}
         analyser={analyser}
         noteHistory={noteHistory}
