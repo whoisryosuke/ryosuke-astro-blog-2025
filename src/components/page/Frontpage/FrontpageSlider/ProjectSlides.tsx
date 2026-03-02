@@ -161,34 +161,49 @@ const ProjectSlides = ({
         onDragEnd={handleDragEnd}
         style={{ x }}
       >
-        {projects.map((project, index) => (
-          <a
-            key={project.data.cover_image}
-            href={`/projects/${project.id}`}
-            ref={(el) => {
-              if (el) itemRefs.current[index] = el;
-            }}
-            className={`${styles.ArtSlide} ${styles.ProjectSlide}`}
-            onClick={handleClick(index)}
-            data-visible={index == selectedProjectIndex}
-            draggable={false}
-          >
-            <img
-              src={`/projects/${project.id}/${project.data.cover_image}`}
-              data-index={index}
+        {projects.map((project, index) => {
+          const imageSplit = project.data.cover_image.split(".");
+          const darkImage = imageSplit
+            .map((imgStr, index) =>
+              index == imageSplit.length - 2 ? `${imgStr}-dark` : imgStr,
+            )
+            .join(".");
+
+          return (
+            <a
+              key={project.data.cover_image}
+              href={`/projects/${project.id}`}
+              ref={(el) => {
+                if (el) itemRefs.current[index] = el;
+              }}
+              className={`${styles.ArtSlide} ${styles.ProjectSlide}`}
+              onClick={handleClick(index)}
+              data-visible={index == selectedProjectIndex}
               draggable={false}
-              className={styles.ArtSlideImage}
-            />
-            <span>
-              {project.data.images.map((image) => (
-                <img
-                  src={`/projects/${project.id}/${image}`}
-                  className={styles.ArtSlideExtraImg}
+            >
+              <picture className={`${styles.ArtSlide} ${styles.ProjectSlide}`}>
+                <source
+                  srcSet={`/projects/${project.id}/${darkImage}`}
+                  media="(prefers-color-scheme: dark)"
                 />
-              ))}
-            </span>
-          </a>
-        ))}
+                <img
+                  src={`/projects/${project.id}/${project.data.cover_image}`}
+                  data-index={index}
+                  draggable={false}
+                  className={styles.ArtSlideImage}
+                />
+              </picture>
+              <span>
+                {project.data.images.map((image) => (
+                  <img
+                    src={`/projects/${project.id}/${image}`}
+                    className={styles.ArtSlideExtraImg}
+                  />
+                ))}
+              </span>
+            </a>
+          );
+        })}
       </MotionStack>
     </Stack>
   );

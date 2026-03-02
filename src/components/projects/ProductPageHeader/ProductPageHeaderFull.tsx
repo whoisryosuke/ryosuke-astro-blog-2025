@@ -12,6 +12,7 @@ type Props = {
 const ProductPageHeaderFull = ({ project }: Props) => {
   return (
     <Stack>
+      <h3 className={styles.Title}>{project.data.title}</h3>
       <Stack horizontal>
         {project.data.website && (
           <Button as="a" href={project.data.website} outline>
@@ -23,12 +24,6 @@ const ProductPageHeaderFull = ({ project }: Props) => {
             Case study
           </Button>
         )}
-      </Stack>
-      <h3 className={styles.Title}>{project.data.title}</h3>
-      <Stack horizontal>
-        {project.data.images.map((image, index) => (
-          <div key={index} className={styles.MidiNote} />
-        ))}
       </Stack>
     </Stack>
   );

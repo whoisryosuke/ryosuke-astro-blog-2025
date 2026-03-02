@@ -17,15 +17,28 @@ const ProjectPreview = ({ project }: Props) => {
       className={[styles.ProjectPreview, styles.CenterFlex].join(" ")}
     >
       <div className={styles.ProjectImageContainer}>
-        {project.data.images.map((image, index) => (
-          <img
-            className={styles.ProjectImage}
-            key={image}
-            src={`/projects/${project.id}/${image}`}
-            loading="lazy"
-            data-index={index}
-          />
-        ))}
+        {project.data.images.map((image, index) => {
+          const imageSplit = image.split(".");
+          const darkImage = imageSplit
+            .map((imgStr, index) =>
+              index == imageSplit.length - 2 ? `${imgStr}-dark` : imgStr,
+            )
+            .join(".");
+          return (
+            <picture key={image} className={styles.ProjectImage}>
+              <source
+                srcSet={`/projects/${project.id}/${darkImage}`}
+                media="(prefers-color-scheme: dark)"
+              />
+              <img
+                key={image}
+                src={`/projects/${project.id}/${image}.jpg`}
+                loading="lazy"
+                data-index={index}
+              />
+            </picture>
+          );
+        })}
       </div>
     </motion.div>
   );
