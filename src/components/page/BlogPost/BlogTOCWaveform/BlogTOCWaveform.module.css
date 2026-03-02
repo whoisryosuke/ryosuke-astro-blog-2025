@@ -7,7 +7,7 @@
   z-index: 710;
 
   background: var(--color-gray-600);
-  border-radius: var(--space-0-5);
+  border-radius: var(--space-0-75);
   overflow: hidden;
 
   @media (prefers-color-scheme: dark) {
@@ -45,7 +45,7 @@
   z-index: 710;
 }
 
-.WaveformContainer canvas {
+.WaveformContainer .WaveformCanvasBox {
   border-radius: var(--space-0-5);
   overflow: hidden;
 }

@@ -126,12 +126,27 @@ const BlogTOCWaveform = ({ waveform }: Props) => {
         />
         <div className={styles.WaveformArea} data-visible={visible}>
           <BlogTimelineGuide />
-          <div className={styles.WaveformContainer}>
-            <BlogWaveformCanvas
-              data={waveform}
-              width={waveformWidth}
-              height={visible ? 300 : 100}
-            />
+          <div
+            className={styles.WaveformContainer}
+            style={{
+              width: waveformWidth,
+              height: visible ? 300 : 100,
+            }}
+          >
+            <div
+              className={styles.WaveformCanvasBox}
+              style={{
+                width: waveformWidth,
+                height: visible ? 300 : 100,
+              }}
+            >
+              <BlogWaveformCanvas
+                data={waveform}
+                width={waveformWidth}
+                height={visible ? 300 : 100}
+              />
+            </div>
+
             {/* <BlogWaveformInput /> */}
             <BlogWaveformPlayhead width={largeWidth} />
           </div>
