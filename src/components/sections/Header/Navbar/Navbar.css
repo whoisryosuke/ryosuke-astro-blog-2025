@@ -24,6 +24,12 @@
   border-radius: var(--space-0-75);
 }
 
+@media (prefers-color-scheme: dark) {
+  .Navbar {
+    background: var(--color-white);
+  }
+}
+
 .NavbarLink {
   font-family: var(--font-family-mono);
   font-size: var(--body-1);
@@ -41,6 +47,13 @@
   transition-duration: 420ms;
 
   z-index: 710;
+}
+@media (prefers-color-scheme: dark) {
+  .NavbarLink {
+    color: var(--color-black);
+    filter: invert(1);
+    mix-blend-mode: exclusion;
+  }
 }
 
 @media screen and (min-width: 1200px) {

@@ -31,7 +31,9 @@ const SliderNav = ({
       </button>
 
       <Stack horizontal className={styles.SliderNavText}>
-        <small>{selectedProjectIndex + 1}</small>
+        <small className={styles.SliderNavTextSelected}>
+          {selectedProjectIndex + 1}
+        </small>
         <small>/</small>
         <small>{length}</small>
       </Stack>

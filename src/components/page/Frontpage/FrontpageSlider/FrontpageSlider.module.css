@@ -190,11 +190,17 @@
   padding: var(--space-0-5) var(--space-2);
 }
 
+.SliderNav small.SliderNavTextSelected {
+  color: var(--color-gray-200);
+}
+
 .SliderNav small {
   padding: 0 var(--space-0-5);
+  font-size: var(--font-size-8);
+  color: var(--color-gray-500);
+  font-weight: bold;
 }
-.SliderNav button,
-.SliderNavText {
+.SliderNav button {
   background: none;
   font-size: var(--font-size-8);
   border: 1.5px solid var(--color-gray-800);
@@ -218,6 +224,13 @@
   justify-content: start;
 }
 
+.SliderNav button svg {
+  fill: var(--color-gray-800);
+  transition: fill 420ms var(--easing-in-out-quart);
+}
+.SliderNav button:hover svg {
+  fill: var(--color-primary);
+}
 .ProjectSlideImage {
   height: 100%;
   display: flex;

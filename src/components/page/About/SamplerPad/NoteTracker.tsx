@@ -33,7 +33,7 @@ const NoteTracker = ({
   ...props
 }: Props) => {
   const { colorMode } = useStore(themeStore);
-  const bgColor = colorMode === "dark" ? "#292927" : "#d2d0ca";
+  const bgColor = colorMode === "dark" ? "#292927" : "#ecece9";
   const lineColor = colorMode === "dark" ? "#80cbcc" : "#3aa1a3";
   const boxColor = colorMode === "dark" ? "#057d7f" : "#057d7f";
   const canvasRef = useRef<HTMLCanvasElement>(null);
