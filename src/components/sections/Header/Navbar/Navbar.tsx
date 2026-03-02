@@ -8,7 +8,7 @@ import React, {
 import NavbarLink, { type NavbarLinkMeasurement } from "./NavbarLink";
 import "./Navbar.css";
 import { motion } from "motion/react";
-import throttle from "../../../../utils/throttle";
+import throttle from "lodash/throttle";
 
 type NavLink = {
   href: string;
@@ -45,6 +45,7 @@ const Navbar = ({ path }: Props) => {
     width: 0,
     left: 0,
   });
+  const [selectedItem, setSelectedItem] = useState("");
   const [selectedLink, setSelectedLink] = useState<NavbarLinkMeasurement>({
     width: 0,
     left: 0,
@@ -90,6 +91,8 @@ const Navbar = ({ path }: Props) => {
         key={link.href}
         href={link.href}
         selected={path.includes(link.href)}
+        selectedItem={selectedItem}
+        setSelectedItem={setSelectedItem}
         setSelectedLink={setSelectedLink}
         resetHash={resetHash}
         handleReset={handleReset}

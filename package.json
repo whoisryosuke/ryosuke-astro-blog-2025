@@ -22,11 +22,15 @@
     "@types/react-dom": "^19.2.0",
     "@uidotdev/usehooks": "^2.4.1",
     "astro": "^5.14.1",
+    "lodash": "^4.17.23",
     "motion": "^12.23.22",
     "nanostores": "^1.1.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-icons": "^5.5.0",
     "sharp": "^0.34.3"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.24"
   }
 }

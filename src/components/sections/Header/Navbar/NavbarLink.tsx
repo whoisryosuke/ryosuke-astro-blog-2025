@@ -1,9 +1,13 @@
 import React, {
   useEffect,
+  useLayoutEffect,
+  useMemo,
   useRef,
   type HTMLProps,
+  type MouseEventHandler,
   type PropsWithChildren,
 } from "react";
+import throttle from "lodash/throttle";
 
 /**
  * Time (in ms) for the navbar to reset back to selected position (vs hover)
@@ -18,15 +22,20 @@ export type NavbarLinkMeasurement = {
 type Props = HTMLProps<HTMLAnchorElement> & {
   selected: boolean;
   setSelectedLink: (link: NavbarLinkMeasurement) => void;
+  selectedItem: string;
+  setSelectedItem: (item: string) => void;
   resetHash: number;
   handleReset: () => void;
 };
 
 const NavbarLink = ({
   children,
+  href,
   className,
   selected,
   setSelectedLink,
+  selectedItem,
+  setSelectedItem,
   resetHash,
   handleReset,
   ...props
@@ -35,36 +44,52 @@ const NavbarLink = ({
   const ref = useRef<HTMLAnchorElement | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>(null);
 
-  const measureLink = (target: HTMLAnchorElement) => {
-    const measurement = target.getBoundingClientRect();
+  const measureLink = () => {
+    if (!ref.current) return;
+    const measurement = ref.current.getBoundingClientRect();
     const navbarMeasurment: NavbarLinkMeasurement = {
       width: measurement.width,
       left: measurement.left,
     };
 
+    console.log("measuring link...", navbarMeasurment);
+
     setSelectedLink(navbarMeasurment);
   };
+
+  const throttledMeasureLink = useMemo(
+    () =>
+      throttle(measureLink, 420, {
+        leading: true,
+        trailing: true,
+      }),
+    [],
+  );
 
   /**
    * Hover interaction
    */
-  useEffect(() => {
-    const handleHover = (e: MouseEvent) => {
-      const target = e.target as HTMLAnchorElement;
+  const handleHover: MouseEventHandler = (e) => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    measureLink();
+    setSelectedItem(href as string);
 
-      measureLink(target);
+    timeoutRef.current = setTimeout(handleReset, RESET_DURATION);
+  };
 
-      timeoutRef.current = setTimeout(handleReset, RESET_DURATION);
-    };
-
-    ref.current?.addEventListener("mouseover", handleHover);
+  useLayoutEffect(() => {
+    console.log("selected?", selectedItem);
+    if (selectedItem == href) {
+      console.log("selected, check for resize");
+      measureLink();
+      window.addEventListener("resize", throttledMeasureLink);
+    }
 
     return () => {
-      ref.current?.removeEventListener("mouseover", handleHover);
+      window.removeEventListener("resize", throttledMeasureLink);
     };
-  }, []);
+  }, [selectedItem]);
 
   /**
    * Sets the link as selected during initial load or resetting state
@@ -72,14 +97,22 @@ const NavbarLink = ({
   useEffect(() => {
     if (selected && ref.current) {
       if (localHash.current !== resetHash) {
-        measureLink(ref.current);
+        measureLink();
+        setSelectedItem(href as string);
+
         localHash.current = resetHash;
       }
     }
   }, [selected, resetHash]);
 
   return (
-    <a ref={ref} className={`NavbarLink ${className}`} {...props}>
+    <a
+      ref={ref}
+      href={href}
+      className={`NavbarLink ${className}`}
+      onMouseOver={handleHover}
+      {...props}
+    >
       {children}
     </a>
   );

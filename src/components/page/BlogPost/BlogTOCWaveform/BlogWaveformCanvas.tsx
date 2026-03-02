@@ -11,7 +11,7 @@ import {
 import map from "../../../../utils/map";
 import { useStore } from "@nanostores/react";
 import { themeStore } from "../../../../store/theme";
-import throttle from "../../../../utils/throttle";
+import throttle from "lodash/throttle";
 
 type Props = Omit<HTMLProps<HTMLCanvasElement>, "data"> & {
   // waveform: number[];

@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import styles from "./BlogWaveformInput.module.css";
-import throttle from "../../../../utils/throttle";
+import throttle from "lodash/throttle";
 
 type Props = {};
 
