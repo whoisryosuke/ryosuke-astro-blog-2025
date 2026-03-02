@@ -30,7 +30,6 @@ type Props = {
   audioCtx: AudioContext | null;
   input: InputStore;
   buffers: AudioClipCache;
-  sampleTimes: number[];
   analyser: AnalyserNode | null;
   noteHistory: NoteHistory;
   playerState: PlayerState;
@@ -86,34 +85,8 @@ const AudioPlayer = ({
       nodes.current[index].gain.connect(audioCtx.destination);
     }
 
-    // Get sample position relative to drum pad
-    // We get the start position from our samples
-    const start = sampleTimes[index];
-    // And the "end time" for clip is next clip's start "time" (or end of audio)
-    // "time" here is scaled by the number of keys.
-    // So if 0.5 start time = 0.5/12 = that's the percent of our start time on audio duration
-    const nextKey = index + 1;
-    const nextTime =
-      nextKey <= DRUMPAD_TOTAL_KEYS - 1
-        ? sampleTimes[nextKey]
-        : DRUMPAD_TOTAL_KEYS;
-
-    const scaledTimeSegmentStart =
-      (start / DRUMPAD_TOTAL_KEYS) * buffer.duration;
-    const scaledTimeSegmentEnd =
-      (nextTime / DRUMPAD_TOTAL_KEYS) * buffer.duration;
-    const playDuration = scaledTimeSegmentEnd - scaledTimeSegmentStart;
-
-    // console.log(
-    //   "playing segment",
-    //   scaledTimeSegmentStart,
-    //   scaledTimeSegmentEnd,
-    //   playDuration,
-    // );
-
     // Actually play audio now
     nodes.current[index].sample.start();
-    // nodes.current[index].sample.start(0, scaledTimeSegmentStart, playDuration);
   };
 
   const stopAudio = (index: number) => {

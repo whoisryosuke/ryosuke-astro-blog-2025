@@ -26,21 +26,6 @@ import {
   type AudioClipNames,
 } from "./audio-clips";
 
-function generateRandomSampleTimes() {
-  const times = new Array(DRUMPAD_TOTAL_KEYS - 1)
-    .fill(0)
-    .map(() => Math.random() * DRUMPAD_TOTAL_KEYS);
-
-  // We want it to always start at 0,
-  times.push(0);
-
-  const randomTimes = times.sort((a, b) => a - b);
-
-  // console.log("randomTimes", randomTimes);
-
-  return randomTimes;
-}
-
 const INPUT_END_TIME_CHECK = 4200;
 
 type Props = {};
@@ -52,7 +37,6 @@ const SamplerPad = (props: Props) => {
   const [buffers, setBuffers] = useState<AudioClipCache>({} as AudioClipCache);
   const [selectedClip, setSelectedClip] = useState<AudioClipNames>("Ryo");
   const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
-  const [sampleTimes, setSampleTimes] = useState<number[]>([]);
   const [noteHistory, setNoteHistory] = useState<NoteHistory>([]);
   const [playerState, setPlayerState] = useState<PlayerState>({
     playing: false,
@@ -117,6 +101,8 @@ const SamplerPad = (props: Props) => {
     timerRef.current = requestAnimationFrame(syncTimer);
   };
 
+  // Run a timer when "playing"
+  // We use this to sync timer to state then send to components like NoteTracker
   useEffect(() => {
     if (playerState.playing) {
       timerRef.current = requestAnimationFrame(syncTimer);
@@ -129,6 +115,9 @@ const SamplerPad = (props: Props) => {
     };
   }, [playerState.playing]);
 
+  /**
+   * Handles input from all devices (mouse click, keyboard, etc)
+   */
   const handleInput = (noteIndex: number, pressed: boolean) => {
     console.log("input!", noteIndex, pressed);
     // New input?
@@ -200,23 +189,20 @@ const SamplerPad = (props: Props) => {
     setSelectedClip(currentClipName);
   };
 
+  // Initialize audio context
   useEffect(() => {
     console.log("sample waveform init");
     // Create analyser and get buffer data
     const ctx = createContext();
     const analyserNode = ctx.createAnalyser();
+    // @TODO: Create a global gain node (instead of per-key)
+
     // Configure analyser
     analyserNode.fftSize = 1024;
     analyserNode.connect(ctx.destination);
 
     setAnalyser(analyserNode);
   }, []);
-
-  useEffect(() => {
-    setSampleTimes(generateRandomSampleTimes());
-  }, []);
-
-  // console.log("audio ctx", audioCtx, buffer);
 
   const createContext = () => {
     if (!audioCtx) {
@@ -251,10 +237,14 @@ const SamplerPad = (props: Props) => {
     });
   };
 
+  // Loads all audio clips once the audio context has initialized
   useEffect(() => {
     if (audioCtx) loadAllAudio();
   }, [audioCtx]);
 
+  /**
+   * Resets player state completely (including removing notes)
+   */
   const handleReset = () => {
     setPlayerState((prev) => ({
       time: 0,
@@ -267,6 +257,9 @@ const SamplerPad = (props: Props) => {
     isPlaying.current = false;
   };
 
+  /**
+   * Restarts playback from the beginning
+   */
   const handlePlay = () => {
     setPlayerState((prev) => ({
       ...prev,
@@ -333,7 +326,6 @@ const SamplerPad = (props: Props) => {
         audioCtx={audioCtx}
         input={input}
         buffers={buffers}
-        sampleTimes={sampleTimes}
         analyser={analyser}
         noteHistory={noteHistory}
         playerState={playerState}
