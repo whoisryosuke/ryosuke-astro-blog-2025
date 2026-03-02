@@ -4,7 +4,7 @@ import RootLayout from '../layouts/RootLayout.astro';
 import FrontpageSlider from '../components/page/Frontpage/FrontpageSlider/FrontpageSlider';
 
 
-const projects = await getCollection('projects');
+const projects = (await getCollection('projects')).sort((a,b) => b.data.date - a.data.date);
 ---
 
 <RootLayout>
