@@ -74,7 +74,7 @@ const AudioPlayer = ({
     // @TODO: Prob won't need this if we use sample time
     nodes.current[index].sample.detune.value = calculateDetune(index);
 
-    nodes.current[index].gain.gain.value = 0.5;
+    nodes.current[index].gain.gain.value = 0.71;
     nodes.current[index].sample.connect(nodes.current[index].gain);
     if (analyser) {
       nodes.current[index].gain.connect(analyser);
