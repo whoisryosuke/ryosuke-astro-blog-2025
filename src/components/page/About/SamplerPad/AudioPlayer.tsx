@@ -39,7 +39,6 @@ const AudioPlayer = ({
   audioCtx,
   input,
   buffers,
-  sampleTimes,
   analyser,
   noteHistory,
   playerState,
@@ -52,8 +51,6 @@ const AudioPlayer = ({
       gain: null,
     }),
   );
-  const sampleNode = useRef<AudioBufferSourceNode[]>(null);
-  const gainNode = useRef<GainNode[]>(null);
 
   const playAudio = (index: number) => {
     if (!buffers || !audioCtx) return;
@@ -90,7 +87,7 @@ const AudioPlayer = ({
   };
 
   const stopAudio = (index: number) => {
-    if (!audioCtx || !gainNode.current || !sampleNode.current) return;
+    if (!audioCtx) return;
 
     // console.log("stopping audio...", audioCtx.state);
     const { currentTime } = audioCtx;
@@ -111,6 +108,7 @@ const AudioPlayer = ({
       return;
     }
 
+    // @TODO: Combine into one loop for perf
     const playableNotes = noteHistory.reduce((merge, note, index) => {
       if (
         note.saved &&
