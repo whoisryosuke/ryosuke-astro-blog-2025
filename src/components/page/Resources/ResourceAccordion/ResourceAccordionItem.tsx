@@ -32,7 +32,7 @@ const ResourceAccordionItem = forwardRef(
     const isActive = selectedResource == name;
 
     const renderImages = images.map((image) => (
-      <div key={image}>
+      <div key={image} style={{ maxWidth: "min(1200px, 100%)" }}>
         <ResourcePreviewImage name={name} image={image} />
       </div>
     ));

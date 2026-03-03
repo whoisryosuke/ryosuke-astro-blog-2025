@@ -8,7 +8,7 @@ type Props = {
 const ResourcePreviewImage = ({ name, image, ...props }: Props) => {
   const src = `images/resources/${name}/${image}`;
 
-  return <img src={src} />;
+  return <img src={src} loading="lazy" style={{ width: "100%" }} />;
 };
 
 export default ResourcePreviewImage;
