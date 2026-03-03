@@ -1,6 +1,7 @@
 import React from "react";
 import type { InputStore, NoteHistory } from "../types";
 import KeyboardInput from "./KeyboardInput";
+import MIDIDeviceInput from "./MIDIDeviceInput";
 
 type Props = {
   input: InputStore;
@@ -15,6 +16,11 @@ const InputManager = ({ input, setInput, createContext }: Props) => {
         input={input}
         setInput={setInput}
         createContext={createContext}
+      />
+      <MIDIDeviceInput
+        input={input}
+        setInput={setInput}
+        // createContext={createContext}
       />
     </>
   );
