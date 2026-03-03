@@ -54,6 +54,7 @@ export const RESOURCES: Resource[] = [
     description: "UI library for prototyping on web",
     category: ["web", "design"],
     githubUrl: "https://github.com/whoisryosuke/oat-milk-design",
+    images: ["logo-on-black.png"],
   },
   {
     name: "react-vite-library-boilerplate",
@@ -68,6 +69,7 @@ export const RESOURCES: Resource[] = [
     category: ["writing", "web"],
     blog: "https://whoisryosuke.com/blog/2020/creating-speaker-decks-with-nextjs-and-mdx",
     githubUrl: "https://github.com/whoisryosuke/next-mdx-deck",
+    images: ["next-mdx-deck-example.gif"],
   },
   {
     name: "ryoturia-web",
@@ -93,6 +95,7 @@ export const RESOURCES: Resource[] = [
     description: "Project launcher app",
     category: ["web"],
     githubUrl: "https://github.com/whoisryosuke/entourage-v2",
+    images: ["screenshot-project-view.png"],
   },
   {
     name: "midi-synthesizer-app",
@@ -139,12 +142,14 @@ export const RESOURCES: Resource[] = [
     category: ["graphics"],
     blog: "https://whoisryosuke.com/blog/2022/primitive-geometry-in-wgpu-and-rust",
     githubUrl: "https://github.com/whoisryosuke/wgpu-hello-world",
+    images: ["wgpu-banana.png"],
   },
   {
     name: "webgpu-sandbox",
     description: "Sandbox for WebGPU dev using JS",
     category: ["graphics"],
     githubUrl: "https://github.com/whoisryosuke/webgpu-sandbox",
+    images: ["webgpu-instances.png"],
   },
   {
     name: "geometry-node-graph",
@@ -152,6 +157,7 @@ export const RESOURCES: Resource[] = [
     category: ["blender", "web"],
     blog: "https://whoisryosuke.com/blog/2023/exporting-geometry-nodes-from-blender",
     githubUrl: "https://github.com/whoisryosuke/geometry-node-graph",
+    images: ["screenshot.png"],
   },
   {
     name: "blender-render-buddy",
@@ -166,6 +172,7 @@ export const RESOURCES: Resource[] = [
     category: ["blender", "music"],
     blog: "https://whoisryosuke.com/blog/2024/midi-powered-animations-in-blender",
     githubUrl: "https://github.com/whoisryosuke/blender-midi-motion",
+    images: ["88-key-example-sm.png"],
   },
   {
     name: "blender-gamepad",
@@ -211,6 +218,7 @@ export const RESOURCES: Resource[] = [
     category: ["gamedev", "design"],
     blog: "https://whoisryosuke.com/blog/2024/the-guide-for-designing-delta-skins",
     githubUrl: "https://github.com/whoisryosuke/delta-skin-onyx",
+    images: ["thumbnail-delta-retroarch-v1.png"],
   },
   {
     name: "triple-triad",
@@ -225,6 +233,7 @@ export const RESOURCES: Resource[] = [
     category: ["gamedev"],
     blog: "https://whoisryosuke.com/blog/2023/making-galaga-in-rust-with-bevy-part-1",
     githubUrl: "https://github.com/whoisryosuke/bevy-galaga",
+    images: ["screenshot.png"],
   },
   {
     name: "bevy-katamari",
