@@ -37,7 +37,7 @@ const MIDIDeviceInput = ({ input, setInput }: Props) => {
   useEffect(() => {
     WebMidi.enable()
       .then(onEnabled)
-      .catch((err) => alert(err));
+      .catch((err) => console.error(err));
 
     return () => {
       WebMidi.disable();
