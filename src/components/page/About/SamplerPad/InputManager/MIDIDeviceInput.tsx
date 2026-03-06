@@ -29,9 +29,9 @@ const MIDIDeviceInput = ({ input, setInput }: Props) => {
     });
 
     // Outputs
-    WebMidi.outputs.forEach((output) => {
-      console.log(output.manufacturer, output.name);
-    });
+    // WebMidi.outputs.forEach((output) => {
+    //   console.log(output.manufacturer, output.name);
+    // });
   }
 
   useEffect(() => {

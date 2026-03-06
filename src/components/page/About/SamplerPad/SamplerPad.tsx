@@ -75,7 +75,7 @@ const SamplerPad = (props: Props) => {
       timeRef.current - lastInputTimeRef.current > INPUT_END_TIME_CHECK;
     // const noNotesPlaying = !Object.values(input).find((value) => value.pressed);
     if (isPastTime) {
-      console.log("stopping playback");
+      // console.log("stopping playback");
       // Slide time back if needed to get rid of empty time
       // We go back to last input time or total time -- whichever is bigger
       const timeCheck = timeRef.current - INPUT_END_TIME_CHECK;
@@ -119,7 +119,7 @@ const SamplerPad = (props: Props) => {
    * Handles input from all devices (mouse click, keyboard, etc)
    */
   const handleInput = (noteIndex: number, pressed: boolean) => {
-    console.log("input!", noteIndex, pressed);
+    // console.log("input!", noteIndex, pressed);
     // New input?
     if (inputCache.current[noteIndex].pressed == pressed) return;
 
@@ -135,7 +135,7 @@ const SamplerPad = (props: Props) => {
 
     // Check if we're playing, if not, activate
     if (!isPlaying.current && pressed) {
-      console.log("starting playback...");
+      // console.log("starting playback...");
       timeRef.current = 0;
       prevTimeRef.current = 0;
       setPlayerState((prev) => ({
@@ -160,7 +160,7 @@ const SamplerPad = (props: Props) => {
       ]);
     } else {
       // Released? Set the duration of note
-      console.log("note released", noteIndex);
+      ("note released", noteIndex);
       setNoteHistory((prev) => {
         const lastNote = prev.findLastIndex(
           (note) => note.note == noteIndex && note.pressed,
@@ -191,7 +191,7 @@ const SamplerPad = (props: Props) => {
 
   // Initialize audio context
   useEffect(() => {
-    console.log("sample waveform init");
+    // console.log("sample waveform init");
     // Create analyser and get buffer data
     const ctx = createContext();
     const analyserNode = ctx.createAnalyser();
@@ -212,7 +212,7 @@ const SamplerPad = (props: Props) => {
     } else {
       // @TODO: Check if closed requires recreation
       if (audioCtx.state !== "running") {
-        console.log("resuming audio ctx");
+        // console.log("resuming audio ctx");
         audioCtx.resume();
       }
       return audioCtx;

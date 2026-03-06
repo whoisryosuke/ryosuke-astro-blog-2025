@@ -62,11 +62,6 @@ const SampleWaveform = ({ width, height, buffer, ...props }: Props) => {
       const deltaTime = now - prevTime.current;
       timer.current += deltaTime;
       prevTime.current = now;
-      console.log(
-        "drawing... waveform",
-        timer.current,
-        data.current.slice(0, 30),
-      );
 
       const canvasWidth = canvas.width;
       const canvasHeight = canvas.height;
@@ -113,7 +108,6 @@ const SampleWaveform = ({ width, height, buffer, ...props }: Props) => {
 
       // Sync data if we're done animating
       if (timer.current >= ANIM_DURATION) {
-        console.log("done animating!", now, timer.current);
         setAnimating(false);
         prevData.current = data.current.slice(0);
         return;
@@ -137,7 +131,6 @@ const SampleWaveform = ({ width, height, buffer, ...props }: Props) => {
     if (!buffer) return;
     const channelData = buffer.getChannelData(0);
     data.current = new Float32Array(channelData);
-    console.log("got buffer waveform data");
 
     // Reset timer
     timer.current = 0;

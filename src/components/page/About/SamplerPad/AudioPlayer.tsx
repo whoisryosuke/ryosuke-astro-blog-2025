@@ -134,7 +134,7 @@ const AudioPlayer = ({
     playableNotes.forEach((noteIndex) => {
       const note = noteHistory[noteIndex];
       if (!notesPlayed.current.includes(noteIndex)) {
-        console.log("playing note", note.note, note.time);
+        // console.log("playing note", note.note, note.time);
         playAudio(note.note);
         notesPlayed.current.push(noteIndex);
       }
@@ -142,7 +142,7 @@ const AudioPlayer = ({
 
     endingNotes.forEach((noteIndex) => {
       const note = noteHistory[noteIndex];
-      console.log("ending note", note.note, note.time);
+      // console.log("ending note", note.note, note.time);
       stopAudio(note.note);
     });
   }, [playerState]);

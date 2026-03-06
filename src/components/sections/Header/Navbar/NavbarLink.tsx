@@ -52,7 +52,7 @@ const NavbarLink = ({
       left: measurement.left,
     };
 
-    console.log("measuring link...", navbarMeasurment);
+    // console.log("measuring link...", navbarMeasurment);
 
     setSelectedLink(navbarMeasurment);
   };
@@ -79,9 +79,9 @@ const NavbarLink = ({
   };
 
   useLayoutEffect(() => {
-    console.log("selected?", selectedItem);
+    // console.log("selected?", selectedItem);
     if (selectedItem == href) {
-      console.log("selected, check for resize");
+      // console.log("selected, check for resize");
       measureLink();
       window.addEventListener("resize", throttledMeasureLink);
     }
