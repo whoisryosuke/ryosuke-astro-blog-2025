@@ -12,6 +12,20 @@ import { useStore } from "@nanostores/react";
 import { themeStore } from "../../../../store/theme";
 import map from "../../../../utils/map";
 import styles from "./SamplerPad.module.css";
+function easeOutBounce(x: number): number {
+  const n1 = 7.5625;
+  const d1 = 2.75;
+
+  if (x < 1 / d1) {
+    return n1 * x * x;
+  } else if (x < 2 / d1) {
+    return n1 * (x -= 1.5 / d1) * x + 0.75;
+  } else if (x < 2.5 / d1) {
+    return n1 * (x -= 2.25 / d1) * x + 0.9375;
+  } else {
+    return n1 * (x -= 2.625 / d1) * x + 0.984375;
+  }
+}
 
 const ANIM_DURATION = 420;
 
@@ -74,13 +88,10 @@ const SampleWaveform = ({ width, height, buffer, ...props }: Props) => {
         // We tween between old and new based on the timer
         const oldAmplitude = prevData.current[index];
         const newAmplitude = data.current[index];
-        const amplitude = map(
-          timer.current,
-          0,
-          ANIM_DURATION,
-          oldAmplitude,
-          newAmplitude,
-        );
+        const animation = map(timer.current, 0, ANIM_DURATION, 0, 1);
+        const amplitudeDiff = newAmplitude - oldAmplitude;
+        const easedTime = easeOutBounce(animation);
+        const amplitude = oldAmplitude + amplitudeDiff * easedTime;
         // const amplitude = data.current[index];
 
         // const y = (amplitude * canvasHeight) / 1.5 + canvasHeight;
