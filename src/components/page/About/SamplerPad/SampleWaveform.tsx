@@ -13,65 +13,127 @@ import { themeStore } from "../../../../store/theme";
 import map from "../../../../utils/map";
 import styles from "./SamplerPad.module.css";
 
+const ANIM_DURATION = 420;
+
 type Props = Omit<HTMLProps<HTMLCanvasElement>, "data"> & {
   buffer: AudioBuffer | null;
 };
 
 const SampleWaveform = ({ width, height, buffer, ...props }: Props) => {
+  const [animating, setAnimating] = useState(false);
   const { colorMode } = useStore(themeStore);
   const bgColor = colorMode === "dark" ? "#022727" : "#057d7f";
   const lineColor = colorMode === "dark" ? "#80cbcc" : "#8fd2d3";
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const data = useRef<Float32Array<ArrayBuffer>>(new Float32Array().fill(0));
+  const prevData = useRef<Float32Array<ArrayBuffer>>(
+    new Float32Array().fill(0),
+  );
+  const drawRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(null);
+  const prevTime = useRef(-1);
+  const timer = useRef(0);
 
-  const draw = useCallback(() => {
-    if (!buffer) return;
-    const data = buffer.getChannelData(0);
+  const draw = useCallback(
+    (now: number) => {
+      if (!canvasRef.current) return;
+      const canvas = canvasRef.current;
 
-    if (!canvasRef.current) return;
-    const canvas = canvasRef.current;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+      // If drawing stopped, reset the prev time so first delta makes sense
+      if (prevTime.current < 0) prevTime.current = now;
 
-    const canvasWidth = canvas.width;
-    const canvasHeight = canvas.height;
-
-    // Clear drawing
-    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-    ctx.fillStyle = bgColor;
-    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-
-    ctx.beginPath();
-    ctx.lineWidth = 1.5;
-    ctx.strokeStyle = lineColor;
-    const VERTICAL_PAD = 10;
-    for (let i = 0; i < canvasWidth; i++) {
-      const index = Math.floor(map(i, 0, canvasWidth, 0, data.length));
-      const x = i;
-      const amplitude = data[index];
-      // const y = (amplitude * canvasHeight) / 1.5 + canvasHeight;
-      const y = map(
-        amplitude * 3,
-        -1,
-        1,
-        0 + VERTICAL_PAD,
-        canvasHeight - VERTICAL_PAD,
+      // Increment timer
+      const deltaTime = now - prevTime.current;
+      timer.current += deltaTime;
+      prevTime.current = now;
+      console.log(
+        "drawing... waveform",
+        timer.current,
+        data.current.slice(0, 30),
       );
-      if (i === 0) {
-        ctx.moveTo(x, y);
-      } else {
-        ctx.lineTo(x, y);
+
+      const canvasWidth = canvas.width;
+      const canvasHeight = canvas.height;
+
+      // Clear drawing
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+      ctx.fillStyle = bgColor;
+      ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+      ctx.beginPath();
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = lineColor;
+      const VERTICAL_PAD = 10;
+      for (let x = 0; x < canvasWidth; x++) {
+        const index = Math.floor(
+          map(x, 0, canvasWidth, 0, data.current.length),
+        );
+
+        // We tween between old and new based on the timer
+        const oldAmplitude = prevData.current[index];
+        const newAmplitude = data.current[index];
+        const amplitude = map(
+          timer.current,
+          0,
+          ANIM_DURATION,
+          oldAmplitude,
+          newAmplitude,
+        );
+        // const amplitude = data.current[index];
+
+        // const y = (amplitude * canvasHeight) / 1.5 + canvasHeight;
+        const y = map(
+          amplitude * 3,
+          -1,
+          1,
+          0 + VERTICAL_PAD,
+          canvasHeight - VERTICAL_PAD,
+        );
+        if (x === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
       }
-    }
 
-    ctx.stroke();
+      ctx.stroke();
 
-    // if (animated) animationRef.current = requestAnimationFrame(draw);
-  }, [buffer, lineColor, bgColor]);
+      // Sync data if we're done animating
+      if (timer.current >= ANIM_DURATION) {
+        console.log("done animating!", now, timer.current);
+        setAnimating(false);
+        prevData.current = data.current.slice(0);
+        return;
+      }
+
+      drawRef.current = requestAnimationFrame(draw);
+    },
+    [buffer, lineColor, bgColor],
+  );
 
   useEffect(() => {
-    draw();
-  }, [draw, width, height]);
+    if (animating) drawRef.current = requestAnimationFrame(draw);
+
+    return () => {
+      if (drawRef.current) cancelAnimationFrame(drawRef.current);
+    };
+  }, [animating, draw, width, height]);
+
+  useEffect(() => {
+    // Buffer changed? Update data
+    if (!buffer) return;
+    const channelData = buffer.getChannelData(0);
+    data.current = new Float32Array(channelData);
+    console.log("got buffer waveform data");
+
+    // Reset timer
+    timer.current = 0;
+    prevTime.current = -1;
+
+    setAnimating(true);
+  }, [buffer]);
 
   return (
     <div className={styles.WaveformContainer}>
