@@ -4,6 +4,7 @@ date: "2025-11-11"
 section: blog
 tags: ["llm", "ai", "tutorial", "rust", "sql"]
 cover_image: "./image.png"
+bluesky: 3m5h2lnjc7v2n
 ---
 
 There’s no denying that LLMs have exploded in the past couple years. Whether we like it or not, they’ve worked their way into every process thanks to corporate greed. It becomes hard to separate the hype from the results when all the evangelists show locked down controlled demos and the actual product never meets expectations.
@@ -507,7 +508,7 @@ Then on the frontend I can call the command and pass it text chunks:
 ```tsx
 async function generateEmbeddingsForTextBatch(
   chunks: string[],
-  modelName: string = LM_MODEL_TEXT_EMBED
+  modelName: string = LM_MODEL_TEXT_EMBED,
 ): Promise<TextEmbedding[]> {
   const embeddings: TextEmbedding[] = [];
 
@@ -577,7 +578,7 @@ function cosineSimilarity(a: number[], b: number[]): number {
 
 export async function findRelevantDocuments(
   query: string,
-  resultCount: number = 3
+  resultCount: number = 3,
 ): Promise<DocumentEmbedding[]> {
   console.log("finding relevant docs...");
   const documents = store.get(pdfEmbedStore);
@@ -1042,7 +1043,7 @@ When we detect the user is in dark mode, we basically grab the canvas after it�
 ```tsx
 function invertCanvasColors(
   canvas: HTMLCanvasElement,
-  context: CanvasRenderingContext2D
+  context: CanvasRenderingContext2D,
 ) {
   const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
   const pixels = imageData.data;
@@ -1112,7 +1113,7 @@ import { TOOLTIP_MARGIN_BOTTOM } from "../components/documents/TextHighlightTool
 export function useTextSelection(
   contentRef: RefObject<HTMLElement | null>,
   containerRef: RefObject<HTMLElement | null>,
-  page: number
+  page: number,
 ) {
   const setTextSelection = useSetAtom(selectionStore);
 

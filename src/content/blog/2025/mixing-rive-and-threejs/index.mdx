@@ -4,6 +4,7 @@ date: "2025-06-30"
 section: blog
 tags: ["rive", "threejs", "react", "tutorial"]
 cover_image: "./Mixing_Rive_and_ThreeJS.png"
+bluesky: 3lsvvg76voh2a
 ---
 
 Recently had a wild idea - what if I could take a Rive animation and run it inside a 3D scene? This was surprisingly easy to setup using ThreeJS and their `CanvasTexture` API.
@@ -97,7 +98,7 @@ Instead of nesting a `meshStandardMaterial` under the screen’s `<mesh>`, we pa
 ```tsx
 export function MIDISequencer(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF(
-    "/models/MIDI Sequencer - R5 - Web.glb"
+    "/models/MIDI Sequencer - R5 - Web.glb",
   ) as unknown as GLTFResult;
   return (
     <group {...props} dispose={null}>
@@ -171,7 +172,7 @@ export const useCanvasStore = create<CanvasState>()(
         ...state,
         canvasRef,
       })),
-  }))
+  })),
 );
 
 export default useCanvasStore;
@@ -252,7 +253,7 @@ Here’s that snippet again from the code above:
 
 ```tsx
 const [localCanvasRef, setLocalCanvasRef] = useState<HTMLCanvasElement | null>(
-  null
+  null,
 );
 
 // Sync the canvas
@@ -359,7 +360,7 @@ const Waveform = (props: Props) => {
     ctx.strokeStyle = "blue";
     for (let i = 0; i < canvasWidth; i++) {
       const index = Math.floor(
-        mapLinear(i, 0, canvasWidth, 0, dataArray.current.length)
+        mapLinear(i, 0, canvasWidth, 0, dataArray.current.length),
       );
       const currentItem = dataArray.current[index];
       const baseY = mapLinear(
@@ -367,7 +368,7 @@ const Waveform = (props: Props) => {
         DEFAULT_AUDIO_HEIGHT - 20,
         DEFAULT_AUDIO_HEIGHT + 20,
         0,
-        1
+        1,
       );
       const x = i;
       const y = (baseY * canvasHeight) / 2 + canvasHeight / 4;
@@ -448,7 +449,7 @@ const GlobalCanvas = (props: Props) => {
   useEffect(() => {
     if (!window) return;
     const canvasEl = document.getElementById(
-      "rive-canvas"
+      "rive-canvas",
     ) as HTMLCanvasElement;
     setCanvas(canvasEl);
   }, []);
@@ -616,7 +617,7 @@ const DataBinding = () => {
 
   const { setValue: setTitle } = useViewModelInstanceString(
     "title",
-    viewModelInstance
+    viewModelInstance,
   );
 
   useEffect(() => {
@@ -743,7 +744,7 @@ const RiveWaveform = (props: Props) => {
     const BAR_COUNT = 10;
     for (let i = 0; i < BAR_COUNT; i++) {
       const index = Math.floor(
-        mapLinear(i, 0, BAR_COUNT, 0, dataArray.current.length)
+        mapLinear(i, 0, BAR_COUNT, 0, dataArray.current.length),
       );
       const currentItem = dataArray.current[index];
       const barScale = mapLinear(
@@ -751,7 +752,7 @@ const RiveWaveform = (props: Props) => {
         DEFAULT_AUDIO_HEIGHT - 20,
         DEFAULT_AUDIO_HEIGHT + 20,
         -256,
-        256
+        256,
       );
 
       // Get the correct "setter" function for the Rive view model

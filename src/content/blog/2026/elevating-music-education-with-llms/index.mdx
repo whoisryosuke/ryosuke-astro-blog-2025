@@ -4,6 +4,7 @@ date: "2026-01-06"
 section: blog
 tags: ["ai", "llm", "music", "tutorial"]
 cover_image: "./elevating-music-education-with-llms.png"
+bluesky: 3mbty2hfy672c
 ---
 
 For a few months on and off I’ve been building an app for learning how to play piano. I was inspired by playing Duolingo’s music mode, which does a great job of teaching the basics with charming game-inspired interactions. But it’s also limited by their new energy system, which made learning restrictive without a paid subscription.
@@ -72,7 +73,7 @@ export type LMUserMessage = ChatCompletionUserMessageParam;
 export type LMSystemMessage = ChatCompletionSystemMessageParam;
 
 export const sendChat = async (
-  messages: ChatCompletionMessageParam[]
+  messages: ChatCompletionMessageParam[],
 ): Promise<ChatCompletion | undefined> => {
   const url = "http://127.0.0.1:1234/v1/chat/completions";
 
@@ -670,7 +671,7 @@ const notesBlock = {
   },
   renderer(token) {
     const notes = JSON.stringify(
-      token.text.split(",").map((note) => note.trim())
+      token.text.split(",").map((note) => note.trim()),
     ); // Convert to JSON string
     return `<sheet-music-block notes='${notes}' />`; // Render as a custom element
   },
@@ -706,7 +707,7 @@ type Props = {
 const MarkdownContent = forwardRef<HTMLDivElement, Props>(
   ({ content, ...props }, ref) => {
     const [MDXContent, setMDXContent] = useState<React.ComponentType | null>(
-      null
+      null,
     );
     useEffect(() => {
       const renderMarkdown = async () => {
@@ -730,7 +731,7 @@ const MarkdownContent = forwardRef<HTMLDivElement, Props>(
         </MDXProvider>
       </Container>
     );
-  }
+  },
 );
 
 MarkdownContent.displayName = "MarkdownContent";

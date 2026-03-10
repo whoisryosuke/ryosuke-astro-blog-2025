@@ -4,6 +4,7 @@ date: "2025-07-08"
 section: blog
 tags: ["react", "creative coding", "javascript", "open source"]
 cover_image: "./Sketchbooks_for_Creative_Coding.png"
+bluesky: 3ltkgkyyh2x2w
 ---
 
 Recently I’ve been stacking up quite a few digital sketchbooks with experiments ranging from 3D to web audio to animations. Anything I’ve been interested in tinkering with, with my “sketchbooks” I have a place I can quickly come and iterate on ideas without boundaries.
@@ -91,7 +92,7 @@ function findAndReplaceInFile(sourceFilePath, replaceSearch, replaceTerm) {
 const generateSketch = async () => {
   if (process.argv.length < 3)
     throw new Error(
-      "Please provide a name for a new React component for sketching (e.g. 'SketchExample')"
+      "Please provide a name for a new React component for sketching (e.g. 'SketchExample')",
     );
 
   const sketchName = process.argv[2];
@@ -105,17 +106,17 @@ const generateSketch = async () => {
   const componentTemplatePath = path.join(
     __dirname,
     "../templates",
-    `${templateFilename}.tsx`
+    `${templateFilename}.tsx`,
   );
   const componentDestinationPath = path.join(
     __dirname,
     "../src/experiments/",
-    `${sketchName}.tsx`
+    `${sketchName}.tsx`,
   );
   const componentFileExists = existsSync(componentDestinationPath);
   if (componentFileExists) {
     console.error(
-      "Component already exists! Try picking another name or deleting the old file."
+      "Component already exists! Try picking another name or deleting the old file.",
     );
     return;
   }
@@ -125,7 +126,7 @@ const generateSketch = async () => {
   findAndReplaceInFile(
     componentDestinationPath,
     "ExampleComponent",
-    sketchName
+    sketchName,
   );
 
   // Get template for page and copy it
@@ -134,7 +135,7 @@ const generateSketch = async () => {
   const pageDestinationPath = path.join(
     __dirname,
     "../src/pages/experiments/",
-    `${pageName}.tsx`
+    `${pageName}.tsx`,
   );
   copyFileSync(pageTemplatePath, pageDestinationPath);
 

@@ -4,6 +4,7 @@ date: "2025-08-05"
 section: blog
 tags: ["audio", "wasm", "rust", "tutorial"]
 cover_image: "./Generating_Pink_Noise_for_Audio_Worklets.png"
+bluesky: 3lvofvoo63n2p
 ---
 
 If you’ve been following me recently you’ll know that I’ve been working on [**clawdio**](https://github.com/whoisryosuke/clawdio), a JS library for creating Web Audio effects - like say “[Bitcrusher](https://en.wikipedia.org/wiki/Bitcrusher)”. And I’ve also been prototyping a [**web audio node graph**](https://github.com/whoisryosuke/web-audio-node-graph) to visualize the Web Audio API, and it also uses clawdio under the hood to test the library.
@@ -61,7 +62,7 @@ With the Web Audio API we can create a new buffer, then fill that buffer with ou
 
 ```tsx
 export function createWhiteNoiseBufferNode(
-  audioCtx: AudioContext | OfflineAudioContext
+  audioCtx: AudioContext | OfflineAudioContext,
 ) {
   // Generate 2 second buffer
   const bufferSize = 2 * audioCtx.sampleRate;
@@ -430,8 +431,7 @@ import type {
 } from "./types";
 import { initWasm } from "./utils";
 
-export interface PinkNoiseEventInitModule
-  extends AudioWorkletEventMessage<PinkNoiseOptions> {
+export interface PinkNoiseEventInitModule extends AudioWorkletEventMessage<PinkNoiseOptions> {
   type: "init-module";
   data: PinkNoiseOptions;
 }

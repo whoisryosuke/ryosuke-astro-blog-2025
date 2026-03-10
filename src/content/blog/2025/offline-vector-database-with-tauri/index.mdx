@@ -4,6 +4,7 @@ date: "2025-11-19"
 section: blog
 tags: ["llm", "ai", "tutorial", "rust", "sql"]
 cover_image: "./image.png"
+bluesky: 3m63ezmhpas2s
 ---
 
 I’ve been working on a research app that leverages a local LLM to enhance the learning experience. You can upload Markdown or PDF files and use them as context for your chats. Part of this process involves searching for documents based on relevance to the user’s chat, which requires using a vector database for storing the documents and querying them. I’d never used one before, and since the app has to be offline-friendly, this was quite an interesting project to setup.
@@ -135,7 +136,7 @@ These chunks get run through a function that handles the “embedding” process
 ```tsx
 async function generateEmbeddingsForTextBatch(
   chunks: string[],
-  modelName: string = LM_MODEL_TEXT_EMBED
+  modelName: string = LM_MODEL_TEXT_EMBED,
 ): Promise<DocumentEmbedding[]> {
   const embeddings: DocumentEmbedding[] = [];
 

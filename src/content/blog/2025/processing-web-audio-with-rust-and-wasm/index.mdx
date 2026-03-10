@@ -4,6 +4,7 @@ date: "2025-06-05"
 section: blog
 tags: ["audio", "rust", "wasm", "reactjs", "javascript"]
 cover_image: "./Processing_Web_Audio_with_Rust_and_WASM.png"
+bluesky: 3lr6v7sg6km2q
 ---
 
 I’ve been falling down the rabbit hole of audio synthesis, or by the scientific term: digital signal processing. It’s the art of translating sound into 1’s and 0’s and processing it with more math. When you see a the classic audio waveform, that’s the 1’s and 0’s of the audio being represented in a line graph.
@@ -139,7 +140,7 @@ const AudioPlayer = ({ file, ...props }: Props) => {
       setAudioCtx(audioCtx.current);
     }
     const audioSource = audioCtx.current.createMediaElementSource(
-      audioElement.current
+      audioElement.current,
     );
     // Loop through any dynamic audio nodes and attach them
     let prevNode: AudioNode = audioSource;
@@ -357,7 +358,7 @@ interface AudioWorkletProcessor {
   process(
     inputs: Float32Array[][],
     outputs: Float32Array[][],
-    parameters: Record<string, Float32Array>
+    parameters: Record<string, Float32Array>,
   ): boolean;
 }
 
@@ -369,10 +370,10 @@ declare var AudioWorkletProcessor: {
 declare function registerProcessor(
   name: string,
   processorCtor: (new (
-    options?: AudioWorkletNodeOptions
+    options?: AudioWorkletNodeOptions,
   ) => AudioWorkletProcessor) & {
     parameterDescriptors?: AudioParamDescriptor[];
-  }
+  },
 ): void;
 ```
 
@@ -634,7 +635,7 @@ const createNode = async () => {
     setLoaded(true);
 
     nodeRef.current.addEventListener("processorerror", (e) =>
-      console.error("Audio Worklet processing error", e)
+      console.error("Audio Worklet processing error", e),
     );
   } catch (e) {
     console.log("failed to create worklet", e);

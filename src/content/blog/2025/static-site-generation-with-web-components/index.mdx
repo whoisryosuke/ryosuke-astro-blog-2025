@@ -4,6 +4,7 @@ date: "2025-10-31"
 section: blog
 tags: ["web components", "react", "javascript"]
 cover_image: "./static-site-generation-with-web-components.png"
+bluesky: 3m4qjqprynr2w
 ---
 
 I was shocked to see recently that Shopify moved it’s design system from React to Web Components. As someone who’s tried to embrace Web Components and found them completely inadequate, I was amazed they made such a big shift. I was curious if the ecosystem had evolved since I last experimented with them originally, they had massive issues that prevented essential features like SSR.
@@ -31,7 +32,7 @@ class MyCustomElement extends HTMLElement {
 
   attributeChangedCallback(name, oldValue, newValue) {
     console.log(
-      `Attribute ${name} has changed from ${oldValue} to ${newValue}.`
+      `Attribute ${name} has changed from ${oldValue} to ${newValue}.`,
     );
   }
 }
@@ -67,7 +68,7 @@ customElements.define(
       const shadowRoot = this.attachShadow({ mode: "open" });
       shadowRoot.appendChild(templateContent.cloneNode(true));
     }
-  }
+  },
 );
 ```
 
@@ -276,7 +277,7 @@ export const transformMDX = async (content, path) => {
     await compile(content, {
       outputFormat: "function-body",
       /* …otherOptions */
-    })
+    }),
   );
   return code;
 };
@@ -499,7 +500,7 @@ import "../components/simple-greeter.js";
 
 // Render it to HTML
 const componentHTML = render(
-  html`<simple-greeter name=${name}></simple-greeter>`
+  html`<simple-greeter name=${name}></simple-greeter>`,
 );
 ```
 
@@ -530,13 +531,13 @@ export async function injectLitShadowDOM(html) {
 
   // Grabs all elements in page that have a `-` in their
   const customEls = [...doc.querySelectorAll("*")].filter((el) =>
-    el.tagName.includes("-")
+    el.tagName.includes("-"),
   );
 
   for (const el of customEls) {
     const tag = el.tagName.toLowerCase();
     const attrs = Object.fromEntries(
-      [...el.attributes].map((a) => [a.name, a.value])
+      [...el.attributes].map((a) => [a.name, a.value]),
     );
 
     // Render the web component

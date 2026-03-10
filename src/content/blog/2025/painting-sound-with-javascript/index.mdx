@@ -4,6 +4,7 @@ date: "2025-07-22"
 section: blog
 tags: ["javascript", "web audio", "tutorial"]
 cover_image: "./image.png"
+bluesky: 3lunn3f57pr2j
 ---
 
 I was cruising through audio YouTube recently and I [stumbled on a video](https://www.youtube.com/watch?time_continue=891&v=4-GDOIOAuU4&embeds_referring_euri=https%3A%2F%2Fwww.notion.so%2F&source_ve_path=MjM4NTE) about an interesting app that lets you paint on a canvas and generate sound. It’s called [**Metasynth**](https://uisoftware.com/metasynth/), and it’s essentially like any other music production software (or “DAW”) — but it’s primary feature is sculpting sounds using a 2D canvas you “paint” inside of.
@@ -226,7 +227,7 @@ const PaintWithMouseR3 = (props: Props) => {
       // Create the offscreen texture and store it in a local variable
       offscreenTexture = p.createGraphics(
         BRUSH_TEXTURE_SIZE,
-        BRUSH_TEXTURE_SIZE
+        BRUSH_TEXTURE_SIZE,
       );
       const offscreenCtx = offscreenTexture.drawingContext;
 
@@ -237,7 +238,7 @@ const PaintWithMouseR3 = (props: Props) => {
         3,
         50,
         50,
-        40
+        40,
       );
       // We use RGBA to go from solid to transparent color
       brushGradient.addColorStop(0, "rgba(0,0,0,1)");
@@ -438,11 +439,11 @@ for (let i = 0; i < data.length; i += 4) {
 
 console.log(
   "segments",
-  segments[4].filter((sample) => sample > 0)
+  segments[4].filter((sample) => sample > 0),
 );
 // We average the color samples of each segment - and map them to 0-1 (from 0-255 color range)
 const segmentsAveraged = segments.map(
-  (segment) => segment.reduce((a, b) => a + b) / segment.length / 255
+  (segment) => segment.reduce((a, b) => a + b) / segment.length / 255,
 );
 console.log("averaged array - ideally notes?", segmentsAveraged);
 ```
@@ -610,7 +611,7 @@ With these segments in place, we can average out the data to get an idea of the 
 ```tsx
 // We average the color samples of each segment - and map them to 0-1 (from 0-255 color range)
 const segmentsAveraged = segments.map(
-  (segment) => segment.reduce((a, b) => a + b) / segment.length / 255
+  (segment) => segment.reduce((a, b) => a + b) / segment.length / 255,
 );
 console.log("averaged array - ideally notes?", segmentsAveraged);
 ```
@@ -678,7 +679,7 @@ export const createGridBoxes = (
   yNumLines?: number,
   strokeWeight: number = 1.5,
   xColor: string = BASE_COLORS["gray-1"],
-  yColor: string = BASE_COLORS["gray-4"]
+  yColor: string = BASE_COLORS["gray-4"],
 ) => {
   p.strokeWeight(strokeWeight);
   const yNum = yNumLines ?? xNumLines;
@@ -709,7 +710,7 @@ new Array(12).fill(0).forEach((_, index) => {
   p.text(
     NOTE_LETTERS_WITH_BLACK[index],
     8,
-    gridSegmentHeight * (index + 1) - gridSegmentHeight / 2 + 8
+    gridSegmentHeight * (index + 1) - gridSegmentHeight / 2 + 8,
   );
 });
 ```
