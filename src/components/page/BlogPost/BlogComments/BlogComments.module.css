@@ -1,0 +1,18 @@
+.Container {
+  position: relative;
+  margin-bottom: 64px;
+}
+
+.CommentPopup {
+  max-width: 300px;
+}
+
+.CommentPopup h4 {
+  margin: 0;
+  margin-top: var(--space-0-25);
+  font-size: var(--font-size-3);
+}
+
+.CommentPopup p {
+  margin: 0;
+}

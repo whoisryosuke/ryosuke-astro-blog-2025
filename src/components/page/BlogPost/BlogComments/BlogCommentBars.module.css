@@ -1,0 +1,8 @@
+.Bar {
+  flex: 1;
+  background: var(--color-gray-600);
+}
+
+.Container {
+  align-items: end;
+}

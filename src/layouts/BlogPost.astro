@@ -1,4 +1,5 @@
 ---
+
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
@@ -14,6 +15,9 @@ import BlogTags from '../components/page/BlogPost/BlogTags/BlogTags';
 import BlogTOCReadTracker from '../components/page/BlogPost/BlogTOCReadTracker/BlogTOCReadTracker';
 import BlogTOCWaveform from '../components/page/BlogPost/BlogTOCWaveform/BlogTOCWaveform';
 import map from '../utils/map';
+import BlogComments from '../components/page/BlogPost/BlogComments/BlogComments';
+import { BskyAgent } from '@atproto/api';
+import { getBlueskyComments } from '../utils/bsky';
 
 type Props = CollectionEntry<'blog'>['data'] & {
 	body: string | undefined;
@@ -26,7 +30,8 @@ section,
 tags,
 date,
 cover_image,
-body
+body,
+bluesky
  } = Astro.props;
 
 // Process blog content into pseudo waveform
@@ -57,6 +62,9 @@ for (let index = 0; index < WAVEFORM_SIZE; index++) {
 	waveform.push(score);
 }
 
+// Get Bluesky comments
+const comments = await getBlueskyComments(bluesky);
+
 ---
 
 <section class="BlogPostPage">
@@ -74,7 +82,9 @@ for (let index = 0; index < WAVEFORM_SIZE; index++) {
 		<div id="BlogPostContent" class="content">
 			<slot />
 		</div>
+		<BlogComments client:load comments={comments} waveform={waveform} />
 	</article>
+
 	<BlogTags client:load tags={tags} />
 	<!-- <BlogTOCReadTracker client:load /> -->
 	<BlogTOCWaveform waveform={waveform} client:only />

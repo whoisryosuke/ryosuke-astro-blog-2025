@@ -1,0 +1,28 @@
+.TooltipTrigger {
+  width: 64px;
+  height: 64px;
+  position: absolute;
+  top: 132px;
+  left: var(--x);
+
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.TooltipTrigger:active,
+.TooltipTrigger:hover {
+  border-bottom: 0 !important;
+  border-color: transparent !important;
+  text-decoration: none;
+}
+
+.TooltipTrigger img {
+  width: 64px;
+  height: 64px;
+
+  margin: 0;
+
+  border-radius: 999em;
+}

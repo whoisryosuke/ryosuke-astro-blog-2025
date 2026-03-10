@@ -32,6 +32,7 @@
     "webmidi": "^3.1.14"
   },
   "devDependencies": {
+    "@atproto/api": "^0.19.3",
     "@types/lodash": "^4.17.24"
   }
 }
