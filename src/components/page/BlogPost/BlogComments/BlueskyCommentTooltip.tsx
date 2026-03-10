@@ -14,7 +14,7 @@ const BlueskyCommentTooltip = ({ comment, handle, selectComment }: Props) => {
     selectComment(comment.id);
   };
 
-  const url = `https://bsky.app/profile/${handle}/post/${comment.id}`;
+  const url = `https://bsky.app/profile/${comment.handle}/post/${comment.id}`;
 
   const x = Math.random() * 100;
 

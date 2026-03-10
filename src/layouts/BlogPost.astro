@@ -82,7 +82,7 @@ const comments = await getBlueskyComments(bluesky);
 		<div id="BlogPostContent" class="content">
 			<slot />
 		</div>
-		<BlogComments client:load comments={comments} waveform={waveform} />
+		<BlogComments client:load comments={comments} waveform={waveform} id={bluesky} />
 	</article>
 
 	<BlogTags client:load tags={tags} />

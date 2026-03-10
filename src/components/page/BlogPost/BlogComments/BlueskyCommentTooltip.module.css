@@ -1,28 +1,72 @@
-.TooltipTrigger {
-  width: 64px;
-  height: 64px;
+a.TooltipTrigger {
+  width: 16px;
+  height: 16px;
   position: absolute;
-  top: 132px;
+  top: 148px;
   left: var(--x);
 
   background: transparent;
   border: 0;
-  padding: 0;
-  margin: 0;
-}
-
-.TooltipTrigger:active,
-.TooltipTrigger:hover {
-  border-bottom: 0 !important;
-  border-color: transparent !important;
-  text-decoration: none;
-}
-
-.TooltipTrigger img {
-  width: 64px;
-  height: 64px;
-
+  padding: var(--space-0-5);
   margin: 0;
 
   border-radius: 999em;
+
+  transform: translateY(0px);
+
+  transition-property: background-color, transform;
+  transition-timing-function: ease-in-out;
+  transition-duration: 220ms;
+
+  @media screen and (min-width: 1200px) {
+    width: 64px;
+    height: 64px;
+    top: 132px;
+  }
+}
+
+a.TooltipTrigger:hover {
+  border-bottom: 0;
+  border-color: transparent;
+  text-decoration: none;
+  background: var(--color-secondary-400);
+
+  transform: translateY(-10px);
+
+  animation-name: music-bounce;
+  animation-duration: 2000ms;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes music-bounce {
+  0% {
+    transform: translateY(0px);
+  }
+  16% {
+    transform: translateY(-10px);
+  }
+  32% {
+    transform: translateY(0px);
+  }
+  48% {
+    transform: translateY(-5px);
+  }
+  64% {
+    transform: translateY(0px);
+  }
+  80% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.TooltipTrigger img {
+  width: 100%;
+  height: 100%;
+  border-radius: 999em;
+
+  margin: 0;
 }

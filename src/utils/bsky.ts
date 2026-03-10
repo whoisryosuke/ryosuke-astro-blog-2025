@@ -1,6 +1,8 @@
 import { AtpAgent, type $Typed } from "@atproto/api";
 import type { ThreadViewPost } from "@atproto/api/dist/client/types/app/bsky/feed/defs";
 
+export const BSKY_HANDLE = "whoisryosuke.bsky.social";
+
 export type BlueskyComment = {
   id: string;
   handle: string;
@@ -13,13 +15,12 @@ export type BlueskyComment = {
 export async function getBlueskyComments(id: string | undefined) {
   if (!id) return;
   const agent = new AtpAgent({ service: "https://public.api.bsky.app" });
-  const handle = "whoisryosuke.bsky.social";
 
   try {
     // Get the user's ID from their handle
     const {
       data: { did },
-    } = await agent.resolveHandle({ handle });
+    } = await agent.resolveHandle({ handle: BSKY_HANDLE });
 
     // The AT Proto URL using user ID + post ID
     const postUri = `at://${did}/app.bsky.feed.post/${id}`;

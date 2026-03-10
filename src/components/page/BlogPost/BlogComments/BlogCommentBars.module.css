@@ -1,6 +1,21 @@
 .Bar {
   flex: 1;
   background: var(--color-gray-600);
+
+  transition-property: background-color;
+  transition-timing-function: ease-in-out;
+  transition-duration: 220ms;
+}
+
+/* Hides half the bars on mobile */
+@media screen and (max-width: 800px) {
+  .Bar:nth-child(2n) {
+    display: none;
+  }
+}
+
+.Bar:hover {
+  background: var(--color-secondary-400);
 }
 
 .Container {

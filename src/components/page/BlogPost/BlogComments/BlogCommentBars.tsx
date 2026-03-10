@@ -7,7 +7,7 @@ type Props = {
   waveform: number[];
 };
 
-const BAR_COUNT = 50;
+const BAR_COUNT = 100;
 
 const BlogCommentBars = ({ waveform }: Props) => {
   const bars = new Array(BAR_COUNT).fill(0);
