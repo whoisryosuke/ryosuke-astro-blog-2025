@@ -32,10 +32,10 @@ export async function getBlueskyComments(id: string | undefined) {
     // We can assume it's this type because I wouldn't provide a blocked post.
     const thread = response.data.thread as $Typed<ThreadViewPost>;
 
-    console.log("thread", thread);
+    // console.log("thread", thread);
 
     if (thread.replies) {
-      console.log("Comments:", thread.replies);
+      // console.log("Comments:", thread.replies);
 
       // We only want "thread" type posts.
       const filteredReplies = thread.replies.filter(
