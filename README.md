@@ -1,3 +1,9 @@
+![Frontpage with image slider of art and projects](./screenshots/frontpage.png)
+![About page with a drumpad sampler and visualizer](./screenshots/sampler.png)
+![Blog](./screenshots/blog.png)
+![Blog waveform table of contents component](./screenshots/blog-waveform.png)
+![Tag cloud visualization](./screenshots/tags.png)
+
 # Ryosuke's Portfolio and Blog
 
 Yet another home for my art and thoughts about design and development. Designed in 2025-2026.
