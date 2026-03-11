@@ -33,6 +33,7 @@ const BlueskyCommentTooltip = ({ comment, handle, selectComment }: Props) => {
           style={{ "--x": `${x}%` } as React.CSSProperties}
           onMouseOver={handleClick}
           onClick={handleClick}
+          target="_blank"
         />
       )}
     >
