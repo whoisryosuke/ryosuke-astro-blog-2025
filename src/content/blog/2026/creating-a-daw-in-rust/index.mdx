@@ -293,6 +293,8 @@ fn build_stream(
 
 And with a few extra lines of code, we have processed our audio signal! It should sound slightly crunchier like an 8-bit console, depending on how low the bits are set. It definitely works better using an audio file with music or sound like a voice recording.
 
+> Here's [the source code](https://github.com/whoisryosuke/rust-dsp-test/blob/bitcrusher/src/main.rs) for these experiments if you're interested in seeing it in full context or running it.
+
 # Real-time audio
 
 Now that we’ve built a small example of a low level audio stream, you get an idea of how it works. It’s basically 1 callback constantly running in a separate thread that’s managed by the audio library (`cpal` in our case). The callback runs as an infinite loop with a slight delay before each iteration (to “hold” a sound as long as the sample rate requires — smaller sample = longer hold).
