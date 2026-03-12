@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import type { BlueskyComment } from "../../../../utils/bsky";
 import { Tooltip } from "@base-ui/react/tooltip";
 import styles from "./BlueskyCommentTooltip.module.css";
@@ -10,13 +10,14 @@ type Props = {
 };
 
 const BlueskyCommentTooltip = ({ comment, handle, selectComment }: Props) => {
+  const randomPosition = useMemo(() => Math.random(), []);
   const handleClick = () => {
     selectComment(comment.id);
   };
 
   const url = `https://bsky.app/profile/${comment.handle}/post/${comment.id}`;
 
-  const x = Math.random() * 100;
+  const x = randomPosition * 100;
 
   return (
     <Tooltip.Trigger
