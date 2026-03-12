@@ -76,7 +76,10 @@ const BlogComments = ({ comments, waveform, id }: Props) => {
                     {selectedComment && selectedCommentData ? (
                       <div>
                         <h4>{selectedCommentData.name}</h4>
-                        <p>{selectedCommentData.post}</p>
+                        <p>
+                          {selectedCommentData.post.substring(0, 200)}
+                          {selectedCommentData.post.length > 200 && "..."}
+                        </p>
                       </div>
                     ) : (
                       "Can't find that..."
