@@ -1,0 +1,92 @@
+.range {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+
+  --thumb-width: 1rem;
+  --thumb-height: 2rem;
+  --thumb-radius: var(--space-0-25);
+  --thumb-bg: var(--color-secondary-400);
+  --thumb-bg-hover: var(--color-secondary-300);
+  --thumb-bg-press: var(--color-secondary-500);
+  --track-radius: var(--space-0-5);
+  --track-height: 1rem;
+  --track-bg: var(--color-gray-700);
+  --track-bg-hover: var(--color-gray-600);
+  --transition: background-color 120ms ease-in-out;
+
+  margin: 0.75rem 0;
+}
+
+/* Removes default focus */
+.range:focus {
+  outline: none;
+}
+
+/* Safari */
+/* slider track */
+.range::-webkit-slider-runnable-track {
+  background-color: var(--track-bg);
+  border-radius: var(--track-radius);
+  height: var(--track-height);
+  transition: var(--transition);
+}
+.range:hover::-webkit-slider-runnable-track {
+  background-color: var(--track-bg-hover);
+}
+
+/* slider thumb */
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  margin-top: -12px; /* Centers thumb on the track */
+
+  background-color: var(--thumb-bg);
+  height: var(--thumb-height);
+  width: var(--thumb-width);
+  border-radius: var(--thumb-radius);
+
+  transition: var(--transition);
+}
+
+.range::-webkit-slider-thumb:hover {
+  background-color: var(--thumb-bg-hover);
+}
+
+.range:focus::-webkit-slider-thumb {
+  outline: 3px solid var(--thumb-bg);
+  outline-offset: var(--space-0-25);
+}
+
+/* Mozilla */
+/* slider track */
+.range::-moz-range-track {
+  background-color: var(--track-bg);
+  border-radius: var(--track-radius);
+  height: var(--track-height);
+  transition: var(--transition);
+}
+.range:hover::-moz-range-track {
+  background-color: var(--track-bg-hover);
+}
+
+/* slider thumb */
+.range::-moz-range-thumb {
+  border: none;
+  border-radius: var(--thumb-radius);
+
+  background-color: var(--thumb-bg);
+  height: var(--thumb-height);
+  width: var(--thumb-width);
+  transition: var(--transition);
+}
+.range::-moz-range-thumb:hover {
+  background-color: var(--thumb-bg-hover);
+}
+
+.range:focus::-moz-range-thumb {
+  outline: 3px solid var(--thumb-bg);
+  outline-offset: var(--space-0-25);
+}
