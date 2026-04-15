@@ -26,6 +26,7 @@ const StylePropExample = (props: Props) => {
 
   return (
     <Stack
+      responsive
       style={{
         width: "100%",
         border: "1.5px solid var(--color-gray-700)",
