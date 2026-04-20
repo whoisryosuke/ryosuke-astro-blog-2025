@@ -628,9 +628,7 @@ if (result) {
 }
 ```
 
-> ℹ️
-
-You’ll notice I created a `RawGeometry` class here. This is because the `Geometry` class actually creates WebGPU buffers and puts the data inside — which isn’t useful if we want to do any transformations on it. So I created a “raw” version of it that contains the data as pure arrays (no WebGPU memory allocation) so we can loop and mutate as needed without involving the renderer class.
+> ℹ️ You’ll notice I created a `RawGeometry` class here. This is because the `Geometry` class actually creates WebGPU buffers and puts the data inside — which isn’t useful if we want to do any transformations on it. So I created a “raw” version of it that contains the data as pure arrays (no WebGPU memory allocation) so we can loop and mutate as needed without involving the renderer class.
 
 ## Output node
 
