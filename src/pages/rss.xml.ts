@@ -76,8 +76,6 @@ export async function GET(context: APIContext) {
           `${baseUrl}/blog/${post.id}/`,
         );
 
-        console.log("rss", { content, description });
-
         return {
           title: post.data.title,
           description: post.data.description ?? description,
