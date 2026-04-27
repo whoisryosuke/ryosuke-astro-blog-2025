@@ -4,6 +4,7 @@ import BlueskyEmbed from "./Embeds/BlueskyEmbed";
 import CodepenEmbed from "./Embeds/CodepenEmbed";
 import ThreadsEmbed from "./Embeds/ThreadsEmbed";
 import TweetEmbed from "./Embeds/TweetEmbed";
+import YouTubeEmbed from "./Embeds/YouTubeEmbed";
 
 export const components = {
   ul: List,
@@ -20,4 +21,5 @@ export const components = {
   TweetEmbed,
   CodepenEmbed,
   BlueskyEmbed,
+  YouTubeEmbed,
 };
