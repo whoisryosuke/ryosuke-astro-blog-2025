@@ -2,6 +2,7 @@ import { getCollection } from "astro:content";
 import rss from "@astrojs/rss";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 import { getBlogPostDescription } from "../utils/blog";
+import { marked } from "marked";
 
 export async function GET(context) {
   const posts = await getCollection("blog");
@@ -15,7 +16,7 @@ export async function GET(context) {
         title: post.data.title,
         description: getBlogPostDescription(post.data.description, post.body),
         categories: post.data.tags,
-        content: post.body,
+        content: marked.parse(post.body),
         pubDate: post.data.date,
         link: `/blog/${post.id}/`,
       })),

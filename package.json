@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@atproto/api": "^0.19.3",
-    "@types/lodash": "^4.17.24"
+    "@types/lodash": "^4.17.24",
+    "marked": "^18.0.2"
   }
 }
