@@ -6,13 +6,15 @@ import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import mdxRenderer from "@astrojs/mdx/server.js";
 import reactRenderer from "@astrojs/react/server.js";
 import { components } from "../components/mdx/MDXProvider";
-import { parse } from "node-html-parser";
+import { parse, HTMLElement } from "node-html-parser";
 import type { APIContext } from "astro";
 
 const HEADING_TAGS = new Set(["H1", "H2", "H3", "H4", "H5", "H6"]);
 
-export function truncateToPreHeadingContent(html: string, postUrl: string) {
-  const root = parse(html);
+export function truncateToPreHeadingContent(
+  root: HTMLElement,
+  postUrl: string,
+) {
   const result = [];
 
   for (const node of root.childNodes) {
@@ -22,28 +24,19 @@ export function truncateToPreHeadingContent(html: string, postUrl: string) {
     result.push(node.toString());
   }
 
+  const description = result.at(0);
+
   result.push(`<p><a href="${postUrl}">Read more ▶️</a></p>`);
 
-  return result.join("");
+  return {
+    content: result.join(""),
+    description,
+  };
 }
-type BlogPost = CollectionEntry<"blog">;
+// type BlogPost = CollectionEntry<"blog">;
 
-const handleContent = async (
-  container: AstroContainer,
-  post: BlogPost,
-  postUrl: string,
-) => {
-  const { Content } = await render(post);
-  const html = await container.renderToString(Content, {
-    props: {
-      components,
-    },
-  });
-  // const html = "test";
-
-  console.log("rss html", html);
-
-  return truncateToPreHeadingContent(html, postUrl);
+const handleContent = async (dom: HTMLElement, postUrl: string) => {
+  return truncateToPreHeadingContent(dom, postUrl);
 };
 
 // Inspired by this setup using Astro's experimental container API
@@ -69,18 +62,31 @@ export async function GET(context: APIContext) {
   const items = await Promise.all(
     posts
       .sort((a, b) => b.data.date - a.data.date)
-      .map(async (post) => ({
-        title: post.data.title,
-        description: getBlogPostDescription(post.data.description, post.body),
-        categories: post.data.tags,
-        content: await handleContent(
-          container,
-          post,
+      .map(async (post) => {
+        // Render the post from MDX -> HTML
+        const { Content } = await render(post);
+        const html = await container.renderToString(Content, {
+          props: {
+            components,
+          },
+        });
+        const dom = parse(html);
+        const { content, description = "" } = await handleContent(
+          dom,
           `${baseUrl}/blog/${post.id}/`,
-        ),
-        pubDate: post.data.date,
-        link: `/blog/${post.id}/`,
-      })),
+        );
+
+        console.log("rss", { content, description });
+
+        return {
+          title: post.data.title,
+          description: post.data.description ?? description,
+          categories: post.data.tags,
+          content,
+          pubDate: post.data.date,
+          link: `/blog/${post.id}/`,
+        };
+      }),
   );
 
   return rss({
