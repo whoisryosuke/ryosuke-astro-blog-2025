@@ -21,15 +21,28 @@ export function truncateToPreHeadingContent(
     if (HEADING_TAGS.has(node.rawTagName?.toUpperCase())) {
       break;
     }
-    result.push(node.toString());
+    result.push(node);
   }
 
-  const description = result.at(0);
+  // Fix image src attributes
+  let baseUrl = postUrl || "https://whoisryosuke.com";
+  if (baseUrl.at(-1) === "/") baseUrl = baseUrl.slice(0, -1);
 
-  result.push(`<p><a href="${postUrl}">Read more ▶️</a></p>`);
+  const tempRoot = parse(result.join(""));
+  tempRoot.querySelectorAll("img").forEach((img) => {
+    const src = img.getAttribute("src");
+    if (src && src.startsWith("/")) {
+      img.setAttribute("src", `${baseUrl}${src}`);
+    }
+  });
+  let contentFixedImages = tempRoot.toString();
+
+  const description = result.at(0)?.toString();
+
+  contentFixedImages += `<p><a href="${postUrl}">Read more ▶️</a></p>`;
 
   return {
-    content: result.join(""),
+    content: contentFixedImages,
     description,
   };
 }
