@@ -14,6 +14,7 @@ const HEADING_TAGS = new Set(["H1", "H2", "H3", "H4", "H5", "H6"]);
 export function truncateToPreHeadingContent(
   root: HTMLElement,
   postUrl: string,
+  baseUrl: string,
 ) {
   const result = [];
 
@@ -25,9 +26,6 @@ export function truncateToPreHeadingContent(
   }
 
   // Fix image src attributes
-  let baseUrl = postUrl || "https://whoisryosuke.com";
-  if (baseUrl.at(-1) === "/") baseUrl = baseUrl.slice(0, -1);
-
   const tempRoot = parse(result.join(""));
   tempRoot.querySelectorAll("img").forEach((img) => {
     const src = img.getAttribute("src");
@@ -87,6 +85,7 @@ export async function GET(context: APIContext) {
         const { content, description = "" } = await handleContent(
           dom,
           `${baseUrl}/blog/${post.id}/`,
+          baseUrl,
         );
 
         return {
