@@ -5,10 +5,15 @@ import { getBlogPostDescription } from "../utils/blog";
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import mdxRenderer from "@astrojs/mdx/server.js";
 import reactRenderer from "@astrojs/react/server.js";
+import { components } from "../components/mdx/MDXProvider";
 
 const handleContent = async (container, post) => {
   const { Content } = await render(post);
-  const html = await container.renderToString(Content);
+  const html = await container.renderToString(Content, {
+    props: {
+      components,
+    },
+  });
   // const html = "test";
 
   console.log("rss html", html);
