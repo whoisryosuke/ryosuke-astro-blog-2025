@@ -17,6 +17,8 @@ Instead of wiring things up by hand, why not entrust an LLM? They’re specializ
 
 In this blog we’ll explore the process of converting UI components from the AI Elements and shadcn libraries to use Park UI components instead. And all the Tailwind will be converted to PandaCSS, the styling engine powering Park UI. Is it possible? How efficient is it? Spoiler alert: yes and depends.
 
+> 📂 TLDR?: Check out [the source code](https://github.com/whoisryosuke/mastra-react-test) and give it a spin.
+
 # What is shadcn and AI Elements?
 
 [shadcn UI](https://ui.shadcn.com/) is a UI library with a CLI that generates components like a Button. It uses Radix UI or Base UI under the hood, along with Tailwind for styling, so most of the code is copy and paste friendly for projects with that setup.
@@ -236,11 +238,11 @@ yarn dlx @park-ui/cli add button card carousel badge avatar alert collapsible di
 
 > ℹ️ You could also just run `yarn dlx @park-ui/cli add --all` to add all components.
 
-This replaced 90% or so of the components. I had a few that weren’t covered by Park UI:
+This replaced 90% or so of [the components](https://github.com/whoisryosuke/mastra-react-test/tree/main/src/components/ui). I had a few that weren’t covered by Park UI:
 
-- Button Group
-- Command
-- Hover Card
+- [Button Group](https://github.com/whoisryosuke/mastra-react-test/blob/main/src/components/ui/button-group.tsx)
+- [Command](https://github.com/whoisryosuke/mastra-react-test/blob/main/src/components/ui/command.tsx)
+- [Hover Card](https://github.com/whoisryosuke/mastra-react-test/blob/main/src/components/ui/hover-card.tsx)
 
 Surprisingly, when I looked at the Ark UI docs, I noticed it had a few of the missing components there - like Hover Card. So that covered those (albeit with a little more work).
 
@@ -588,6 +590,8 @@ Or when it swapped the Tailwind styles, it correctly created `css()` calls, but 
 ![The weather agent client-side React chat app. User asks What is weather in Los Angeles and LLM calls weatherTool that returns JSON data and it uses that to return a response with the weather details like temperature.](image%204.png)
 
 Here’s the final design. At least it’s more legible? And easier to work with than a slew of Tailwind classes. I’m able to now quickly go into any component and edit it’s `css()` function to edit or extend styles - or just use the style props to access design tokens.
+
+And here's [the final codebase](https://github.com/whoisryosuke/mastra-react-test/) with all the [converted components](https://github.com/whoisryosuke/mastra-react-test/tree/main/src/components).
 
 # Final thoughts
 
