@@ -4,6 +4,7 @@ date: "2026-09-09"
 section: blog
 tags: ["audio", "daw", "tutorial", "react", "rust", "rust daw"]
 cover_image: "./Creating_a_DAW_in_Rust_-_Timeline.png"
+bluesky: 3mv4fkrojus2s
 ---
 
 I decided to treat myself recently by giving myself time to work on an old side project - the Rust DAW. When we last left off, I had created a low level audio engine that could play samples or a synthesizer. The UI was pretty simple, it just rendered samples as waveforms, displayed the current playback time, and shows a debug waveform for the output signal. A solid start, yet so much missing to make it a true DAW.
@@ -11,6 +12,8 @@ I decided to treat myself recently by giving myself time to work on an old side 
 In this round I decided to focus on making it functional more practically like a real DAW. Multi-track composition with clips and effects. Sample accurate playback. The basic bread and butter of audio production.
 
 In this blog I’ll break down how you’d add a “timeline” to a DAW and how it works on the frontend and backend. From dragging and dropping clips onto tracks, to storing and syncing data with audio thread, I’ll cover every step of the way.
+
+> Interested in checking out the source code? You can [find it on GitHub](https://github.com/whoisryosuke/daw-tauri/).
 
 # Overview
 
