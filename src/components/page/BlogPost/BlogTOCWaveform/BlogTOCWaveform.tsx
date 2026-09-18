@@ -7,6 +7,7 @@ import BlogTimelineGuide from "./BlogTimelineGuide";
 import BlogTOCSidebar from "./BlogTOCSidebar";
 import type { WaveformHeadingData } from "./types";
 import BlogWaveformInput from "./BlogWaveformInput";
+import { createPortal } from "react-dom";
 
 type Props = {
   waveform: number[];
@@ -14,6 +15,8 @@ type Props = {
 
 const BlogTOCWaveform = ({ waveform }: Props) => {
   const HEADING_TAG_NAMES = ["H1", "H2", "H3", "H4", "H5", "H6"];
+  // Hide everything except expand button
+  const [hidden, setHidden] = useState(false);
   // Is TOC visible?
   const [visible, setVisible] = useState(false);
   const [headings, setHeadings] = useState<WaveformHeadingData[]>([]);
@@ -114,17 +117,27 @@ const BlogTOCWaveform = ({ waveform }: Props) => {
   const shortWidth = width > 600 ? width * 0.3 : width * 0.3;
   const waveformWidth = visible ? shortWidth : largeWidth;
 
-  return (
-    <div className={styles.Container}>
-      <div className={styles.Content} data-visible={visible}>
+  return createPortal(
+    <div className={styles.Container} data-hidden={hidden}>
+      <div
+        className={styles.Content}
+        data-visible={visible}
+        data-hidden={hidden}
+      >
         <BlogTOCSidebar
           width={largeWidth}
           headings={headings}
           setSelectedHeading={setSelectedHeading}
           visible={visible}
           setVisible={setVisible}
+          hidden={hidden}
+          setHidden={setHidden}
         />
-        <div className={styles.WaveformArea} data-visible={visible}>
+        <div
+          className={styles.WaveformArea}
+          data-visible={visible}
+          data-hidden={hidden}
+        >
           <BlogTimelineGuide />
           <div
             className={styles.WaveformContainer}
@@ -159,7 +172,8 @@ const BlogTOCWaveform = ({ waveform }: Props) => {
           />
         </div>
       </div>
-    </div>
+    </div>,
+    document.getElementById("root") ?? document.body,
   );
 };
 

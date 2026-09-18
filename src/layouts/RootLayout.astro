@@ -37,7 +37,7 @@ const { title, description, image } = Astro.props;
 
     <ClientRouter />
   </head>
-  <body class={basePath}>
+  <body id="root" class={basePath}>
     <ThemeProvider client:load transition:persist />
     <Header client:load transition:persist />
     <Navbar client:load path={Astro.url.pathname} transition:persist />

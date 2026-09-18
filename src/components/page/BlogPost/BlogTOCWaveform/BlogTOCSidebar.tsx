@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { BiSidebar } from "react-icons/bi";
+import { BiHide, BiShow, BiSidebar, BiX } from "react-icons/bi";
 import styles from "./BlogTOCSidebar.module.css";
 import Button from "../../../primitives/Button/Button";
 import BlogTOCSidebarItem from "./BlogTOCSidebarItem";
 import type { WaveformHeadingData } from "./types";
+import Stack from "../../../primitives/Stack/Stack";
 
 type Props = {
   width: number;
@@ -13,6 +14,8 @@ type Props = {
   >;
   visible: boolean;
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  hidden: boolean;
+  setHidden: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const BlogTOCSidebar = ({
@@ -21,9 +24,14 @@ const BlogTOCSidebar = ({
   setSelectedHeading,
   visible,
   setVisible,
+  hidden,
+  setHidden,
 }: Props) => {
   const handleClick = () => {
     setVisible((prev) => !prev);
+  };
+  const handleHide = () => {
+    setHidden((prev) => !prev);
   };
 
   return (
@@ -34,9 +42,15 @@ const BlogTOCSidebar = ({
     >
       <div className={styles.Header}>
         <h4>Chapter Markers</h4>
-        <button className={styles.ToggleButton} onClick={handleClick}>
-          <BiSidebar />
-        </button>
+        <Stack horizontal={visible}>
+          <button className={styles.ToggleButton} onClick={handleClick}>
+            <BiSidebar />
+          </button>
+
+          <button className={styles.ToggleButton} onClick={handleHide}>
+            {hidden ? <BiShow /> : <BiHide />}
+          </button>
+        </Stack>
       </div>
       <div className={styles.List} inert={!visible}>
         {headings.map((heading, index) => (
