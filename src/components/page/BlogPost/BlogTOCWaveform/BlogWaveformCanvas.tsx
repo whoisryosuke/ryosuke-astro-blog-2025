@@ -2,6 +2,7 @@ import {
   type ComponentProps,
   type HTMLProps,
   type MouseEventHandler,
+  type PointerEventHandler,
   useCallback,
   useEffect,
   useLayoutEffect,
@@ -148,16 +149,24 @@ const BlogWaveformCanvas = ({
     };
   }, [draw, width, height, lineColor, bgColor, fps]);
 
-  const handleMouseDown: MouseEventHandler<HTMLCanvasElement> = (e) => {
+  const handleMouseDown: PointerEventHandler<HTMLCanvasElement> = (e) => {
+    // Prevent the dnd-kit clip drag from triggering
+    e.stopPropagation();
+
+    // Capture the pointer
+    // It forces all move/up events to this element even if the mouse leaves it.
+    e.currentTarget.setPointerCapture(e.pointerId);
+
     setPressed(true);
     calcRelativePosition(e);
   };
 
-  const handleMouseUp = () => {
+  const handleMouseUp: PointerEventHandler<HTMLCanvasElement> = (e) => {
+    e.currentTarget.releasePointerCapture(e.pointerId);
     setPressed(false);
   };
 
-  const handleMouseMove: MouseEventHandler<HTMLCanvasElement> = (e) => {
+  const handleMouseMove: PointerEventHandler<HTMLCanvasElement> = (e) => {
     if (!pressed) return;
     calcRelativePosition(e);
   };
@@ -169,9 +178,9 @@ const BlogWaveformCanvas = ({
       width={width}
       height={height}
       onClick={handleClick}
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
-      onMouseMove={handleMouseMove}
+      onPointerDown={handleMouseDown}
+      onPointerUp={handleMouseUp}
+      onPointerMove={handleMouseMove}
     />
   );
 };
