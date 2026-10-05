@@ -12,6 +12,8 @@ const blog = defineCollection({
       tags: z.array(z.string()),
       description: z.string().optional(),
       bluesky: z.string().optional(),
+      // Standard.site Document AT-URI (aka ID for blog post in Bluesky DB)
+      atUri: z.string().optional(),
       // Transform string to Date object
       date: z.coerce.date(),
       // updatedDate: z.coerce.date().optional(),

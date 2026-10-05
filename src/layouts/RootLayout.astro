@@ -21,19 +21,21 @@ import BaseHead from "../components/BaseHead.astro";
 type Props = {
 	title?: string;
 	description?: string;
+	atUri?: string;
 	image?: ImageMetadata;
 };
 
 const pathSplit = Astro.url.pathname.split("/").filter(val => val !='');
 const basePath = pathSplit.length >= 1 ? pathSplit[0] : "root";
 
-const { title, description, image } = Astro.props;
+const { title, description, image, atUri } = Astro.props;
 
 ---
 
 <html transition:name="root" transition:animate="none">
   <head>
     <BaseHead title={title} description={description} image={image} />
+    {atUri && <link rel="site.standard.document" href={atUri} />}
 
     <ClientRouter />
   </head>

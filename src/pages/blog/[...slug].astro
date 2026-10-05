@@ -22,7 +22,7 @@ const description = getBlogPostDescription(post.data.description, post.body)
 
 ---
 
-<RootLayout title={post.data.title} description={description} image={post.data.cover_image}>
+<RootLayout title={post.data.title} description={description} image={post.data.cover_image} atUri={post.data.atUri}>
 <BlogPost {...post.data} body={post.body}>
 	<Content components={components} />
 </BlogPost>
