@@ -35,6 +35,10 @@ Blogs and projects written as MDX files and are stored in the [content folder](.
 
 For other types of static content, like resources, they're stored in `src/data/`.
 
+### Publishing to Standard.site
+
+This blog supports [standard.site](https://standard.site) using the [Sequoia CLI](https://sequoia.pub). When you create a new post, run `npm run atproto:publish` to [publish](https://sequoia.pub/publishing) any new posts to your account's PDS (aka Bluesky for me).
+
 ## Licensing
 
 The code is open source and unlicensed. You are not permitted to use any of the art or writing, or the styling of the website _(basically don't copy my site)_.
