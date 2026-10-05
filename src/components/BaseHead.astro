@@ -18,7 +18,6 @@ const pageTitle = title ? `${title} - Ryosuke` : SITE_TITLE;
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="me" href="https://mastodon.gamedev.place/@whoisryosuke" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link
@@ -49,3 +48,7 @@ const pageTitle = title ? `${title} - Ryosuke` : SITE_TITLE;
 <meta property="twitter:title" content={pageTitle} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
+
+<!-- Mastodon -->
+<link rel="me" href="https://mastodon.gamedev.place/@whoisryosuke" />
+<meta name="fediverse:creator" content="@whoisryosuke@mastodon.gamedev.place">
