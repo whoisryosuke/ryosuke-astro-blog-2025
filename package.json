@@ -6,7 +6,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "sequoia": "sequoia",
+    "atproto:publish": "sequoia publish"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.6",
@@ -36,6 +38,7 @@
     "@atproto/api": "^0.19.3",
     "@types/lodash": "^4.17.24",
     "marked": "^18.0.2",
-    "node-html-parser": "^7.1.0"
+    "node-html-parser": "^7.1.0",
+    "sequoia-cli": "^0.5.7"
   }
 }
