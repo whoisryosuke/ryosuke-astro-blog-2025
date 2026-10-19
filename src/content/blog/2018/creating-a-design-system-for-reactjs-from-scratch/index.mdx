@@ -6,7 +6,7 @@ cover_image: "./Creating-a-Design-System-pt1-1920px.jpg"
 tags:
   ["design", "design system", "react", "open source", "javascript", "tutorial"]
 atUri: "at://did:plc:itayxaatwwlwww4fp3jac3nn/site.standard.document/3mx5qf2iivx2s"
-slug: "/blog/2018/creating-a-design-system-for-reactjs-from-scratch"
+slug: "/2018/creating-a-design-system-for-reactjs-from-scratch"
 ---
 
 Design systems are upon us. Everywhere you look, companies are releasing new fangled design systems with fancy names like [Polaris](https://polaris.shopify.com/), [Lightning](https://github.com/mashmatrix/react-lightning-design-system), or [Carbon](https://github.com/IBM/carbon-components-react). And you've got open source systems like [Material UI](https://github.com/mui-org/material-ui) getting used in [every other project](https://www.npmjs.com/package/@material-ui/core) because of their high quality and accessibility.
@@ -178,7 +178,7 @@ setOptions({
 const req = require.context(
   "../src/components/",
   true,
-  /(\.story\.js$)|(\.story\.jsx$)/
+  /(\.story\.js$)|(\.story\.jsx$)/,
 );
 function loadStories() {
   req.keys().forEach((filename) => req(filename));

@@ -5,7 +5,7 @@ section: blog
 tags: ["javascript", "react", "game dev", "gamepad"]
 cover_image: "./Creating_an_input_management_library_(1).png"
 atUri: "at://did:plc:itayxaatwwlwww4fp3jac3nn/site.standard.document/3mx5qetsprs22"
-slug: "/blog/2024/focus-and-spatial-navigation-in-react"
+slug: "/2024/focus-and-spatial-navigation-in-react"
 ---
 
 It’s been a while since I wrote and released [**react-unified-input**](https://github.com/whoisryosuke/react-unified-input), and I wanted to share the process behind creating it and demystify focus management and spatial navigation in modern applications.
@@ -566,7 +566,7 @@ const navigate = (direction: NavigationDirections) => {
   const foundOutsideKey = checkForCollisions(
     outsideMap,
     direction,
-    currentItem
+    currentItem,
   );
 
   if (foundOutsideKey) {
@@ -592,7 +592,7 @@ Now we can get to the actual collision detection. We loop over each item and do 
 const checkForCollisions = (
   focusChildren: [string, FocusItem][],
   direction: NavigationDirections,
-  currentItem: FocusItem
+  currentItem: FocusItem,
 ) => {
   // If we find a new focus item we store it here to compare against other options
   let foundKey: FocusId | undefined;
@@ -618,7 +618,7 @@ const checkForCollisions = (
         direction,
         key,
         currentItem.position,
-        focusItem.position
+        focusItem.position,
       );
       // Check if it's the closest item
       // Change logic depending on the direction

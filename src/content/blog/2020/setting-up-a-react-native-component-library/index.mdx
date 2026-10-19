@@ -16,7 +16,7 @@ tags:
   ]
 cover_image: "./Setting_up_a_React_Native_Component_Library.png"
 atUri: "at://did:plc:itayxaatwwlwww4fp3jac3nn/site.standard.document/3mx5qewpqom2d"
-slug: "/blog/2020/setting-up-a-react-native-component-library"
+slug: "/2020/setting-up-a-react-native-component-library"
 ---
 
 Recently I created a small React Native component library using Restyle, Shopify's new native styling library. I thought I'd document the process of creating a React Native specific component library, and the _intricacies_ behind the going from **component code** to a **distribution build** with **automated versioning** using **a CI/CD.**
@@ -227,7 +227,6 @@ If you aren't using a utility like Lerna for managing your project, you'll need 
    ```
 
 3. Add your Github (`GITHUB_TOKEN`) and NPM tokens (`NPM_TOKEN`) to your CI service of choice.
-
    - Here's a sample CircleCI config `.circleci/config.yml`:
 
      ```yaml

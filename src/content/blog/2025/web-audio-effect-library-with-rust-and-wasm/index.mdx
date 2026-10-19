@@ -5,7 +5,7 @@ section: blog
 tags: ["react", "web audio", "wasm", "vite", "tutorial"]
 cover_image: "./image.png"
 atUri: "at://did:plc:itayxaatwwlwww4fp3jac3nn/site.standard.document/3mx5qesqxxx2x"
-slug: "/blog/2025/web-audio-effect-library-with-rust-and-wasm"
+slug: "/2025/web-audio-effect-library-with-rust-and-wasm"
 ---
 
 As I’ve been working with the Web Audio API, I’ve become most interested in the Web Worklet API that lets you process audio on a separate thread. This makes audio apps run meaner and leaner by moving heavier operations off the main thread, allowing you to do more (like rendering UI or handling other interactions).
@@ -357,7 +357,7 @@ Instead, we’ll make a function called `createBitcrusherNode` that creates the 
 const createBitcrusherNode = async (
   audioCtx: AudioContext,
   bits = 4,
-  normfreq = 0.1
+  normfreq = 0.1,
 ) => {
   // This will be the "final" node that we create
   let nodeRef: AudioWorkletNode | null = null;
@@ -391,7 +391,7 @@ const createBitcrusherNode = async (
       console.log("created worklet node", nodeRef);
 
       nodeRef.addEventListener("processorerror", (e) =>
-        console.error("Audio Worklet processing error", e)
+        console.error("Audio Worklet processing error", e),
       );
     } catch (e) {
       console.log("failed to create worklet", e);
@@ -662,7 +662,7 @@ function releaseModules() {
       "..",
       "modules",
       moduleName,
-      "pkg"
+      "pkg",
     );
     // const modulePath = `./modules/${moduleName}/pkg`;
     log("Trying to release module", moduleName, modulePath);
@@ -678,7 +678,7 @@ function releaseModules() {
             ...process.env,
             NODE_AUTH_TOKEN: process.env.NODE_AUTH_TOKEN,
           },
-        }
+        },
       );
       log("Successfully released module", moduleName);
     } catch (e) {

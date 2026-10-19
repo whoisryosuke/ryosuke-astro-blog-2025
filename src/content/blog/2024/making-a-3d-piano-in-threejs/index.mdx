@@ -5,7 +5,7 @@ section: blog
 tags: ["threejs", "3d", "react", "midi"]
 cover_image: "./Making_a_3D_piano_in_ThreeJS.png"
 atUri: "at://did:plc:itayxaatwwlwww4fp3jac3nn/site.standard.document/3mx5qetl3ss2l"
-slug: "/blog/2024/making-a-3d-piano-in-threejs"
+slug: "/2024/making-a-3d-piano-in-threejs"
 ---
 
 I’ve been hooked on incorporating MIDI and music into my process recently. If you follow me on [social](https://instagram.com/whoisryosuke) [feeds](https://www.threads.net/@whoisryosuke) you’ve probably seen me post 3D animations that are [synchronized to music](https://www.instagram.com/p/DAlz6oDymJc/). This has led to me creating a few 3D models of pianos and related hardware. And while I enjoy using [my Blender plugin](https://github.com/whoisryosuke/blender-midi-keyframes) for creating animations from MIDI files, whenever I preview the animation in Blender (or wait for it to render) I sit and wonder what it’d look like if I could everything running real-time. And more importantly: interactive by the user (instead of baked animation data).
@@ -114,7 +114,7 @@ type GLTFResult = GLTF & {
 
 export function Model(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF(
-    "/MIDI to Keyframe - Piano Template - Web V3.glb"
+    "/MIDI to Keyframe - Piano Template - Web V3.glb",
   ) as GLTFResult;
   return (
     <group {...props} dispose={null}>
@@ -357,7 +357,7 @@ const MidiKeyboard = (props: Props) => {
       console.log("manu", input.manufacturer, "name", input.name);
 
       const checkInstrument = instruments.findIndex(
-        (instrument) => instrument === input.name
+        (instrument) => instrument === input.name,
       );
       if (checkInstrument >= 0) return;
       setInstrument((prevInstruments) => [...prevInstruments, input.name]);
@@ -389,7 +389,7 @@ const MidiKeyboard = (props: Props) => {
     setPlayedNotes((prevNotes) => [...prevNotes, e.note.identifier]);
     setInput(e.note.identifier as Note, true);
     setCurrentNotes((prevNotes) =>
-      Array.from(new Set([...prevNotes, e.note.identifier]))
+      Array.from(new Set([...prevNotes, e.note.identifier])),
     );
   };
 
@@ -399,7 +399,7 @@ const MidiKeyboard = (props: Props) => {
     setInput(e.note.identifier as Note, false);
 
     setCurrentNotes((prevNotes) =>
-      prevNotes.filter((note) => note !== clearNote)
+      prevNotes.filter((note) => note !== clearNote),
     );
     console.log("clearing key");
   };
@@ -536,10 +536,10 @@ const BaseSynth = ({ type, config = {} }: Props) => {
 
     // Find out what input changed
     const pressedKeys = inputKeys.filter(
-      (key) => input[key] && !notesPlaying.current[key]
+      (key) => input[key] && !notesPlaying.current[key],
     );
     const releasedKeys = inputKeys.filter(
-      (key) => !input[key] && notesPlaying.current[key]
+      (key) => !input[key] && notesPlaying.current[key],
     );
 
     pressedKeys.forEach((key) => {
@@ -762,7 +762,7 @@ const AnimatedPianoKey = ({
             ? originalPositionY.current - DRUM_PAD_PRESS_DISTANCE
             : originalPositionY.current,
           ANIMATION_TIME_ROTATION,
-          delta
+          delta,
         );
       } else {
         easing.damp(
@@ -770,7 +770,7 @@ const AnimatedPianoKey = ({
           "x",
           pressed ? whiteKeyRotation : 0,
           ANIMATION_TIME_ROTATION,
-          delta
+          delta,
         );
       }
 
@@ -785,17 +785,17 @@ const AnimatedPianoKey = ({
       material.color.r = lerp(
         keyColor[0],
         0,
-        Math.min(colorDelta.current * ANIMATION_SPEED_COLOR, 1)
+        Math.min(colorDelta.current * ANIMATION_SPEED_COLOR, 1),
       );
       material.color.g = lerp(
         keyColor[1],
         0,
-        Math.min(colorDelta.current * ANIMATION_SPEED_COLOR, 1)
+        Math.min(colorDelta.current * ANIMATION_SPEED_COLOR, 1),
       );
       material.color.b = lerp(
         keyColor[2],
         1,
-        Math.min(colorDelta.current * ANIMATION_SPEED_COLOR, 1)
+        Math.min(colorDelta.current * ANIMATION_SPEED_COLOR, 1),
       );
 
       // Change Emission (glow)
@@ -803,7 +803,7 @@ const AnimatedPianoKey = ({
       material.emissiveIntensity = lerp(
         0,
         3,
-        Math.min(colorDelta.current * ANIMATION_SPEED_COLOR, 1)
+        Math.min(colorDelta.current * ANIMATION_SPEED_COLOR, 1),
       );
     }
   });
@@ -937,7 +937,7 @@ const RyoturiaScreenMaterial = shaderMaterial(
     marqueeTextTexture: new THREE.Texture(),
   },
   vertex,
-  fragment
+  fragment,
 );
 
 // This is the 🔑 that HMR will renew if this file is edited
@@ -961,7 +961,7 @@ type Props = MeshProps & {};
 
 const createTexture = () => {
   const texture = new TextureLoader().load(
-    "./textures/screen-uv-r1-bottom-txt.png"
+    "./textures/screen-uv-r1-bottom-txt.png",
   );
   return texture;
 };
@@ -970,7 +970,7 @@ const RyoturiaScreen = (props: Props) => {
   const meshRef = useRef(null);
   const bottomTexture = useRef(createTexture());
   const marqueeTextTexture = useRef(
-    new TextureLoader().load("./textures/title-marquee-text-v2.png")
+    new TextureLoader().load("./textures/title-marquee-text-v2.png"),
   );
 
   useFrame((state, delta) => {
@@ -1081,7 +1081,7 @@ const objects = useMemo(
           offset={index}
         />
       )),
-  [levels.length]
+  [levels.length],
 );
 
 // The animation (position, color, glow)

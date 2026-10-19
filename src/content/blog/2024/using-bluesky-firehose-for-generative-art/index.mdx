@@ -5,7 +5,7 @@ section: blog
 tags: ["react", "p5js", "bluesky", "animation"]
 cover_image: "./Making_art_with_Bluesky.png"
 atUri: "at://did:plc:itayxaatwwlwww4fp3jac3nn/site.standard.document/3mx5qetiaxq26"
-slug: "/blog/2024/using-bluesky-firehose-for-generative-art"
+slug: "/2024/using-bluesky-firehose-for-generative-art"
 ---
 
 I’ve been using Bluesky more lately and it’s been cool exploring the underlying architecture (the “AT Protocol”) and the APIs they make available. One notable API I’ve noticed a few people playing with is the “Bluesky Firehose”, which is a stream of every single post on Bluesky in real-time.
@@ -103,7 +103,7 @@ The (unoptimized) process basically looks like this:
 const MyReactComponent = () => {
   useEffect(() => {
     const exampleSocket = new WebSocket(
-      "wss://jetstream2.us-east.bsky.network/subscribe?wantedCollections=app.bsky.feed.post"
+      "wss://jetstream2.us-east.bsky.network/subscribe?wantedCollections=app.bsky.feed.post",
     );
 
     exampleSocket.onmessage = (event) => {
@@ -501,7 +501,7 @@ const useBlueskyFirehose = () => {
 
   useEffect(() => {
     socket.current = new WebSocket(
-      "wss://jetstream2.us-east.bsky.network/subscribe?wantedCollections=app.bsky.feed.post"
+      "wss://jetstream2.us-east.bsky.network/subscribe?wantedCollections=app.bsky.feed.post",
     );
 
     return () => {
@@ -746,7 +746,7 @@ const timeDiff = currentTime - lastSpawn;
 if (timeDiff >= NOTIFICATION_DURATION) {
   // Spawn a notification
   const nextNotificationIndex = notifications.findIndex(
-    (notification) => !notification.active
+    (notification) => !notification.active,
   );
   if (nextNotificationIndex >= 0) {
     const notification = notifications[nextNotificationIndex];
@@ -856,7 +856,7 @@ p.setup = () => {
   // We want the background to render only once, so the text can stack on top
   // and not get "erased" by rendering the background each frame
   p.loadImage("../assets/brick-wall-pexels-shonejai-1080p.jpg", (img) =>
-    p.image(img, 0, 0, p.width, p.height)
+    p.image(img, 0, 0, p.width, p.height),
   );
 };
 ```

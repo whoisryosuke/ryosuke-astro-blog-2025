@@ -5,7 +5,7 @@ section: blog
 cover_image: "./react-hooks-suspense-memo@0.5x.jpg"
 tags: ["react", "js", "guide"]
 atUri: "at://did:plc:itayxaatwwlwww4fp3jac3nn/site.standard.document/3mx5qezwvfh2x"
-slug: "/blog/2019/react-16-hooks-suspense-memo"
+slug: "/2019/react-16-hooks-suspense-memo"
 ---
 
 Things are blowing up in the React community lately! Between the _suspense_ we had for a few months, Create React App v2, Hooks, Memo -- React developers new and old have their plates full with new toys to play with. I finally got some time to dig into the new `React.memo()`, `React.lazy()` and `<Suspense />` APIs, as well as the proposed Hooks API.
@@ -149,7 +149,7 @@ function _classCallCheck(instance, Constructor) {
 function _possibleConstructorReturn(self, call) {
   if (!self) {
     throw new ReferenceError(
-      "this hasn't been initialised - super() hasn't been called"
+      "this hasn't been initialised - super() hasn't been called",
     );
   }
   return call && (typeof call === "object" || typeof call === "function")
@@ -161,7 +161,7 @@ function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError(
       "Super expression must either be null or a function, not " +
-        typeof superClass
+        typeof superClass,
     );
   }
   subClass.prototype = Object.create(superClass && superClass.prototype, {
@@ -186,7 +186,7 @@ var Test = (function (_React) {
 
     var _this = _possibleConstructorReturn(
       this,
-      (Test.__proto__ || Object.getPrototypeOf(Test)).call(this)
+      (Test.__proto__ || Object.getPrototypeOf(Test)).call(this),
     );
 
     _this.state = {};
@@ -252,7 +252,7 @@ var _slicedToArray = (function () {
       return sliceIterator(arr, i);
     } else {
       throw new TypeError(
-        "Invalid attempt to destructure non-iterable instance"
+        "Invalid attempt to destructure non-iterable instance",
       );
     }
   };

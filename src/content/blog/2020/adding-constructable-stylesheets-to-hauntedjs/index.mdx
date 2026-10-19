@@ -5,7 +5,7 @@ section: blog
 tags: ["hauntedjs", "react", "js", "web components"]
 cover_image: "./Adding-Constructable-Stylesheets-to-HauntedJS.png"
 atUri: "at://did:plc:itayxaatwwlwww4fp3jac3nn/site.standard.document/3mx5qexjlet2x"
-slug: "/blog/2020/adding-constructable-stylesheets-to-hauntedjs"
+slug: "/2020/adding-constructable-stylesheets-to-hauntedjs"
 ---
 
 I've been experimenting with HauntedJS recently, a framework for creating Web Components. It allows you to write web components with functions and hooks that are very similar looking to React components. It's similar to other web component frameworks, like Polymer or Stencil, which make the process of creating web components much more streamlined.
@@ -120,11 +120,11 @@ const adoptStyles = () => {
   if (window.ShadyCSS !== undefined && !window.ShadyCSS.nativeShadow) {
     window.ShadyCSS.ScopingShim.prepareAdoptedCssText(
       styles.map((s) => s.cssText),
-      this.localName
+      this.localName,
     );
   } else if (supportsAdoptingStyleSheets) {
     this.shadowRoot.adoptedStyleSheets = styles.map((s) =>
-      s instanceof CSSStyleSheet ? s : s.styleSheet
+      s instanceof CSSStyleSheet ? s : s.styleSheet,
     );
   } else {
     styles.forEach((s) => {
@@ -176,11 +176,11 @@ export function useConstructableStylesheets(el, styles) {
     if (window.ShadyCSS !== undefined && !window.ShadyCSS.nativeShadow) {
       window.ShadyCSS.ScopingShim.prepareAdoptedCssText(
         styles.map((s) => s.cssText),
-        el.localName
+        el.localName,
       );
     } else if (supportsAdoptingStyleSheets) {
       el.shadowRoot.adoptedStyleSheets = styles.map((s) =>
-        s instanceof CSSStyleSheet ? s : s.styleSheet
+        s instanceof CSSStyleSheet ? s : s.styleSheet,
       );
     } else {
       styles.forEach((s) => {

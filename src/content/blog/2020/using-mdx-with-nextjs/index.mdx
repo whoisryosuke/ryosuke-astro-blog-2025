@@ -4,7 +4,7 @@ date: "2020-05-05"
 section: blog
 tags: ["nextjs", "react", "mdx", "productivity", "gatsby", "resource"]
 atUri: "at://did:plc:itayxaatwwlwww4fp3jac3nn/site.standard.document/3mx5qey3fsk22"
-slug: "/blog/2020/using-mdx-with-nextjs"
+slug: "/2020/using-mdx-with-nextjs"
 ---
 
 Recently I've been exploring the potential integrating MDX into NextJS and seeing how it handles common use cases for websites (like blogs, docs, etc). I've become a big fan of MDX, it's authoring experience is the equivalent of writing with Wordpress using shortcodes — on steroids (Guten-who?).
@@ -214,7 +214,7 @@ const BlogPostPage = ({ filename }) => {
   const MDXContent = dynamic(() => import(`../../../${filename}`));
   // Not convinced this works, but this is theoretically how it happens
   const MDXMetadata = dynamic(() =>
-    import(`../../../${filename}`).then((mod) => mod.metadata)
+    import(`../../../${filename}`).then((mod) => mod.metadata),
   );
   console.log("the content", MDXMetadata);
   return (
@@ -397,7 +397,7 @@ const BlogPostPage = ({ filename }) => {
   const MDXContent = dynamic(() => import(`../../../${filename}`));
   // Official syntax - but doesn't work for me personally?
   const MDXMetadata = dynamic(() =>
-    import(`../../../${filename}`).then((mod) => mod.metadata)
+    import(`../../../${filename}`).then((mod) => mod.metadata),
   );
   console.log("the content", MDXMetadata);
   return (

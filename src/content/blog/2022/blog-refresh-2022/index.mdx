@@ -15,7 +15,7 @@ tags:
   ]
 cover_image: "./thumbnail.png"
 atUri: "at://did:plc:itayxaatwwlwww4fp3jac3nn/site.standard.document/3mx5qevtdgy2d"
-slug: "/blog/2022/blog-refresh-2022"
+slug: "/2022/blog-refresh-2022"
 ---
 
 _It’s that time again_. The initial commit on the last version of my Gatsby-based site was [Mar 30, 2018](https://github.com/whoisryosuke/ryosuke-gatsby-blog/commit/93505ddb5ed85e8be560663e515c24e08d3c1b94), and the last major redesign was [October 14th 2019](https://whoisryosuke.com/blog/2019/the-redesign-begins/). It’s been **3 years** since I last touched the design of the site, so as a designer you can imagine I’ve been _reeling_ waiting to change things up.
@@ -507,7 +507,7 @@ years.forEach((year) => {
   blogPostFolders.forEach((blogPostFolder) => {
     const blogImagePath = path.join(IMAGE_ROOT, year);
     const blogPostFolderContents = fs.readdirSync(
-      path.join(ROOT, year, blogPostFolder)
+      path.join(ROOT, year, blogPostFolder),
     );
 
     // Create folder if it doesn't exist

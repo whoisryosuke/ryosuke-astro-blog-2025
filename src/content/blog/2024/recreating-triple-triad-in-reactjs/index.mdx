@@ -5,7 +5,7 @@ section: blog
 tags: ["game dev", "react"]
 cover_image: "./Recreating__Triple_Triad_in_ReactJS.png"
 atUri: "at://did:plc:itayxaatwwlwww4fp3jac3nn/site.standard.document/3mx5qeufuei2d"
-slug: "/blog/2024/recreating-triple-triad-in-reactjs"
+slug: "/2024/recreating-triple-triad-in-reactjs"
 ---
 
 I’m a big fan of Final Fantasy 8 and the Triple Triad card game that’s featured inside it. If you want to play the card game today, you’d either have to spin up a copy of FF8 or FF14, or download [the Final Fantasy Portal app](https://apps.apple.com/us/app/final-fantasy-portal-app/id933149812) where it’s a watered down version of itself. There have been games that are similar conceptually, like [the Creatures of Aether game](https://store.steampowered.com/app/1593750/Creatures_of_Aether/) that’s a 4 by 4 grid instead of Triple Triad 3 by 3 grid (hence the triple in the name, get it?).
@@ -186,7 +186,7 @@ export const useGameStore = create<GameState>()(
           [playerIndex]: cards,
         },
       })),
-  }))
+  })),
 );
 ```
 
@@ -565,8 +565,8 @@ const PlayerCards = (props: Props) => {
     .filter(
       (card) =>
         !cardsInPlay.find(
-          (cardInPlay) => cardInPlay?.card === card && cardInPlay.owner === 1
-        )
+          (cardInPlay) => cardInPlay?.card === card && cardInPlay.owner === 1,
+        ),
     )
     .map((card) => (
       <GameBoardCard
@@ -785,7 +785,7 @@ export const useOpponentAI = () => {
 
   // Get empty grid tiles
   const emptySlots = Object.entries(board).filter(
-    ([tileId, card]) => card === null
+    ([tileId, card]) => card === null,
   );
   // Keep an array of all cards on the board for reference
   const cardsInPlay = Object.values(board);
@@ -800,8 +800,8 @@ export const useOpponentAI = () => {
     const displayCards = [...cards[2]].filter(
       (card) =>
         !cardsInPlay.find(
-          (cardInPlay) => cardInPlay?.card === card && cardInPlay.owner === 2
-        )
+          (cardInPlay) => cardInPlay?.card === card && cardInPlay.owner === 2,
+        ),
     );
     const randomCardIndex = Math.floor(Math.random() * displayCards.length);
     const randomCard = displayCards[randomCardIndex];
@@ -813,7 +813,7 @@ export const useOpponentAI = () => {
       emptySlots,
       randomEmptySlot,
       randomCard,
-      displayCards
+      displayCards,
     );
     playCard(parseInt(randomEmptySlot) as GameTileIndices, {
       card: randomCard,

@@ -13,7 +13,7 @@ tags:
     "component library",
   ]
 atUri: "at://did:plc:itayxaatwwlwww4fp3jac3nn/site.standard.document/3mx5qeyqmqk2o"
-slug: "/blog/2020/theming-in-modern-design-systems"
+slug: "/2020/theming-in-modern-design-systems"
 ---
 
 Theming requires a lot of variables to enable customization. Some frameworks and libraries go as far to have hundreds, if not thousands of variables, that account for each component property (`$button-text-color-primary`) - as well as all the base design tokens (`$red`).
@@ -269,36 +269,34 @@ Themes are often separated into different folders, which contain variable files 
 /* Box Shadow */
 --sui-button-border-box-shadow-color: transparent;
 --sui-button-border-box-shadow-width: 1px;
---sui-button-border-box-shadow: 0px 0px 0px var(
-    --sui-button-border-box-shadow-width
-  ) var(--sui-button-border-box-shadow-color) inset;
---sui-button-box-shadow: var(--sui-button-border-box-shadow), var(--sui-button-shadow-box-shadow);
+--sui-button-border-box-shadow: 0px 0px 0px
+  var(--sui-button-border-box-shadow-width)
+  var(--sui-button-border-box-shadow-color) inset;
+--sui-button-box-shadow:
+  var(--sui-button-border-box-shadow), var(--sui-button-shadow-box-shadow);
 
 /* Icon */
 --sui-button-icon-height: var(--sui-sizes-tiny);
 --sui-button-icon-opacity: 0.8;
 --sui-button-icon-distance: 0.4em;
 --sui-button-icon-color: "";
---sui-button-icon-transition: opacity var(--sui-animation-duration) var(
-    --sui-animation-easing
-  );
+--sui-button-icon-transition: opacity var(--sui-animation-duration)
+  var(--sui-animation-easing);
 --sui-button-icon-vertical-align: "";
 
---sui-button-icon-margin: 0em var(--sui-button-icon-distance) 0em - (var(
-        --sui-button-icon-distance
-      ) / 2);
+--sui-button-icon-margin: 0em var(--sui-button-icon-distance) 0em -
+  (var(--sui-button-icon-distance) / 2);
 --sui-button-right-icon-margin: 0em - (var(--sui-button-icon-distance) / 2) 0em
   var(--sui-button-icon-distance);
 
 /* Loader */
 --sui-button-inverted-loader-fill-color: rgba(0, 0, 0, 0.15);
 
---sui-button-transition: opacity var(--sui-animation-duration) var(
-      --sui-animation-easing
-    ), background-color var(--sui-animation-duration) var(
-      --sui-animation-easing
-    ), color var(--sui-animation-duration) var(--sui-animation-easing), box-shadow
-    var(--sui-animation-duration) var(--sui-animation-easing),
+--sui-button-transition:
+  opacity var(--sui-animation-duration) var(--sui-animation-easing),
+  background-color var(--sui-animation-duration) var(--sui-animation-easing),
+  color var(--sui-animation-duration) var(--sui-animation-easing),
+  box-shadow var(--sui-animation-duration) var(--sui-animation-easing),
   background var(--sui-animation-duration) var(--sui-animation-easing);
 
 --sui-button-will-change: "";
@@ -319,10 +317,8 @@ color: var(--sui-button-text-color);
 
 font-family: var(--sui-button-font-family);
 
-margin: 0em var(--sui-button-margin-horizontal) var(
-    --sui-button-margin-vertical
-  )
-  0em;
+margin: 0em var(--sui-button-margin-horizontal)
+  var(--sui-button-margin-vertical) 0em;
 padding: var(--sui-button-padding-vertical) var(--sui-button-padding-horizontal)
   calc(var(--sui-button-padding-vertical) + var(--sui-button-shadow-offset));
 

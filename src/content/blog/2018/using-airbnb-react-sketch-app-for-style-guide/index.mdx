@@ -14,7 +14,7 @@ tags:
     "tutorial",
   ]
 atUri: "at://did:plc:itayxaatwwlwww4fp3jac3nn/site.standard.document/3mx5qf2qbq32g"
-slug: "/blog/2018/using-airbnb-react-sketch-app-for-style-guide"
+slug: "/2018/using-airbnb-react-sketch-app-for-style-guide"
 ---
 
 When I discovered Airbnb's [react-sketchapp](https://github.com/airbnb/react-sketchapp), I was ecstatic to start ditching the clunky design version control systems for a single source of truth: **React**.
@@ -170,7 +170,7 @@ const renderDemo = (name, Component) => {
       >
         <Component />
       </Artboard>,
-      context.document.currentPage()
+      context.document.currentPage(),
     );
   };
 };

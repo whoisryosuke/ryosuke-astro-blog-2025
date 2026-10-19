@@ -5,7 +5,7 @@ section: blog
 tags: ["p5js", "nextjs", "blog"]
 cover_image: "./mdx-p5-thumbnail.gif"
 atUri: "at://did:plc:itayxaatwwlwww4fp3jac3nn/site.standard.document/3mx5qeud4ju2d"
-slug: "/blog/2024/adding-p5js-to-a-nextjs-blog"
+slug: "/2024/adding-p5js-to-a-nextjs-blog"
 ---
 
 I’ve recently been getting into P5.js, a graphics library for the web that lets you easily draw to the canvas. As I’ve been [using it](https://github.com/whoisryosuke/midi-synthesizer-app), I’ve been preferring it over using [ThreeJS](https://threejs.org/), especially for 2D visualizations. It’s a lot less overhead and is much simpler to setup. So I thought, why not use it on my blog? It’d be a great way to illustrate some posts and provide animated or interactive examples.
@@ -93,7 +93,7 @@ To support this with NextJS, for every MDX page I had to create a variable calle
 import dynamic from "next/dynamic";
 export const BlogMDXWrapper = dynamic(
   () => import("@components/dom/BlogMDXWrapper/BlogMDXWrapper"),
-  { ssr: false }
+  { ssr: false },
 );
 export default function Layout({ children }) {
   const frontmatter = {
@@ -139,7 +139,7 @@ export default function BlogMDXWrapper({ frontMatter, slug, children }) {
     // Markdown uses relative image URLs, we convert here
     image: frontMatter?.cover_image?.replace(
       "./",
-      `https://whoisryosuke.com/${slug}/`
+      `https://whoisryosuke.com/${slug}/`,
     ),
     url: slug,
     blogArticle: true,
@@ -215,7 +215,7 @@ type Props = {
 
 const P5Viz = (
   { title, width = "100%", height, sketch, ...props }: Props,
-  ref: RefObject<HTMLDivElement>
+  ref: RefObject<HTMLDivElement>,
 ) => {
   const p5ref = useRef<p5 | null>(null);
   const divRef = useRef<HTMLDivElement | null>(null);
@@ -315,7 +315,7 @@ export type P5SetupCallback = (p: p5, colors: GraphicsColors) => void;
 export type P5SketchCallback = (
   p: p5,
   colors: GraphicsColors,
-  scene: P5SceneInfo
+  scene: P5SceneInfo,
 ) => void;
 
 /**
@@ -327,7 +327,7 @@ export type P5SketchCallback = (
  */
 export const createSketch = (
   setup: P5SetupCallback,
-  draw: P5SketchCallback
+  draw: P5SketchCallback,
 ) => {
   let canvasSize = {
     width: 480,

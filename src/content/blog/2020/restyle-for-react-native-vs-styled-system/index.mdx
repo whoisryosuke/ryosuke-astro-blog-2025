@@ -5,7 +5,7 @@ section: blog
 tags: ["react native", "react", "design systems"]
 cover_image: "./Restyle_for_React_Native_(vs_Styled_System).png"
 atUri: "at://did:plc:itayxaatwwlwww4fp3jac3nn/site.standard.document/3mx5qewse6o25"
-slug: "/blog/2020/restyle-for-react-native-vs-styled-system"
+slug: "/2020/restyle-for-react-native-vs-styled-system"
 ---
 
 Recently Shopify open sourced **[Restyle](https://github.com/Shopify/restyle)**, their styling solution they created for React Native. Restyle takes cues from [**Styled System**](https://styled-system.com/) by offering theming (such as light and dark mode) and utility style props (`<Box marginTop="xl">`). But unlike Styled System, Restyle works off React Native's default styling paradigm ([the "Stylesheet"](https://reactnative.dev/docs/stylesheet)).
@@ -576,8 +576,10 @@ export interface BoxOwnProps extends SpaceProps, ColorProps {
   as?: React.ElementType;
   variant?: string;
 }
-export interface BoxProps
-  extends Assign<React.ComponentProps<"div">, BoxOwnProps> {}
+export interface BoxProps extends Assign<
+  React.ComponentProps<"div">,
+  BoxOwnProps
+> {}
 
 export const Box = styled("div")<BoxProps>(
   {
@@ -585,7 +587,7 @@ export const Box = styled("div")<BoxProps>(
     margin: 0,
     minWidth: 0,
   },
-  compose(typography, space, color, layout)
+  compose(typography, space, color, layout),
 );
 ```
 
@@ -633,8 +635,10 @@ import {
   appearanceVariants,
 } from "zenny-ui-variants";
 
-export interface ButtonProps
-  extends Assign<React.ComponentPropsWithRef<"button">, BoxOwnProps> {
+export interface ButtonProps extends Assign<
+  React.ComponentPropsWithRef<"button">,
+  BoxOwnProps
+> {
   size?: SizeProp;
   appearance?: AppearanceProp;
 }
@@ -650,7 +654,7 @@ export const Button = styled(Box).attrs(() => ({
     backgroundColor: "teal",
   },
   sizeVariants, // Variants here
-  appearanceVariants
+  appearanceVariants,
 );
 ```
 

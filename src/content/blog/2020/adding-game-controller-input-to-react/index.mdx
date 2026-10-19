@@ -5,7 +5,7 @@ section: blog
 tags: ["game design", "react", "javascript"]
 cover_image: "./Adding_Game_Controller_Input_to_React.png"
 atUri: "at://did:plc:itayxaatwwlwww4fp3jac3nn/site.standard.document/3mx5qewuynm2d"
-slug: "/blog/2020/adding-game-controller-input-to-react"
+slug: "/2020/adding-game-controller-input-to-react"
 ---
 
 Recently I've been getting into game design in React and I had a thought: "What if I could get user input from a game controller and apply it to my apps and games?".
@@ -52,7 +52,7 @@ window.addEventListener("gamepadconnected", function (e) {
     e.gamepad.index,
     e.gamepad.id,
     e.gamepad.buttons.length,
-    e.gamepad.axes.length
+    e.gamepad.axes.length,
   );
 });
 ```
@@ -64,7 +64,7 @@ window.addEventListener("gamepaddisconnected", function (e) {
   console.log(
     "Gamepad disconnected from index %d: %s",
     e.gamepad.index,
-    e.gamepad.id
+    e.gamepad.id,
   );
 });
 ```
@@ -91,14 +91,14 @@ window.addEventListener(
   function (e) {
     gamepadHandler(e, true);
   },
-  false
+  false,
 );
 window.addEventListener(
   "gamepaddisconnected",
   function (e) {
     gamepadHandler(e, false);
   },
-  false
+  false,
 );
 ```
 
@@ -324,7 +324,7 @@ export default function GamepadController() {
 
     return window.removeEventListener(
       "gamepadconnected",
-      connectGamepadHandler
+      connectGamepadHandler,
     );
   });
 
@@ -441,7 +441,7 @@ const GamepadsProvider = ({ children }) => {
 
     return window.removeEventListener(
       "gamepadconnected",
-      connectGamepadHandler
+      connectGamepadHandler,
     );
   });
 
@@ -538,7 +538,7 @@ export default function useGamepads(callback) {
 
     return window.removeEventListener(
       "gamepadconnected",
-      connectGamepadHandler
+      connectGamepadHandler,
     );
   });
 
@@ -722,7 +722,7 @@ const increasePosition = useCallback(() => {
 
 const increasePositionDebounced = useMemo(
   () => throttle(increasePosition, 100),
-  [increasePosition]
+  [increasePosition],
 );
 
 useGamepads((gamepads) => {
@@ -947,7 +947,7 @@ const Menu = ({ items }) => {
     setItemRefs((elRefs) =>
       Array(items.length)
         .fill()
-        .map((_, i) => elRefs[i] || createRef())
+        .map((_, i) => elRefs[i] || createRef()),
     );
   }, [items.length]);
 
