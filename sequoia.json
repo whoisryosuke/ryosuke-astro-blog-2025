@@ -14,5 +14,6 @@
   "publishContent": true,
   "bluesky": {
     "enabled": false
-  }
+  },
+  "removeIndexFromSlug": true
 }
