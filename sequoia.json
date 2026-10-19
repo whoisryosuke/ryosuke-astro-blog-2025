@@ -9,7 +9,8 @@
   "pdsUrl": "https://amanita.us-east.host.bsky.network",
   "frontmatter": {
     "publishDate": "date",
-    "coverImage": "cover_image"
+    "coverImage": "cover_image",
+    "slugField": "slug"
   },
   "publishContent": true,
   "bluesky": {
